@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using RehearsalHub.ViewModels
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using RehearsalHub.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
