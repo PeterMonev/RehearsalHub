@@ -9,6 +9,7 @@
         Vocals,
         Saxophone,
         Violin,
+        Synthesizer,
         Other
     }
 }

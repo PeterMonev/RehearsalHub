@@ -5,8 +5,13 @@ using static RehearsalHub.Common.EntityConstants;
 
 namespace RehearsalHub.Models
 {
-    public class Setlist
+    public class Setlist : BaseEntity
     {
+        public Setlist()
+        {
+            this.SetlistSongs = new HashSet<SetlistSong>();
+            this.Rehearsals = new HashSet<Rehearsal>();
+        }
         [Key]
 
         public int Id { get; set; }
@@ -26,5 +31,8 @@ namespace RehearsalHub.Models
         [Column(TypeName = DateTimeColumnType)]
         public DateTime? RehearsalDate { get; set; }
 
+        public virtual ICollection<SetlistSong> SetlistSongs { get; set; } 
+
+        public virtual ICollection<Rehearsal> Rehearsals { get; set; }
     }
 }

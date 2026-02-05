@@ -19,5 +19,6 @@ namespace RehearsalHub.Models
         [ForeignKey(nameof(SongId))]
         public Song Song { get; set; } = null!;
         
+
     }
 }

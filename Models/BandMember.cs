@@ -1,18 +1,25 @@
 ﻿using RehearsalHub.Models.Enums;
+using RehearsalHub.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static RehearsalHub.Common.DataValidation.BandMember;
+using static RehearsalHub.Common.ImageConstants;
 
 namespace RehearsalHub.Models
 {
-    public class BandMember 
+    public class BandMember : BaseEntity
     {
+        public BandMember()
+        {
+            this.AvatarUrl = GetRandomMemberImage();
+        }
+
         [Key]
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(AvatarUrlMaxLength)]
-        [Url]
-        public string? AvatarUrl { get; set; }
+        public string AvatarUrl { get; set; }
 
         [Required]
         public int BandId { get; set; }
@@ -26,6 +33,11 @@ namespace RehearsalHub.Models
         public string UserId { get; set; } = null!;
 
         public ApplicationUser User { get; set; } = null!;
+
+        [Required]
+        public bool IsConfirmed { get; set; } = false;
+
+        public Guid? InvitationToken { get; set; }
 
         [Required]
         public BandRole Role { get; set; } 

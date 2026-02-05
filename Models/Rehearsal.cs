@@ -5,7 +5,7 @@ using static RehearsalHub.Common.EntityConstants;
 
 namespace RehearsalHub.Models
 {
-    public class Rehearsal
+    public class Rehearsal : BaseEntity
     {
         [Key]
         public int Id { get; set; }
@@ -32,6 +32,9 @@ namespace RehearsalHub.Models
         [ForeignKey(nameof(BandId))]
         public Band Band { get; set; } = null!;
 
+        public int? SetlistId { get; set; }
 
+        [ForeignKey(nameof(SetlistId))]
+        public virtual Setlist? Setlist { get; set; }
     }
 }

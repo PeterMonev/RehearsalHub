@@ -1,12 +1,23 @@
 ﻿using RehearsalHub.Models.Enums;
+using RehearsalHub.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static RehearsalHub.Common.DataValidation.Band;
+using static RehearsalHub.Common.ImageConstants;
 
 namespace RehearsalHub.Models
 {
-    public class Band
+    public class Band : BaseEntity
     {
+        public Band()
+        {
+            this.ImageUrl = GetRandomBandImage();
+
+            this.Members = new HashSet<BandMember>();
+            this.Setlists = new HashSet<Setlist>();
+            this.Rehearsals = new HashSet<Rehearsal>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -18,19 +29,19 @@ namespace RehearsalHub.Models
         [Required]
         public MusicGenre Genre { get; set; }
 
+        [Required]
         [MaxLength(ImageUrlMaxLength)]
-        [Url]
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         [Required]
         [ForeignKey(nameof(Owner))]
         public string OwnerId { get; set; } = null!;
         public ApplicationUser Owner { get; set; } = null!;
 
-        public virtual ICollection<BandMember> Members { get; set; } = new HashSet<BandMember>();
+        public virtual ICollection<BandMember> Members { get; set; } 
 
-        public virtual ICollection<Setlist> Setlists { get; set; } = new HashSet<Setlist>();
+        public virtual ICollection<Setlist> Setlists { get; set; } 
 
-        public virtual ICollection<Rehearsal> Rehearsals { get; set; } = new HashSet<Rehearsal> ();
+        public virtual ICollection<Rehearsal> Rehearsals { get; set; } 
     }
 }

@@ -2,6 +2,7 @@
 {
     public enum MusicGenre
     {
+        Alternative,
         Rock,
         Metal,
         Pop,
