@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RehearsalHub.Data.Models\RehearsalHub.Data.Models.csproj" />
+    <ProjectReference Include="..\RehearsalHub.Data\RehearsalHub.Data.csproj" />
+    <ProjectReference Include="..\RehearsalHub.GCommon\RehearsalHub.GCommon.csproj" />
+  </ItemGroup>
+
+</Project>
