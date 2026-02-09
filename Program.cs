@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RehearsalHub.Data;
-using RehearsalHub.Models;
+using RehearsalHub.Data.Models;
 
 namespace RehearsalHub
 {

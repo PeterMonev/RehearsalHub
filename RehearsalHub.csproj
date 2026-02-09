@@ -11,8 +11,20 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.23" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.23" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.23">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.23" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RehearsalHub.Data.Models\RehearsalHub.Data.Models.csproj" />
+    <ProjectReference Include="..\RehearsalHub.Data\RehearsalHub.Data.csproj" />
+    <ProjectReference Include="..\RehearsalHub.GCommon\RehearsalHub.GCommon.csproj" />
+    <ProjectReference Include="..\RehearsalHub.Services.Data\RehearsalHub.Services.Data.csproj" />
+    <ProjectReference Include="..\RehearsalHub.Web.ViewModels\RehearsalHub.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
