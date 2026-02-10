@@ -1103,6 +1103,19 @@
         "runtime": {
           "bin/placeholder/RehearsalHub.GCommon.dll": {}
         }
+      },
+      "RehearsalHub.Web.ViewModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "RehearsalHub.GCommon": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RehearsalHub.Web.ViewModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RehearsalHub.Web.ViewModels.dll": {}
+        }
       }
     }
   },
@@ -2930,13 +2943,19 @@
       "type": "project",
       "path": "../RehearsalHub.GCommon/RehearsalHub.GCommon.csproj",
       "msbuildProject": "../RehearsalHub.GCommon/RehearsalHub.GCommon.csproj"
+    },
+    "RehearsalHub.Web.ViewModels/1.0.0": {
+      "type": "project",
+      "path": "../RehearsalHub.Web.ViewModels/RehearsalHub.Web.ViewModels.csproj",
+      "msbuildProject": "../RehearsalHub.Web.ViewModels/RehearsalHub.Web.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "RehearsalHub.Data >= 1.0.0",
       "RehearsalHub.Data.Models >= 1.0.0",
-      "RehearsalHub.GCommon >= 1.0.0"
+      "RehearsalHub.GCommon >= 1.0.0",
+      "RehearsalHub.Web.ViewModels >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2979,6 +2998,9 @@
             },
             "D:\\Coding Programm\\Repos\\RehearsalHub\\RehearsalHub.GCommon\\RehearsalHub.GCommon.csproj": {
               "projectPath": "D:\\Coding Programm\\Repos\\RehearsalHub\\RehearsalHub.GCommon\\RehearsalHub.GCommon.csproj"
+            },
+            "D:\\Coding Programm\\Repos\\RehearsalHub\\RehearsalHub.Web.ViewModels\\RehearsalHub.Web.ViewModels.csproj": {
+              "projectPath": "D:\\Coding Programm\\Repos\\RehearsalHub\\RehearsalHub.Web.ViewModels\\RehearsalHub.Web.ViewModels.csproj"
             }
           }
         }

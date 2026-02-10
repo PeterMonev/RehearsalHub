@@ -10,6 +10,7 @@
     <ProjectReference Include="..\RehearsalHub.Data.Models\RehearsalHub.Data.Models.csproj" />
     <ProjectReference Include="..\RehearsalHub.Data\RehearsalHub.Data.csproj" />
     <ProjectReference Include="..\RehearsalHub.GCommon\RehearsalHub.GCommon.csproj" />
+    <ProjectReference Include="..\RehearsalHub.Web.ViewModels\RehearsalHub.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

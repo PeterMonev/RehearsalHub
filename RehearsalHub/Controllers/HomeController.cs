@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using RehearsalHub.ViewModels;
+using RehearsalHub.Web.ViewModels;
 
 namespace RehearsalHub.Controllers
 {

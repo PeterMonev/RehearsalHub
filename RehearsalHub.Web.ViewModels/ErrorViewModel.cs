@@ -1,4 +1,4 @@
-namespace RehearsalHub.ViewModels
+namespace RehearsalHub.Web.ViewModels
 {
     public class ErrorViewModel
     {

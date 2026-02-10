@@ -1,0 +1,78 @@
+﻿@model IEnumerable<BandIndexViewModel>
+
+@{
+    ViewData["Title"] = "My Bands";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-music-note-list"></i> @ViewData["Title"]</h1>
+        <a asp-action="Create" class="btn btn-primary btn-lg shadow-sm">
+            <i class="bi bi-plus-circle"></i> Create New Band
+        </a>
+    </div>
+
+    <hr />
+
+    @if (!Model.Any())
+    {
+        <div class="text-center mt-5">
+            <h3 class="text-muted">You are not part of any bands yet.</h3>
+            <p>Start your musical journey by creating a band or joining one!</p>
+            <a asp-action="Create" class="btn btn-outline-primary mt-2">Create Your First Band</a>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var band in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 transition-hover">
+                        <img src="@band.ImageUrl" class="card-img-top shadow-sm" alt="@band.Name"
+                             style="height: 200px; object-fit: cover;">
+
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title fw-bold">@band.Name</h5>
+                                @if (band.IsOwner)
+                                {
+                                    <span class="badge bg-warning text-dark"><i class="bi bi-star-fill"></i> Owner</span>
+                                }
+                            </div>
+
+                            <p class="card-text">
+                                <span class="text-muted">Genre:</span> <strong>@band.Genre</strong><br />
+                                <span class="text-muted">Members:</span> <strong>@band.MembersCount</strong>
+                            </p>
+                        </div>
+
+                        <div class="card-footer bg-transparent border-0 pb-3">
+                            <div class="d-grid gap-2 d-md-block">
+                                <a asp-action="Details" asp-route-id="@band.Id" class="btn btn-info btn-sm text-white">
+                                    <i class="bi bi-info-circle"></i> Details
+                                </a>
+                                @if (band.IsOwner)
+                                {
+                                    <a asp-action="Edit" asp-route-id="@band.Id" class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Styles {
+    <style>
+        .transition-hover:hover {
+            transform: translateY(-5px);
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+    </style>
+}
