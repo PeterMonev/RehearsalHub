@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RehearsalHub.Data;
+using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Bands;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,17 @@ namespace RehearsalHub.Services.Data.Bands
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<BandIndexViewModel>> GetAllBandsAsync(string userId)
+        public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page,int pageSize)
         {
-            return await this.dbContext.Bands
+            int totalCount = await this.dbContext.Bands
+                .CountAsync(b => b.OwnerId == userId || b.Members.Any(m => m.UserId == userId));
+
+            List<BandIndexViewModel> bands = await this.dbContext.Bands
                 .AsNoTracking()
                 .Where(b => b.OwnerId == userId || b.Members.Any(m => m.UserId == userId))
+                .OrderBy(b => b.Name)
+                .Skip((page - 1 ) * pageSize)
+                .Take(pageSize)
                 .Select(b => new BandIndexViewModel
                 {
                     Id = b.Id,
@@ -31,9 +38,14 @@ namespace RehearsalHub.Services.Data.Bands
                     IsOwner = b.OwnerId == userId,
                     MembersCount = b.Members.Count(),
                 })
-                .OrderBy(b => b.Name)
                 .ToListAsync();
 
+            return new PagedResult<BandIndexViewModel>(bands, totalCount, page, pageSize);
+        }
+
+        public Task<int> GetTotalBandsCountAsync(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RehearsalHub.Web.ViewModels.Bands;
+﻿using RehearsalHub.GCommon;
+using RehearsalHub.Web.ViewModels.Bands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace RehearsalHub.Services.Data.Bands
 {
     public interface IBandService
     {
-        Task<IEnumerable<BandIndexViewModel>> GetAllBandsAsync(string userId);
+        Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page, int pageSize);
+
+
     }
 }

@@ -9,7 +9,10 @@ namespace RehearsalHub.Controllers
     [Authorize]
     public class BandsController : Controller
     {
+        const int PageSize = 6;
+
         private readonly IBandService bandService;
+
         public BandsController(IBandService bandService)
         {
             this.bandService = bandService;
@@ -17,12 +20,24 @@ namespace RehearsalHub.Controllers
 
         private string GetUsedId()
         {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new UnauthorizedAccessException("User identifier could not be found.");
+            }
+
+            return userId;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            if(page < 1)
+            {
+                page = 1;
+            }
+
             string? userId = GetUsedId();
 
             if (userId == null)
@@ -30,7 +45,7 @@ namespace RehearsalHub.Controllers
                 return BadRequest();
             }
  
-            var viewModel = await this.bandService.GetAllBandsAsync(userId);
+            var viewModel = await this.bandService.GetBandsPagedAsync(userId, page, PageSize);
 
             return View(viewModel);
         }
