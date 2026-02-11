@@ -334,6 +334,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "D:\\Coding Programm\\Repos\\RehearsalHub\\RehearsalHub.Data.Models\\RehearsalHub.Data.Models.csproj": {
+                "projectPath": "D:\\Coding Programm\\Repos\\RehearsalHub\\RehearsalHub.Data.Models\\RehearsalHub.Data.Models.csproj"
+              },
               "D:\\Coding Programm\\Repos\\RehearsalHub\\RehearsalHub.GCommon\\RehearsalHub.GCommon.csproj": {
                 "projectPath": "D:\\Coding Programm\\Repos\\RehearsalHub\\RehearsalHub.GCommon\\RehearsalHub.GCommon.csproj"
               }

@@ -47,5 +47,43 @@ namespace RehearsalHub.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        [HttpGet]
+
+        public IActionResult Create()
+        {
+            return View(new BandInputModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(BandInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model); 
+            }
+
+            string? userId = GetUsedId();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Challenge();
+            }
+
+            try
+            {
+                int bandId = await this.bandService.CreateBandAsync(model, userId);
+                TempData["SuccessMessage"] = "Band created successfully!";
+                return RedirectToAction("Details", new { id = bandId });
+               
+            } catch (Exception ex)
+            {
+                logger.LogError(ex, "Error creating band for user {UserId}", userId);
+                ModelState.AddModelError("", "An error occurred while creating the band.");
+                return View(model);
+            }
+        }
+
     }
 }

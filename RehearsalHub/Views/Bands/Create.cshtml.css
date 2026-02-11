@@ -1,0 +1,24 @@
+﻿.form-control, .form-select {
+    transition: all 0.2s ease-in-out;
+}
+
+    .form-control:focus, .form-select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15) !important;
+        background-color: #ffffff !important;
+    }
+
+.scale-hover {
+    transition: transform 0.2s ease-in-out;
+}
+
+    .scale-hover:hover {
+        transform: scale(1.02);
+    }
+
+.card {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+    .card:hover {
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+    }

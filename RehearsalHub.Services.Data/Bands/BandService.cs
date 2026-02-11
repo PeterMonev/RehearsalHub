@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RehearsalHub.Data;
+using RehearsalHub.Data.Models;
+using RehearsalHub.Data.Models.Enums;
 using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Bands;
 using RehearsalHub.Web.ViewModels.Shared;
@@ -20,6 +22,34 @@ namespace RehearsalHub.Services.Data.Bands
         {
             this.dbContext = dbContext;
             this.logger = logger;
+        }
+
+        public async Task<int> CreateBandAsync(BandInputModel model, string ownerId)
+        {
+            Band band = new Band
+            {
+                Name = model.Name,
+                Genre = model.Genre,
+                OwnerId = ownerId,
+                CreatedOn = DateTime.UtcNow
+            };
+
+            if (!string.IsNullOrWhiteSpace(model.ImageUrl))
+            {
+                band.ImageUrl = model.ImageUrl;
+            }
+
+            band.Members.Add(new BandMember
+            {
+                UserId = ownerId,
+                Role = 0,
+                Instrument = model.SelectedInstrument,
+            });
+
+            await this.dbContext.Bands.AddAsync(band);
+            await this.dbContext.SaveChangesAsync();
+
+            return band.Id;
         }
 
         public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page,int pageSize, string? searchTerm)

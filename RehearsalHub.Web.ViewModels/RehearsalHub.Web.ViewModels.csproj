@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RehearsalHub.Data.Models\RehearsalHub.Data.Models.csproj" />
     <ProjectReference Include="..\RehearsalHub.GCommon\RehearsalHub.GCommon.csproj" />
   </ItemGroup>
 
