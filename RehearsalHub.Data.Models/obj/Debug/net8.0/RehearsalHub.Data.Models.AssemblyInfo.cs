@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RehearsalHub.Data.Models")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1429704d1ffebacaef4ac9b6abec4418ab1f26d3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63e07439c9de1d9b62d18f068bad06aa95259746")]
 [assembly: System.Reflection.AssemblyProductAttribute("RehearsalHub.Data.Models")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RehearsalHub.Data.Models")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

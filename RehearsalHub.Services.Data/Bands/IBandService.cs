@@ -10,7 +10,7 @@ namespace RehearsalHub.Services.Data.Bands
 {
     public interface IBandService
     {
-        Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page, int pageSize);
+        Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page, int pageSize, string? searchTerm = null);
 
 
     }

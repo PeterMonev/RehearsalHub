@@ -12,42 +12,40 @@ namespace RehearsalHub.Controllers
         const int PageSize = 6;
 
         private readonly IBandService bandService;
+        private readonly ILogger<BandsController> logger;
 
-        public BandsController(IBandService bandService)
+        public BandsController(IBandService bandService, ILogger<BandsController> logger)
         {
             this.bandService = bandService;
+            this.logger = logger;
         }
 
-        private string GetUsedId()
-        {
-            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new UnauthorizedAccessException("User identifier could not be found.");
-            }
-
-            return userId;
-        }
+        private string? GetUsedId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string? searchTerm,int page = 1)
         {
-            if(page < 1)
-            {
-                page = 1;
-            }
+            if (page < 1) page = 1;
 
             string? userId = GetUsedId();
 
-            if (userId == null)
+            if (string.IsNullOrEmpty(userId))
             {
-                return BadRequest();
+                return Challenge();
             }
- 
-            var viewModel = await this.bandService.GetBandsPagedAsync(userId, page, PageSize);
 
-            return View(viewModel);
+            try
+            {
+                var viewModel = await this.bandService.GetBandsPagedAsync(userId, page, PageSize, searchTerm);
+                ViewData["CurrentSearch"] = searchTerm;
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Unexpected error occurred while loading bands for user {UserId} on page {Page}", userId, page);
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RehearsalHub.Data;
 using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Bands;
+using RehearsalHub.Web.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,39 +15,61 @@ namespace RehearsalHub.Services.Data.Bands
     public class BandService : IBandService
     {
         private readonly ApplicationDbContext dbContext;
-        public BandService(ApplicationDbContext dbContext)
+        private readonly ILogger<BandService> logger;
+        public BandService(ApplicationDbContext dbContext, ILogger<BandService> logger)
         {
             this.dbContext = dbContext;
+            this.logger = logger;
         }
 
-        public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page,int pageSize)
+        public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page,int pageSize, string? searchTerm)
         {
-            int totalCount = await this.dbContext.Bands
-                .CountAsync(b => b.OwnerId == userId || b.Members.Any(m => m.UserId == userId));
-
-            List<BandIndexViewModel> bands = await this.dbContext.Bands
+            try
+            {
+                var query = this.dbContext.Bands
                 .AsNoTracking()
-                .Where(b => b.OwnerId == userId || b.Members.Any(m => m.UserId == userId))
-                .OrderBy(b => b.Name)
-                .Skip((page - 1 ) * pageSize)
-                .Take(pageSize)
-                .Select(b => new BandIndexViewModel
+                .Where(b => b.OwnerId == userId || b.Members.Any(m => m.UserId == userId));
+
+                if (!string.IsNullOrWhiteSpace(searchTerm))
                 {
-                    Id = b.Id,
-                    Name = b.Name,
-                    Genre = b.Genre.ToString(),
-                    ImageUrl = b.ImageUrl,
-                    IsOwner = b.OwnerId == userId,
-                    MembersCount = b.Members.Count(),
-                })
-                .ToListAsync();
+                    query = query.Where(b => b.Name.Contains(searchTerm));
+                }
+                int totalCount = await query.CountAsync();
 
-            return new PagedResult<BandIndexViewModel>(bands, totalCount, page, pageSize);
+                List<BandIndexViewModel> bands = await query
+                    .OrderBy(b => b.Name)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(b => new BandIndexViewModel
+                    {
+                        Id = b.Id,
+                        Name = b.Name,
+                        Genre = b.Genre.ToString(),
+                        ImageUrl = b.ImageUrl,
+                        IsOwner = b.OwnerId == userId,
+                        MembersCount = b.Members.Count(),
+                        UpcomingRehearsals = b.Rehearsals
+                        .Where(r => r.EndRehearsal > DateTime.UtcNow)
+                        .OrderBy(r => r.StartRehearsal)
+                        .Take(3)
+                        .Select(r => new RehearsalInfoViewModel
+                        {
+                            Id = r.Id,
+                            Start = r.StartRehearsal,
+                            End = r.EndRehearsal,
+                            SetlistName = r.Setlist != null ? r.Setlist.Name : null,
+                        })
+                    })
+                    .ToListAsync();
+
+                    return new PagedResult<BandIndexViewModel>(bands, totalCount, page, pageSize);
+            } catch (Exception e)
+            {
+                logger.LogError(e, "Database error in GetBandsPagedAsync");
+                throw;
+            }
+
         }
 
-        public Task<int> GetTotalBandsCountAsync(string userId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

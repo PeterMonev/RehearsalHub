@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RehearsalHub.Web.ViewModels.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +23,8 @@ namespace RehearsalHub.Web.ViewModels.Bands
         public bool IsOwner { get; set; }
 
         public int MembersCount { get; set; }
+
+        public IEnumerable<RehearsalInfoViewModel> UpcomingRehearsals { get; set; } = new List<RehearsalInfoViewModel>();
     }
+
 }
