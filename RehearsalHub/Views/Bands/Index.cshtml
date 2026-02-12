@@ -108,7 +108,12 @@
                                         <a asp-action="Edit" asp-route-id="@band.Id" class="btn btn-outline-secondary btn-sm w-100 rounded-pill">Edit</a>
                                     </div>
                                     <div class="col-6">
-                                        <a asp-action="Delete" asp-route-id="@band.Id" class="btn btn-outline-danger btn-sm w-100 rounded-pill">Delete</a>
+                                        <form asp-action="Delete" asp-route-id="@band.Id" method="post" class="delete-form">
+                                            @Html.AntiForgeryToken()
+                                            <button type="button" class="btn btn-outline-danger btn-sm w-100 rounded-pill btn-delete-confirm">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
+                                        </form>
                                     </div>
                                 }
                             </div>
@@ -158,3 +163,4 @@
         </nav>
     }
 </div>
+

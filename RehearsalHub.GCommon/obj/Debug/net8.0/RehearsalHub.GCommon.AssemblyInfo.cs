@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RehearsalHub.GCommon")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1429704d1ffebacaef4ac9b6abec4418ab1f26d3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6379e7dc93a7ca1264a2f9f00fa00a17e837c385")]
 [assembly: System.Reflection.AssemblyProductAttribute("RehearsalHub.GCommon")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RehearsalHub.GCommon")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RehearsalHub.Web.ViewModels")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a26f3a8c97a8d774c03558eb059a5d2024ab8491")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6379e7dc93a7ca1264a2f9f00fa00a17e837c385")]
 [assembly: System.Reflection.AssemblyProductAttribute("RehearsalHub.Web.ViewModels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RehearsalHub.Web.ViewModels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

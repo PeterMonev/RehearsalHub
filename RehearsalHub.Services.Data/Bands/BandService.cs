@@ -52,6 +52,37 @@ namespace RehearsalHub.Services.Data.Bands
             return band.Id;
         }
 
+        public async Task<bool> DeleteBandAsync(int bandId, string userId)
+        {
+          if (string.IsNullOrWhiteSpace(userId) || bandId <= 0)
+            {
+                this.logger.LogWarning("Delete attempted with invalid data: UserId {UserId}, BandId {BandId}", userId, bandId);
+                return false;
+            }
+
+            Band? band = await dbContext.Bands.FirstOrDefaultAsync(b => b.Id == bandId && b.OwnerId == userId);
+
+            if(band == null)
+            {
+                this.logger.LogWarning("Delete failed: Band {BandId} not found or user {UserId} is not the authorized owner.", bandId, userId);
+                return false;
+            }
+
+            try
+            {
+                dbContext.Bands.Remove(band);
+                await dbContext.SaveChangesAsync();
+
+                this.logger.LogInformation("Band {BandId} was successfully deleted by user {UserId}.", bandId, userId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting band {BandId}", bandId);
+                return false;
+            }
+        }
+
         public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page,int pageSize, string? searchTerm)
         {
             try

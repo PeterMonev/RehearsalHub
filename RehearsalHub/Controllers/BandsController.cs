@@ -20,16 +20,16 @@ namespace RehearsalHub.Controllers
             this.logger = logger;
         }
 
-        private string? GetUsedId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private string? GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         [HttpGet]
         public async Task<IActionResult> Index(string? searchTerm,int page = 1)
         {
             if (page < 1) page = 1;
 
-            string? userId = GetUsedId();
+            string? userId = GetUserId();
 
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrWhiteSpace(userId))
             {
                 return Challenge();
             }
@@ -49,7 +49,6 @@ namespace RehearsalHub.Controllers
         }
 
         [HttpGet]
-
         public IActionResult Create()
         {
             return View(new BandInputModel());
@@ -64,9 +63,9 @@ namespace RehearsalHub.Controllers
                 return View(model); 
             }
 
-            string? userId = GetUsedId();
+            string? userId = GetUserId();
 
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrWhiteSpace(userId))
             {
                 return Challenge();
             }
@@ -83,6 +82,40 @@ namespace RehearsalHub.Controllers
                 ModelState.AddModelError("", "An error occurred while creating the band.");
                 return View(model);
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            string? userId = GetUserId();
+
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Challenge();
+            }
+
+            try
+            {
+                bool isDeleted = await bandService.DeleteBandAsync(id, userId);
+
+                if (!isDeleted)
+                {
+                    TempData["ErrorMessage"] = "You don't have permission to delete this band or it doesn't exist.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                TempData["SuccessMessage"] = "The band was successfully deleted!";
+                return RedirectToAction(nameof(Index));
+
+            } catch (Exception ex)
+            {
+                logger.LogError(ex, "Unexpected error in Delete action");
+                TempData["ErrorMessage"] = "A technical error occurred. ";
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
     }

@@ -13,5 +13,7 @@ namespace RehearsalHub.Services.Data.Bands
         Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page, int pageSize, string? searchTerm = null);
 
         Task<int> CreateBandAsync(BandInputModel model, string ownerId);
+
+        Task<bool> DeleteBandAsync(int  bandId, string userId);
     }
 }
