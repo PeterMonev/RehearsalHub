@@ -31,7 +31,6 @@ namespace RehearsalHub.Services.Data.Bands
                 Name = model.Name,
                 Genre = model.Genre,
                 OwnerId = ownerId,
-                CreatedOn = DateTime.UtcNow
             };
 
             if (!string.IsNullOrWhiteSpace(model.ImageUrl))

@@ -23,7 +23,8 @@ namespace RehearsalHub.Data.Configuration
                     SecurityStamp = "59846067-8896-4874-9160-5582f3c306d1",
                     ProfilePictureUrl = GetRandomUserImage(),
                     PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
-                    CreatedOn = DateTime.UtcNow
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false 
                 },
                 new ApplicationUser
                 {
@@ -36,7 +37,8 @@ namespace RehearsalHub.Data.Configuration
                     SecurityStamp = "f4c9448a-6f4e-4f0e-9180-2a86d2358899",
                     ProfilePictureUrl = GetRandomUserImage(),
                     PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
-                    CreatedOn = DateTime.UtcNow
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false
                 },
                 new ApplicationUser
                 {
@@ -49,12 +51,18 @@ namespace RehearsalHub.Data.Configuration
                     SecurityStamp = "788019a3-5c56-4b8c-8f96-339832679f22",
                     ProfilePictureUrl = GetRandomUserImage(),
                     PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
-                    CreatedOn = DateTime.UtcNow
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false
                 }
         };
 
         public void Configure(EntityTypeBuilder<ApplicationUser> entity)
         {
+            entity.HasQueryFilter(u => !u.IsDeleted);
+
+            entity.Property(u => u.IsDeleted)
+                  .HasDefaultValue(false);
+
             entity.HasData(Users);
         }
     }
