@@ -1,28 +1,7 @@
 ﻿@using System.Text.Encodings.Web
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <script>
-        Swal.fire({
-            title: 'Success!',
-            text: '@JavaScriptEncoder.Default.Encode(TempData["SuccessMessage"]?.ToString() ?? "")',
-            icon: 'success',
-            timer: 3000,
-            showConfirmButton: false,
-            borderRadius: '15px'
-        });
-    </script>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <script>
-        Swal.fire({
-            title: 'Error!',
-            text: '@JavaScriptEncoder.Default.Encode(TempData["ErrorMessage"]?.ToString() ?? "")',
-            icon: 'error',
-            confirmButtonColor: '#dc3545',
-            borderRadius: '15px'
-        });
-    </script>
-}
+<div id="toast-notifications"
+     data-success="@(TempData["SuccessMessage"]?.ToString())"
+     data-error="@(TempData["ErrorMessage"]?.ToString())"
+     style="display: none;">
+</div>
