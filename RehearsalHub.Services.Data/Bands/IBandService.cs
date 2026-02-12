@@ -15,5 +15,7 @@ namespace RehearsalHub.Services.Data.Bands
         Task<int> CreateBandAsync(BandInputModel model, string ownerId);
 
         Task<bool> DeleteBandAsync(int  bandId, string userId);
+
+        Task<BandEditViewModel?> GetBandEditAsync(int id, string userId);
     }
 }

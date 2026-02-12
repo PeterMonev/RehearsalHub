@@ -118,5 +118,35 @@ namespace RehearsalHub.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            string? userId = GetUserId();
+
+            if(string.IsNullOrWhiteSpace(userId))
+            {
+              return Challenge();
+            }
+
+            try
+            {
+               BandEditViewModel? band = await bandService.GetBandEditAsync(id, userId);
+
+                if (band == null)
+                {
+                    logger.LogWarning("Unauthorized or non-existent edit attempt for Band {BandId} by User {UserId}", id, userId);
+                   return NotFound();
+                }
+
+                return View(band);
+
+            } catch(Exception ex)
+            {
+                logger.LogError(ex, "Error loading edit form for band {BandId}", id);
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
     }
 }

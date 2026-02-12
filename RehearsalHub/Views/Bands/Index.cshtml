@@ -99,13 +99,13 @@
                             <div class="row g-2">
                                 <div class="col-12">
                                     <a asp-action="Details" asp-route-id="@band.Id" class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm">
-                                        Manage Project
+                                        Manage Band
                                     </a>
                                 </div>
                                 @if (band.IsOwner)
                                 {
                                     <div class="col-6">
-                                        <a asp-action="Edit" asp-route-id="@band.Id" class="btn btn-outline-secondary btn-sm w-100 rounded-pill">Edit</a>
+                                        <a asp-action="Edit" asp-controller="Bands" asp-route-id="@band.Id" class="btn btn-outline-secondary btn-sm w-100 rounded-pill">Edit</a>
                                     </div>
                                     <div class="col-6">
                                         <form asp-action="Delete" asp-route-id="@band.Id" method="post" class="delete-form">

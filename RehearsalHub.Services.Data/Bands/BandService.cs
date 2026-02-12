@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
@@ -131,5 +132,24 @@ namespace RehearsalHub.Services.Data.Bands
 
         }
 
+        public async Task<BandEditViewModel?> GetBandEditAsync(int id, string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId) || id <= 0)
+            {
+                logger.LogWarning("Invalid parameters for GetBandForEditAsync: Id {Id}, UserId {UserId}", id, userId);
+                return null;
+            }
+
+            return await this.dbContext.Bands.Where(b => b.Id == id && b.OwnerId == userId)
+                .AsNoTracking()
+                .Select(b => new BandEditViewModel
+            {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Genre = b.Genre,
+                    ImageUrl = b.ImageUrl
+
+             }).FirstOrDefaultAsync();
+        }
     }
 }
