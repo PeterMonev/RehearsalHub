@@ -20,11 +20,11 @@ namespace RehearsalHub.Web.ViewModels.Bands
 
         [Required]
         [Display(Name = "Genre")]
-        public MusicGenre Genre { get; set; } 
+        public MusicGenre Genre { get; set; }
 
         [Url]
         [Display(Name = "Band Image URL")]
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         [Display(Name = "Your Instrument")]

@@ -27,89 +27,90 @@ namespace RehearsalHub.Services.Data.Bands
 
         public async Task<int> CreateBandAsync(BandInputModel model, string ownerId)
         {
-            Band band = new Band
-            {
-                Name = model.Name,
-                Genre = model.Genre,
-                OwnerId = ownerId,
-            };
+            using var transaction = await dbContext.Database.BeginTransactionAsync();
 
-            if (!string.IsNullOrWhiteSpace(model.ImageUrl))
+            try
             {
-                band.ImageUrl = model.ImageUrl;
+                Band band = new Band
+                {
+                    Name = model.Name,
+                    Genre = model.Genre,
+                    OwnerId = ownerId,
+                };
+
+                if (!string.IsNullOrWhiteSpace(model.ImageUrl))
+                {
+                    band.ImageUrl = model.ImageUrl;
+                }
+
+                band.Members.Add(new BandMember
+                {
+                    UserId = ownerId,
+                    Role = 0,
+                    Instrument = model.SelectedInstrument,
+                });
+
+                await this.dbContext.Bands.AddAsync(band);
+                await this.dbContext.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+
+                return band.Id;
             }
-
-            band.Members.Add(new BandMember
+            catch (Exception ex)
             {
-                UserId = ownerId,
-                Role = 0,
-                Instrument = model.SelectedInstrument,
-            });
-
-            await this.dbContext.Bands.AddAsync(band);
-            await this.dbContext.SaveChangesAsync();
-
-            return band.Id;
+                await transaction.RollbackAsync();
+                logger.LogError(ex, "Transaction failed for CreateBandAsync. User: {UserId}", ownerId);
+                throw;
+            }
         }
 
         public async Task<bool> DeleteBandAsync(int bandId, string userId)
         {
-          if (string.IsNullOrWhiteSpace(userId) || bandId <= 0)
+            if (string.IsNullOrWhiteSpace(userId) || bandId <= 0) return false;
+
+            Band? band = await dbContext.Bands
+                .FirstOrDefaultAsync(b => b.Id == bandId && b.OwnerId == userId);
+
+            if (band == null)
             {
-                this.logger.LogWarning("Delete attempted with invalid data: UserId {UserId}, BandId {BandId}", userId, bandId);
+                this.logger.LogWarning("Delete failed: Band {BandId} not found or unauthorized for User {UserId}.", bandId, userId);
                 return false;
             }
 
-            Band? band = await dbContext.Bands.FirstOrDefaultAsync(b => b.Id == bandId && b.OwnerId == userId);
+            dbContext.Bands.Remove(band);
+            await dbContext.SaveChangesAsync();
 
-            if(band == null)
-            {
-                this.logger.LogWarning("Delete failed: Band {BandId} not found or user {UserId} is not the authorized owner.", bandId, userId);
-                return false;
-            }
-
-            try
-            {
-                dbContext.Bands.Remove(band);
-                await dbContext.SaveChangesAsync();
-
-                this.logger.LogInformation("Band {BandId} was successfully deleted by user {UserId}.", bandId, userId);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error deleting band {BandId}", bandId);
-                return false;
-            }
+            this.logger.LogInformation("Band {BandId} deleted by user {UserId}.", bandId, userId);
+            return true;
         }
 
-        public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page,int pageSize, string? searchTerm)
+        public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId, int page, int pageSize, string? searchTerm)
         {
-            try
-            {
-                var query = this.dbContext.Bands
+            var query = this.dbContext.Bands
                 .AsNoTracking()
                 .Where(b => b.OwnerId == userId || b.Members.Any(m => m.UserId == userId));
 
-                if (!string.IsNullOrWhiteSpace(searchTerm))
-                {
-                    query = query.Where(b => b.Name.Contains(searchTerm));
-                }
-                int totalCount = await query.CountAsync();
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.Where(b => b.Name.Contains(searchTerm));
+            }
 
-                List<BandIndexViewModel> bands = await query
-                    .OrderBy(b => b.Name)
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .Select(b => new BandIndexViewModel
-                    {
-                        Id = b.Id,
-                        Name = b.Name,
-                        Genre = b.Genre.ToString(),
-                        ImageUrl = b.ImageUrl,
-                        IsOwner = b.OwnerId == userId,
-                        MembersCount = b.Members.Count(),
-                        UpcomingRehearsals = b.Rehearsals
+            int totalCount = await query.CountAsync();
+
+            var bands = await query
+                .OrderBy(b => b.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(b => new BandIndexViewModel
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Genre = b.Genre.ToString(),
+                    ImageUrl = b.ImageUrl,
+                    IsOwner = b.OwnerId == userId,
+                    MembersCount = b.Members.Count(),
+                    UpcomingRehearsals = b.Rehearsals
                         .Where(r => r.EndRehearsal > DateTime.UtcNow)
                         .OrderBy(r => r.StartRehearsal)
                         .Take(3)
@@ -120,16 +121,10 @@ namespace RehearsalHub.Services.Data.Bands
                             End = r.EndRehearsal,
                             SetlistName = r.Setlist != null ? r.Setlist.Name : null,
                         })
-                    })
-                    .ToListAsync();
+                })
+                .ToListAsync();
 
-                    return new PagedResult<BandIndexViewModel>(bands, totalCount, page, pageSize);
-            } catch (Exception e)
-            {
-                logger.LogError(e, "Database error in GetBandsPagedAsync");
-                throw;
-            }
-
+            return new PagedResult<BandIndexViewModel>(bands, totalCount, page, pageSize);
         }
 
         public async Task<BandEditViewModel?> GetBandEditAsync(int id, string userId)
@@ -150,6 +145,26 @@ namespace RehearsalHub.Services.Data.Bands
                     ImageUrl = b.ImageUrl
 
              }).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> EditBandAsync(BandEditViewModel model, string userId)
+        {
+            Band? band = await dbContext.Bands
+                .FirstOrDefaultAsync(b => b.Id == model.Id && b.OwnerId == userId);
+
+            if (band == null)
+            {
+                logger.LogWarning("Unauthorized attempt to edit Band {BandId} by User {UserId}", model.Id, userId);
+                return false;
+            }
+
+            band.Name = model.Name;
+            band.Genre = model.Genre;
+            band.ImageUrl = model.ImageUrl;
+
+            await dbContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }

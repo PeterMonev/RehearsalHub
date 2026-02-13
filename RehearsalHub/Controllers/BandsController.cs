@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RehearsalHub.Services.Data.Bands;
 using RehearsalHub.Web.ViewModels.Bands;
 using System.Security.Claims;
@@ -124,27 +125,64 @@ namespace RehearsalHub.Controllers
         {
             string? userId = GetUserId();
 
-            if(string.IsNullOrWhiteSpace(userId))
+            if (string.IsNullOrWhiteSpace(userId))
             {
-              return Challenge();
+                return Challenge();
             }
 
             try
             {
-               BandEditViewModel? band = await bandService.GetBandEditAsync(id, userId);
+                BandEditViewModel? band = await bandService.GetBandEditAsync(id, userId);
 
                 if (band == null)
                 {
                     logger.LogWarning("Unauthorized or non-existent edit attempt for Band {BandId} by User {UserId}", id, userId);
-                   return NotFound();
+                    return NotFound();
                 }
 
                 return View(band);
 
-            } catch(Exception ex)
+            } catch (Exception ex)
             {
                 logger.LogError(ex, "Error loading edit form for band {BandId}", id);
                 return RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(BandEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            string? userId = GetUserId();
+
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Challenge();
+            }
+
+            try
+            {
+                bool isUpdated = await bandService.EditBandAsync(model, userId);
+
+                if (!isUpdated)
+                {
+                    TempData["ErrorMessage"] = "You are not authorized to edit this band.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                TempData["SuccessMessage"] = "Changes saved successfully! 🎸";
+                return RedirectToAction("Details", new { id = model.Id });
+
+            } catch(Exception ex)
+            {
+                logger.LogError(ex, "Error creating band for user {UserId}", userId);
+                ModelState.AddModelError("", "An error occurred while editing the band.");
+                return View(model);
             }
         }
 
