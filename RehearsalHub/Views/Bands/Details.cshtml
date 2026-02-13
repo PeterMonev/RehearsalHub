@@ -1,0 +1,250 @@
+﻿@using RehearsalHub.Web.ViewModels.Bands
+@using RehearsalHub.Data.Models.Enums
+@model BandDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container py-4">
+    <div class="position-relative overflow-hidden shadow-lg mb-5" style="border-radius: 2.5rem; height: 380px; background-color: #1a1a1a;">
+        <div class="position-absolute w-100 h-100"
+             style="background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
+                    url('@(string.IsNullOrEmpty(Model.ImageUrl) ? "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=2070" : Model.ImageUrl)') center/cover no-repeat;
+                    z-index: 1;">
+        </div>
+
+        <div class="position-absolute bottom-0 start-0 p-4 p-md-5 w-100" style="z-index: 10;">
+            <div class="row align-items-end g-3">
+                <div class="col-12 col-md-7 text-white text-center text-md-start">
+                    <span class="badge bg-warning text-dark mb-3 fw-bold px-3 py-2 text-uppercase shadow-sm">@Model.Genre</span>
+                    <h1 class="display-3 fw-bold mb-0" style="text-shadow: 3px 3px 20px rgba(0,0,0,1);">@Model.Name</h1>
+                </div>
+
+                <div class="col-12 col-md-5">
+                    @if (Model.IsOwner)
+                    {
+                        <div class="d-flex justify-content-center justify-content-md-end gap-2">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 btn-banner-action">
+                                <i class="fa-solid fa-pen-to-square me-2"></i>Edit
+                            </a>
+                            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Delete this band forever?')">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 btn-banner-action">
+                                    <i class="fa-solid fa-trash me-2"></i>Delete
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white overflow-hidden">
+                <div class="card-header bg-white border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
+                    <h2 class="h4 fw-bold mb-0 text-dark">
+                        <i class="fa-solid fa-clock-rotate-left text-primary me-2"></i>Upcoming Sessions
+                    </h2>
+                    <a asp-controller="Rehearsals" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-primary rounded-pill px-3 fw-bold">
+                        + Book
+                    </a>
+                </div>
+                <div class="card-body p-4">
+                    @if (!Model.UpcomingRehearsals.Any())
+                    {
+                        <div class="text-center py-4 bg-light rounded-4 border border-dashed">
+                            <p class="text-muted mb-0">No sessions planned yet.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var r in Model.UpcomingRehearsals)
+                        {
+                            <a asp-controller="Rehearsals" asp-action="Details" asp-route-id="@r.Id" class="text-decoration-none d-block mb-3 item-card">
+                                <div class="d-flex align-items-center p-3 bg-light rounded-4 border-start border-primary border-5 transition-all shadow-sm">
+                                    <div class="text-center bg-white border rounded-3 p-2 me-4" style="min-width: 70px;">
+                                        <span class="d-block h4 fw-bold mb-0 text-primary">@r.Start.Day</span>
+                                        <small class="text-uppercase fw-bold text-muted" style="font-size: 0.7rem;">@r.Start.ToString("MMM")</small>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold text-dark">@r.SetlistName</h6>
+                                        <div class="small text-muted">
+                                            <i class="fa-regular fa-calendar me-1"></i> @r.Start.ToString("HH:mm")
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-muted opacity-25"></i>
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
+                <div class="card-header bg-white border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
+                    <h2 class="h4 fw-bold mb-0 text-dark">
+                        <i class="fa-solid fa-compact-disc text-success me-2"></i>Setlists
+                    </h2>
+                    <a asp-controller="Setlists" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">
+                        + New List
+                    </a>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        @if (Model.Setlists == null || !Model.Setlists.Any())
+                        {
+                            <div class="col-12 text-center py-4 bg-light rounded-4 border border-dashed">
+                                <p class="text-muted mb-0">No setlists created.</p>
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var s in Model.Setlists)
+                            {
+                                <div class="col-md-6">
+                                    <a asp-controller="Setlists" asp-action="Details" asp-route-id="@s.Id" class="text-decoration-none item-card d-block">
+                                        <div class="p-3 bg-white border rounded-4 shadow-sm d-flex align-items-center transition-all border-bottom-hover">
+                                            <div class="bg-success bg-opacity-10 text-success rounded-3 p-3 me-3">
+                                                <i class="fa-solid fa-music"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0 fw-bold text-dark">@s.Name</h6>
+                                                <small class="text-muted">@s.SongsCount tracks</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 bg-white p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                    <div>
+                        <h3 class="h5 fw-bold mb-0 text-dark">Lineup</h3>
+                        <small class="text-muted" style="font-size: 0.75rem;">@Model.Members.Count активни членове</small>
+                    </div>
+                    @if (Model.IsOwner)
+                    {
+                        <button type="button" class="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm transition-all invite-btn"
+                                data-bs-toggle="modal" data-bs-target="#inviteModal">
+                            <i class="fa-solid fa-plus-circle me-1"></i> Invite
+                        </button>
+                    }
+                </div>
+
+                <div class="d-flex flex-column gap-2">
+                    @foreach (var member in Model.Members)
+                    {
+                        <a asp-controller="Users" asp-action="Profile" asp-route-id="@member.UserId" class="text-decoration-none p-2 rounded-4 d-flex align-items-center hover-bg transition-all border border-transparent">
+                            <div class="position-relative">
+                                <img src="@(string.IsNullOrEmpty(member.AvatarUrl) ? $"https://ui-avatars.com/api/?name={member.FullName}&background=random" : member.AvatarUrl)"
+                                     class="rounded-circle border border-2 shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
+                                @if (member.IsLeader)
+                                {
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark border border-white">
+                                        <i class="fa-solid fa-crown" style="font-size: 8px;"></i>
+                                    </span>
+                                }
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0 fw-bold text-dark lh-sm">@member.FullName</p>
+                                <small class="text-primary fw-medium">@member.Instrument</small>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="inviteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4 overflow-hidden">
+            <div class="modal-header bg-dark text-white border-0 py-3">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-paper-plane me-2"></i>Invite Musician</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Invite" method="post">
+                <input type="hidden" name="BandId" value="@Model.Id" />
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-uppercase text-muted">User Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 rounded-start-3"><i class="fa-solid fa-at text-muted"></i></span>
+                            <input type="email" name="Email" class="form-control bg-light border-start-0 rounded-end-3" placeholder="email@example.com" required>
+                        </div>
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label small fw-bold text-uppercase text-muted">Instrument</label>
+                        <select name="Instrument" class="form-select bg-light rounded-3 shadow-none">
+                            @foreach (var inst in Enum.GetValues<InstrumentType>())
+                            {
+                                <option value="@inst">@inst</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 p-4 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">Send Invitation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-banner-action {
+        position: relative;
+        z-index: 50;
+    }
+
+    .invite-btn {
+        border: none;
+        letter-spacing: 0.5px;
+        background: linear-gradient(45deg, #0d6efd, #0b5ed7);
+    }
+
+        .invite-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3) !important;
+            background: linear-gradient(45deg, #0b5ed7, #0a58ca);
+        }
+
+    .item-card:hover .transition-all {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1) !important;
+        background-color: #fff !important;
+    }
+
+    .hover-bg {
+        border: 1px solid transparent;
+    }
+
+        .hover-bg:hover {
+            background-color: #f8f9fa;
+            border-color: #e9ecef;
+            transform: translateX(8px);
+        }
+
+    .transition-all {
+        transition: all 0.25s ease-in-out;
+    }
+
+    .border-bottom-hover:hover {
+        border-bottom: 4px solid #198754 !important;
+    }
+
+    a.text-decoration-none {
+        color: inherit;
+    }
+</style>

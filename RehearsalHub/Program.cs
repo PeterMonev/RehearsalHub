@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
+using RehearsalHub.Services.Data.Bands;
 
 namespace RehearsalHub
 {
@@ -20,6 +21,8 @@ namespace RehearsalHub
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IBandService, BandService>();
 
             var app = builder.Build();
 

@@ -1,0 +1,7 @@
+﻿@using System.Text.Encodings.Web
+
+<div id="toast-notifications"
+     data-success="@(TempData["SuccessMessage"]?.ToString())"
+     data-error="@(TempData["ErrorMessage"]?.ToString())"
+     style="display: none;">
+</div>

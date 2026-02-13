@@ -29,5 +29,10 @@ namespace RehearsalHub.Data.Models
 
         [Column(TypeName = DateTimeColumnType)]
         public DateTime? ModifiedOn { get; set; }
+        public bool IsDeleted { get; set; }
+
+        [Column(TypeName = DateTimeColumnType)]
+        public DateTime? DeletedOn { get; set; }
+
     }
 }

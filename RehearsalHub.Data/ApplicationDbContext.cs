@@ -41,6 +41,9 @@ namespace RehearsalHub.Data
             builder.Entity<SetlistSong>()
                 .HasKey(ss => new { ss.SetlistId, ss.SongId });
 
+            builder.Entity<SetlistSong>()
+                .HasQueryFilter(ss => !ss.Setlist.IsDeleted);
+
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
 
@@ -72,7 +75,10 @@ namespace RehearsalHub.Data
         {
             var entries = ChangeTracker.Entries()
                 .Where(e => e.Entity is IAuditInfo &&
-                           (e.State == EntityState.Added || e.State == EntityState.Modified));
+                            (e.State == EntityState.Added ||
+                             e.State == EntityState.Modified ||
+                             e.State == EntityState.Deleted))
+                .ToList();
 
             foreach (var entry in entries)
             {
@@ -84,10 +90,35 @@ namespace RehearsalHub.Data
                     {
                         entity.CreatedOn = DateTime.UtcNow;
                     }
+                    entity.IsDeleted = false;
                 }
                 else if (entry.State == EntityState.Modified)
                 {
                     entity.ModifiedOn = DateTime.UtcNow;
+                }
+                else if (entry.State == EntityState.Deleted)
+                {
+                    entry.State = EntityState.Modified;
+                    entity.IsDeleted = true;
+                    entity.DeletedOn = DateTime.UtcNow;
+
+                 
+                    if (entity is Band band)
+                    {
+                        var rehearsals = this.Rehearsals.Where(r => r.BandId == band.Id);
+                        foreach (var rehearsal in rehearsals)
+                        {
+                            rehearsal.IsDeleted = true;
+                            rehearsal.DeletedOn = DateTime.UtcNow;
+                        }
+
+                        var setlists = this.Setlists.Where(s => s.BandId == band.Id);
+                        foreach (var setlist in setlists)
+                        {
+                            setlist.IsDeleted = true;
+                            setlist.DeletedOn = DateTime.UtcNow;
+                        }
+                    }
                 }
             }
         }

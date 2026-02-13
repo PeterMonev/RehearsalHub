@@ -1,0 +1,116 @@
+﻿    
+    root
+
+    {
+        --bs-primary: #4361ee;
+        --bs-primary-rgb: 67, 97, 238;
+    }
+
+    .band-card {
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        background: #fff;
+    }
+
+        .band-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important;
+        }
+
+    .tracking-wider {
+        letter-spacing: 0.08em;
+    }
+
+    .date-badge {
+        background-color: rgba(var(--bs-primary-rgb), 0.08);
+        min-width: 55px;
+        border: 1px solid rgba(var(--bs-primary-rgb), 0.15);
+    }
+
+    .rehearsal-item {
+        transition: all 0.2s ease;
+        background-color: #f9f9fb;
+    }
+
+        .rehearsal-item:hover {
+            background-color: #fff !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: scale(1.02);
+            z-index: 1;
+        }
+
+    .pagination .page-link {
+        color: var(--bs-primary);
+        font-weight: 500;
+    }
+
+    .pagination .active .page-link {
+        background-color: var(--bs-primary);
+        color: white;
+    }
+
+    .border-dashed {
+        border-style: dashed !important;
+        border-width: 2px !important;
+    }
+
+    .transition-3d {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+        .transition-3d:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12) !important;
+        }
+
+    .rehearsal-item {
+        background-color: #f9f9f9;
+        transition: all 0.2s;
+    }
+
+        .rehearsal-item:hover {
+            background-color: #f0f4f8;
+            transform: scale(1.01);
+        }
+
+    .date-badge {
+        width: 50px;
+        border: 1px solid #dee2e6;
+        background: #fff;
+    }
+    .transition-3d {
+        transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+    }
+
+        .transition-3d:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12) !important;
+        }
+
+    .rehearsal-item {
+        background-color: #f8f9fa;
+        transition: all 0.2s;
+    }
+
+        .rehearsal-item:hover {
+            background-color: #eef2f7;
+            transform: scale(1.02);
+        }
+
+    .date-badge {
+        width: 50px;
+        border: 1px solid #dee2e6;
+        background: #fff;
+    }
+
+    .border-dashed {
+        border-style: dashed !important;
+    }
+
+    .pagination .page-link {
+        color: #0d6efd;
+    }
+
+    .pagination .active .page-link {
+        background-color: #0d6efd;
+        color: white;
+    }
