@@ -46,7 +46,7 @@ namespace RehearsalHub.Services.Data.Bands
                 band.Members.Add(new BandMember
                 {
                     UserId = ownerId,
-                    Role = 0,
+                    Role = BandRole.Owner,
                     Instrument = model.SelectedInstrument,
                 });
 
@@ -165,6 +165,46 @@ namespace RehearsalHub.Services.Data.Bands
             await dbContext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<BandDetailsViewModel?> GetBandDetailsAsync(int id, string userId)
+        {
+            return await dbContext.Bands
+                .Where(b => b.Id == id && (b.OwnerId == userId || b.Members.Any(m => m.UserId == userId)))
+                .AsNoTracking()
+                .Select(b => new BandDetailsViewModel
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Genre = b.Genre.ToString(),
+                    ImageUrl = b.ImageUrl,
+                    IsOwner = b.OwnerId == userId,
+                    Members = b.Members.Select(m => new BandMemberViewModel
+                    {
+                        FullName = m.User.UserName,
+                        Instrument = m.Instrument.ToString(),
+                        IsLeader = m.Role == 0,
+                        UserId = m.UserId,
+                        AvatarUrl = m.AvatarUrl
+                    }).ToList(),
+                    Setlists = b.Setlists.Select(s => new BandSetlistViewModel
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        SongsCount = s.SetlistSongs.Count()
+                    }).ToList(),
+
+                    UpcomingRehearsals = b.Rehearsals
+                        .Where(r => r.EndRehearsal > DateTime.UtcNow)
+                        .OrderBy(r => r.StartRehearsal)
+                        .Select(r => new RehearsalInfoViewModel
+                        {
+                            Id = r.Id,
+                            Start = r.StartRehearsal,
+                            End = r.EndRehearsal,
+                            SetlistName = r.Setlist != null ? r.Setlist.Name : "No setlist"
+                        }).ToList()
+                }).FirstOrDefaultAsync();
         }
     }
 }

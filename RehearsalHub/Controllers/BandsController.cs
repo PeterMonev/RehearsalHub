@@ -186,5 +186,28 @@ namespace RehearsalHub.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            string? userId = GetUserId();
+
+            try
+            {
+            BandDetailsViewModel? band = await bandService.GetBandDetailsAsync(id, userId);
+
+                if(band == null)
+                {
+                    return NotFound();
+                }
+
+                return View(band);
+
+            }
+            catch (Exception)
+            {
+               return RedirectToAction("Error", "Home");
+            }
+        }
+
     }
 }

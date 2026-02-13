@@ -1,20 +1,18 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using RehearsalHub.Web.ViewModels.Bands;
+using RehearsalHub.Web.ViewModels.Shared;
 
-//namespace RehearsalHub.Web.ViewModels.Bands
-//{
-//    public class BandDetailsViewModel
-//    {
-//        public int Id { get; set; }
-//        public string Name { get; set; } = null!;
-//        public string? ImageUrl { get; set; }
-//        public string Genre { get; set; } = null!;
-//        public string OwnerId { get; set; } = null!;
-//        public bool IsOwner { get; set; }
+public class BandDetailsViewModel
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = null!;
+    public string Genre { get; set; } = null!;
+    public string? ImageUrl { get; set; }
+    public bool IsOwner { get; set; }
 
-//        public IEnumerable<BandMe>
-//    }
-//}
+    public List<BandMemberViewModel> Members { get; set; } = new List<BandMemberViewModel>();
+
+    public List<RehearsalInfoViewModel> UpcomingRehearsals { get; set; } = new List<RehearsalInfoViewModel>();
+
+    public List<BandSetlistViewModel> Setlists { get; set; } = new List<BandSetlistViewModel>();
+
+}

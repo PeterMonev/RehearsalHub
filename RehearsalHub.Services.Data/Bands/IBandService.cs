@@ -19,5 +19,7 @@ namespace RehearsalHub.Services.Data.Bands
         Task<BandEditViewModel?> GetBandEditAsync(int id, string userId);
 
         Task<bool> EditBandAsync(BandEditViewModel model, string userId);
+
+        Task<BandDetailsViewModel?> GetBandDetailsAsync(int id, string userId);
     }
 }
