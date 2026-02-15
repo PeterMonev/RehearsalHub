@@ -6,6 +6,7 @@ using RehearsalHub.Data.Models;
 using RehearsalHub.Services.Data.Bands;
 using RehearsalHub.Services.Data.Invitation;
 using RehearsalHub.Services.Data.Notifications;
+using RehearsalHub.Services.Data.Users;
 using RehearsalHub.Services;
 
 namespace RehearsalHub
@@ -36,6 +37,8 @@ namespace RehearsalHub
             builder.Services.AddScoped<INotificationService, NotificationService>();
             builder.Services.AddScoped<IInvitationService, InvitationService>();
             builder.Services.AddScoped<IBandService, BandService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
 
             var app = builder.Build();
 

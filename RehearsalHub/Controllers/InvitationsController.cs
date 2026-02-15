@@ -9,14 +9,14 @@ namespace RehearsalHub.Controllers
     /// Handles band invitation operations including viewing, accepting, and declining invitations.
     /// </summary>
     [Authorize]
-    public class InvitationController : Controller
+    public class InvitationsController : Controller
     {
         private readonly IInvitationService invitationService;
-        private readonly ILogger<InvitationController> logger;
+        private readonly ILogger<InvitationsController> logger;
 
-        public InvitationController(
+        public InvitationsController(
             IInvitationService invitationService,
-            ILogger<InvitationController> logger)
+            ILogger<InvitationsController> logger)
         {
             this.invitationService = invitationService;
             this.logger = logger;
@@ -56,34 +56,25 @@ namespace RehearsalHub.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Accept(int id)
         {
-            if (id <= 0)
-            {
-                logger.LogWarning("Invalid invitation ID: {InvitationId}", id);
-                TempData["ErrorMessage"] = "Invalid invitation.";
-                return RedirectToAction(nameof(Index));
-            }
-
             var userId = GetCurrentUserId();
 
             try
             {
-                var success = await invitationService.AcceptInviteAsync(id, userId);
+                int? bandId = await invitationService.AcceptInviteAsync(id, userId);
 
-                if (success)
+                if (bandId.HasValue)
                 {
-                    logger.LogInformation("User {UserId} accepted invitation {InvitationId}", userId, id);
                     TempData["SuccessMessage"] = "You joined the band! 🤘";
-                    return RedirectToAction("Index", "Bands");
+
+                    return RedirectToAction("Details", "Bands", new { id = bandId.Value });
                 }
 
-                logger.LogWarning("Failed to accept invitation {InvitationId} for user {UserId}", id, userId);
-                TempData["ErrorMessage"] = "Unable to accept invitation. It may no longer be valid.";
+                TempData["ErrorMessage"] = "Unable to accept invitation.";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error accepting invitation {InvitationId} for user {UserId}", id, userId);
-                TempData["ErrorMessage"] = "An error occurred while accepting the invitation.";
+                logger.LogError(ex, "Error in Accept action");
                 return RedirectToAction(nameof(Index));
             }
         }

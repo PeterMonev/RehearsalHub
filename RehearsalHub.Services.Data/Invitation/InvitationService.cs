@@ -184,13 +184,14 @@ namespace RehearsalHub.Services.Data.Invitation
 
         /// <summary>
         /// Accepts an invitation and confirms the user as a band member.
+        /// Returns the BandId if successful, null otherwise.
         /// </summary>
-        public async Task<bool> AcceptInviteAsync(int inviteId, string userId)
+        public async Task<int?> AcceptInviteAsync(int inviteId, string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
                 logger.LogWarning("AcceptInviteAsync called with null or empty userId");
-                return false;
+                return null;
             }
 
             try
@@ -204,23 +205,25 @@ namespace RehearsalHub.Services.Data.Invitation
                 if (invite == null)
                 {
                     logger.LogWarning("Invitation {InviteId} not found for user {UserId}", inviteId, userId);
-                    return false;
+                    return null;
                 }
 
                 invite.IsConfirmed = true;
-                invite.IsDeletedInvitation = true; 
+                invite.IsDeletedInvitation = true;
                 invite.ModifiedOn = DateTime.UtcNow;
 
                 await dbContext.SaveChangesAsync();
+
                 await UpdateClientInvitationCountAsync(userId);
 
-                logger.LogInformation("User {UserId} accepted invitation {InviteId}", userId, inviteId);
-                return true;
+                logger.LogInformation("User {UserId} accepted invitation {InviteId} for Band {BandId}", userId, inviteId, invite.BandId);
+
+                return invite.BandId; 
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error accepting invitation {InviteId} for user {UserId}", inviteId, userId);
-                return false;
+                return null;
             }
         }
 

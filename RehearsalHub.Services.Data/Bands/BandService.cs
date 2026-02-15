@@ -7,6 +7,7 @@ using RehearsalHub.GCommon;
 using RehearsalHub.Services.Data.Notifications;
 using RehearsalHub.Web.ViewModels.Bands;
 using RehearsalHub.Web.ViewModels.Shared;
+using static RehearsalHub.Common.ImageConstants;
 
 namespace RehearsalHub.Services.Data.Bands
 {
@@ -55,8 +56,9 @@ namespace RehearsalHub.Services.Data.Bands
                     Genre = model.Genre,
                     OwnerId = ownerId,
                     ImageUrl = string.IsNullOrWhiteSpace(model.ImageUrl)
-                    ? RehearsalHub.Common.ImageConstants.GetRandomBandImage()
+                    ? GetRandomBandImage()
                     : model.ImageUrl
+
                 };
 
                 band.Members.Add(new BandMember
@@ -130,11 +132,7 @@ namespace RehearsalHub.Services.Data.Bands
         /// <summary>
         /// Retrieves a paginated list of bands that the user owns or is a member of.
         /// </summary>
-        public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(
-            string userId,
-            int page,
-            int pageSize,
-            string? searchTerm = null)
+        public async Task<PagedResult<BandIndexViewModel>> GetBandsPagedAsync(string userId,int page,int pageSize, string? searchTerm = null)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -264,8 +262,8 @@ namespace RehearsalHub.Services.Data.Bands
                 band.Name = model.Name;
                 band.Genre = model.Genre;
                 band.ImageUrl = string.IsNullOrWhiteSpace(model.ImageUrl)
-                ? RehearsalHub.Common.ImageConstants.GetRandomBandImage()
-                : model.ImageUrl;
+    ? GetRandomBandImage()
+    : model.ImageUrl;
 
 
                 await dbContext.SaveChangesAsync();

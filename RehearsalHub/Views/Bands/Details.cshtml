@@ -166,8 +166,6 @@
 
                             @{
                                 bool isMe = User.FindFirst(ClaimTypes.NameIdentifier)?.Value == member.UserId;
-                                // owner-a вижда бутон за всички освен за себе си.
-                                // потребителят вижда бутон само за себе си (за да напусне)
                             }
                             @if (!member.IsLeader && (Model.IsOwner || isMe))
                             {

@@ -53,9 +53,106 @@ namespace RehearsalHub.Data.Configuration
                     PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
                     CreatedOn = DateTime.UtcNow,
                     IsDeleted = false
-                }
+                },
+                new ApplicationUser
+                {
+                    Id = "seed-user-4",
+                    UserName = "bluesman@test.com",
+                    NormalizedUserName = "BLUESMAN@TEST.COM",
+                    Email = "bluesman@test.com",
+                    NormalizedEmail = "BLUESMAN@TEST.COM",
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ProfilePictureUrl = GetRandomUserImage(),
+                    PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false
+                },
+                new ApplicationUser
+                {
+                    Id = "seed-user-5",
+                    UserName = "funky@test.com",
+                    NormalizedUserName = "FUNKY@TEST.COM",
+                    Email = "funky@test.com",
+                    NormalizedEmail = "FUNKY@TEST.COM",
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ProfilePictureUrl = GetRandomUserImage(),
+                    PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false
+                },
+                new ApplicationUser
+                {
+                    Id = "seed-user-6",
+                    UserName = "hiphop@test.com",
+                    NormalizedUserName = "HIPHOP@TEST.COM",
+                    Email = "hiphop@test.com",
+                    NormalizedEmail = "HIPHOP@TEST.COM",
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ProfilePictureUrl = GetRandomUserImage(),
+                    PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false
+                },
+                new ApplicationUser
+                {
+                    Id = "seed-user-7",
+                    UserName = "electro@test.com",
+                    NormalizedUserName = "ELECTRO@TEST.COM",
+                    Email = "electro@test.com",
+                    NormalizedEmail = "ELECTRO@TEST.COM",
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ProfilePictureUrl = GetRandomUserImage(),
+                    PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false
+                    },
+                    new ApplicationUser
+                    {
+                        Id = "seed-user-8",
+                        UserName = "popstar@test.com",
+                        NormalizedUserName = "POPSTAR@TEST.COM",
+                        Email = "popstar@test.com",
+                        NormalizedEmail = "POPSTAR@TEST.COM",
+                        EmailConfirmed = true,
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        ProfilePictureUrl = GetRandomUserImage(),
+                        PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
+                        CreatedOn = DateTime.UtcNow,
+                        IsDeleted = false
+                    },
+                    new ApplicationUser
+                    {
+                        Id = "seed-user-9",
+                        UserName = "soul@test.com",
+                        NormalizedUserName = "SOUL@TEST.COM",
+                        Email = "soul@test.com",
+                        NormalizedEmail = "SOUL@TEST.COM",
+                        EmailConfirmed = true,
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        ProfilePictureUrl = GetRandomUserImage(),
+                        PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
+                        CreatedOn = DateTime.UtcNow,
+                        IsDeleted = false
+                    },
+                    new ApplicationUser
+                    {
+                        Id = "seed-user-10",
+                        UserName = "garage@test.com",
+                        NormalizedUserName = "GARAGE@TEST.COM",
+                        Email = "garage@test.com",
+                        NormalizedEmail = "GARAGE@TEST.COM",
+                        EmailConfirmed = true,
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        ProfilePictureUrl = GetRandomUserImage(),
+                        PasswordHash = _hasher.HashPassword(null!, "P@ssword123"),
+                        CreatedOn = DateTime.UtcNow,
+                        IsDeleted = false
+                    }
         };
-
         public void Configure(EntityTypeBuilder<ApplicationUser> entity)
         {
             entity.HasQueryFilter(u => !u.IsDeleted);

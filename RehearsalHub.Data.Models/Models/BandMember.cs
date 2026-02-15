@@ -36,8 +36,6 @@ namespace RehearsalHub.Data.Models
 
         [Required]
         public bool IsConfirmed { get; set; } = false;
-
-
         public Guid? InvitationToken { get; set; }
 
         [Required]

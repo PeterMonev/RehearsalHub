@@ -11,7 +11,7 @@ namespace RehearsalHub.Services.Data.Invitation
     {
         Task<bool> SendInviteAsync(int bandId, string targetSearch, string instrument);
         Task<IEnumerable<InviteBandMemberInputModel>> GetPendingInvitationsAsync(string userId);
-        Task<bool> AcceptInviteAsync(int inviteId, string userId);
+        Task<int?> AcceptInviteAsync(int inviteId, string userId);
         Task<bool> DeclineInviteAsync(int inviteId, string userId);
         Task<int> GetPendingCountAsync(string userId);
     }
