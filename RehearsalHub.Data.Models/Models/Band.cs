@@ -31,7 +31,7 @@ namespace RehearsalHub.Data.Models
 
         [Required]
         [MaxLength(ImageUrlMaxLength)]
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(Owner))]

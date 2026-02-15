@@ -36,13 +36,14 @@ namespace RehearsalHub.Data.Models
 
         [Required]
         public bool IsConfirmed { get; set; } = false;
-
         public Guid? InvitationToken { get; set; }
 
         [Required]
         public BandRole Role { get; set; } 
 
         [Required]
-        public InstrumentType Instrument { get; set; } 
+        public InstrumentType Instrument { get; set; }
+
+        public bool IsDeletedInvitation { get; set; }
     }
 }

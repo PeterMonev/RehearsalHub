@@ -11,6 +11,7 @@
     <ProjectReference Include="..\RehearsalHub.Data\RehearsalHub.Data.csproj" />
     <ProjectReference Include="..\RehearsalHub.GCommon\RehearsalHub.GCommon.csproj" />
     <ProjectReference Include="..\RehearsalHub.Web.ViewModels\RehearsalHub.Web.ViewModels.csproj" />
+	 <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
 </Project>

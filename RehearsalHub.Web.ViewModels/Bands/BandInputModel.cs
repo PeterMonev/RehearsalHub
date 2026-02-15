@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using RehearsalHub.Data.Models.Enums;
-using static RehearsalHub.Common.DataValidation.Band;
-
-namespace RehearsalHub.Web.ViewModels.Bands
+﻿namespace RehearsalHub.Web.ViewModels.Bands
 {
+    using System.ComponentModel.DataAnnotations;
+    using RehearsalHub.Data.Models.Enums;
+    using static RehearsalHub.Common.DataValidation.Band; 
+
     public class BandInputModel
     {
-
-        [Required]
-        [MaxLength(NameMaxLength)]
+        [Required(ErrorMessage = "Band name is required!")]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength,
+            ErrorMessage = "The band name must be between {2} and {1} characters long.")]
         [Display(Name = "Band Name")]
         public string Name { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Please select a music genre.")]
         [Display(Name = "Genre")]
         public MusicGenre Genre { get; set; }
 
-        [Url]
+        [MaxLength(ImageUrlMaxLength, ErrorMessage = "URL is too long.")]
         [Display(Name = "Band Image URL")]
-        public string ImageUrl { get; set; } = null!;
+        public string? ImageUrl { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please select the instrument you play in this band.")]
         [Display(Name = "Your Instrument")]
         public InstrumentType SelectedInstrument { get; set; }
     }

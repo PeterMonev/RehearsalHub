@@ -1,0 +1,115 @@
+﻿@model RehearsalHub.Web.ViewModels.User.UserProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container py-5">
+    <div class="row mb-5 align-items-center bg-light p-4 rounded-4 shadow-sm">
+        <div class="col-md-3 text-center text-md-start">
+            <div class="position-relative d-inline-block">
+                <img src="@Model.ProfilePictureUrl" alt="Profile Picture"
+                     class="img-fluid rounded-circle border border-4 border-white shadow"
+                     style="width: 200px; height: 200px; object-fit: cover;" />
+                <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-primary p-2">
+                    <i class="fas fa-camera"></i>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-9 mt-3 mt-md-0">
+            <h1 class="display-5 fw-bold mb-1">@Model.UserName</h1>
+            <p class="text-muted mb-4"><i class="fas fa-id-badge me-2"></i>Musician Profile</p>
+
+            <div class="row g-3">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-box bg-white p-2 rounded shadow-sm me-3">
+                            <i class="fas fa-envelope text-primary"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Email Address</small>
+                            <span class="fw-semibold">@Model.Email</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-box bg-white p-2 rounded shadow-sm me-3">
+                            <i class="fas fa-phone text-primary"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Phone Number</small>
+                            <span class="fw-semibold">@(Model.PhoneNumber ?? "Not provided")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4 text-dark">
+        <h2 class="fw-bold"><i class="fas fa-guitar me-3 text-primary"></i>Your Bands</h2>
+        <span class="badge bg-secondary">Total: @(Model.Bands?.Count ?? 0)</span>
+    </div>
+
+    @if (Model.Bands != null && Model.Bands.Any())
+    {
+        <div class="row g-4">
+            @foreach (var band in Model.Bands)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                        <div class="position-relative">
+                            <img class="card-img-top" src="@band.BandImageUrl" alt="@band.BandName"
+                                 style="height: 200px; object-fit: cover;">
+                            <div class="card-img-overlay d-flex align-items-start justify-content-end">
+                                <span class="badge bg-dark bg-opacity-75">@band.Role</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-primary">@band.BandName</h5>
+                            <div class="d-flex align-items-center text-muted mb-3">
+                                <i class="fas fa-music me-2"></i>
+                                <span>Instrument: <strong>@band.Instrument</strong></span>
+                            </div>
+                         
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card border-0 bg-light text-center p-5 rounded-4">
+            <div class="mb-3">
+                <i class="fas fa-drum-steelpan fa-4x text-muted opacity-50"></i>
+            </div>
+            <h4 class="text-muted">You are not a member of any bands yet.</h4>
+            <div class="mt-3">
+                <a href="@Url.Action("Create", "Bands")" class="btn btn-primary rounded-pill">
+                    <i class="fas fa-plus me-2"></i>Create or Join a Band
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    }
+
+    .transition {
+        transition: all 0.3s ease;
+    }
+
+    .icon-box {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>

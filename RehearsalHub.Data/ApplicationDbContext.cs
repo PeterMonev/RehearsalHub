@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RehearsalHub.Data.Models;
 using RehearsalHub.Data.Models.Interfaces;
+using RehearsalHub.Data.Models.Models;
 
 namespace RehearsalHub.Data
 {
@@ -24,6 +25,8 @@ namespace RehearsalHub.Data
 
         public virtual DbSet<Song> Songs { get; set; } = null!;
 
+        public virtual DbSet<Notification> Notifications { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -43,6 +46,17 @@ namespace RehearsalHub.Data
 
             builder.Entity<SetlistSong>()
                 .HasQueryFilter(ss => !ss.Setlist.IsDeleted);
+
+            builder.Entity<Notification>()
+               .HasOne(n => n.Recipient)
+               .WithMany(u => u.Notifications)
+               .HasForeignKey(n => n.RecipientId)
+               .OnDelete(DeleteBehavior.Restrict)
+               .IsRequired();
+
+            builder.Entity<Notification>()
+                .HasQueryFilter(n => !n.Recipient.IsDeleted);
+
 
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
