@@ -110,7 +110,10 @@
                                     <div class="col-6">
                                         <form asp-action="Delete" asp-route-id="@band.Id" method="post" class="delete-form">
                                             @Html.AntiForgeryToken()
-                                            <button type="button" class="btn btn-outline-danger btn-sm w-100 rounded-pill btn-delete-confirm">
+                                            <button type="button"
+                                                    class="btn btn-outline-danger btn-sm w-100 rounded-pill btn-delete-confirm"
+                                                    data-title="Delete @band.Name?"
+                                                    data-message="All rehearsals and setlists will be permanently deleted!">
                                                 <i class="bi bi-trash"></i> Delete
                                             </button>
                                         </form>

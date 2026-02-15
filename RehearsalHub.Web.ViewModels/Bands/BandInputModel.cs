@@ -22,7 +22,7 @@ namespace RehearsalHub.Web.ViewModels.Bands
         [Display(Name = "Genre")]
         public MusicGenre Genre { get; set; }
 
-        [Url]
+        [Required]
         [Display(Name = "Band Image URL")]
         public string ImageUrl { get; set; } = null!;
 

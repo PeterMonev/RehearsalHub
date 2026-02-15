@@ -1,34 +1,33 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
-    const container = document.getElementById('toast-notifications');
+    const container = document.getElementById('tempdata-container');
     if (!container) return;
 
     const successMsg = container.dataset.success;
     const errorMsg = container.dataset.error;
 
-    const commonConfig = {
-        borderRadius: '15px',
-        timer: 3000,
-        timerProgressBar: true
-    };
-
     if (successMsg) {
         Swal.fire({
-            ...commonConfig,
+            icon: 'success',
             title: 'Success!',
             text: successMsg,
-            icon: 'success',
-            showConfirmButton: false
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
         });
     }
 
     if (errorMsg) {
         Swal.fire({
-            ...commonConfig,
+            icon: 'error',
             title: 'Error!',
             text: errorMsg,
-            icon: 'error',
-            confirmButtonColor: '#dc3545',
-            timer: null
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true
         });
     }
 });

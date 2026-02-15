@@ -1,5 +1,6 @@
 ﻿@using RehearsalHub.Web.ViewModels.Bands
 @using RehearsalHub.Data.Models.Enums
+@using System.Security.Claims
 @model BandDetailsViewModel
 
 @{
@@ -28,9 +29,11 @@
                             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 btn-banner-action">
                                 <i class="fa-solid fa-pen-to-square me-2"></i>Edit
                             </a>
-                            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Delete this band forever?')">
+                            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" id="deleteForm-@Model.Id">
                                 @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-danger btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 btn-banner-action">
+                                <button type="button"
+                                        class="btn btn-danger btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 btn-banner-action"
+                                        onclick="confirmDelete('deleteForm-@Model.Id', 'All rehearsals and setlists will be deleted!', 'Delete this band forever?')">
                                     <i class="fa-solid fa-trash me-2"></i>Delete
                                 </button>
                             </form>
@@ -129,7 +132,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
                     <div>
                         <h3 class="h5 fw-bold mb-0 text-dark">Lineup</h3>
-                        <small class="text-muted" style="font-size: 0.75rem;">@Model.Members.Count активни членове</small>
+                        <small class="text-muted" style="font-size: 0.75rem;">@Model.Members.Count active members</small>
                     </div>
                     @if (Model.IsOwner)
                     {
@@ -143,22 +146,44 @@
                 <div class="d-flex flex-column gap-2">
                     @foreach (var member in Model.Members)
                     {
-                        <a asp-controller="Users" asp-action="Profile" asp-route-id="@member.UserId" class="text-decoration-none p-2 rounded-4 d-flex align-items-center hover-bg transition-all border border-transparent">
-                            <div class="position-relative">
-                                <img src="@(string.IsNullOrEmpty(member.AvatarUrl) ? $"https://ui-avatars.com/api/?name={member.FullName}&background=random" : member.AvatarUrl)"
-                                     class="rounded-circle border border-2 shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
-                                @if (member.IsLeader)
-                                {
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark border border-white">
-                                        <i class="fa-solid fa-crown" style="font-size: 8px;"></i>
-                                    </span>
-                                }
-                            </div>
-                            <div class="ms-3">
-                                <p class="mb-0 fw-bold text-dark lh-sm">@member.FullName</p>
-                                <small class="text-primary fw-medium">@member.Instrument</small>
-                            </div>
-                        </a>
+                        <div class="p-2 rounded-4 d-flex align-items-center justify-content-between hover-bg transition-all border border-transparent">
+                            <a asp-controller="Users" asp-action="Profile" asp-route-id="@member.UserId" class="text-decoration-none d-flex align-items-center flex-grow-1">
+                                <div class="position-relative">
+                                    <img src="@(string.IsNullOrEmpty(member.AvatarUrl) ? $"https://ui-avatars.com/api/?name={member.FullName}&background=random" : member.AvatarUrl)"
+                                         class="rounded-circle border border-2 shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
+                                    @if (member.IsLeader)
+                                    {
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark border border-white">
+                                            <i class="fa-solid fa-crown" style="font-size: 8px;"></i>
+                                        </span>
+                                    }
+                                </div>
+                                <div class="ms-3">
+                                    <p class="mb-0 fw-bold text-dark lh-sm">@member.FullName</p>
+                                    <small class="text-primary fw-medium">@member.Instrument</small>
+                                </div>
+                            </a>
+
+                            @{
+                                bool isMe = User.FindFirst(ClaimTypes.NameIdentifier)?.Value == member.UserId;
+                                // owner-a вижда бутон за всички освен за себе си.
+                                // потребителят вижда бутон само за себе си (за да напусне)
+                            }
+                            @if (!member.IsLeader && (Model.IsOwner || isMe))
+                            {
+                                <form asp-controller="Bands" asp-action="RemoveMember" method="post" id="removeMemberForm-@member.UserId">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="bandId" value="@Model.Id" />
+                                    <input type="hidden" name="userId" value="@member.UserId" />
+                                    <button type="button"
+                                            class="btn btn-outline-danger btn-sm rounded-circle border-0 ms-2"
+                                            style="width: 32px; height: 32px; padding: 0;"
+                                            onclick="confirmDelete('removeMemberForm-@member.UserId', '@(isMe ? "Are you sure you want to leave the band?" : $"Remove {member.FullName}?")', 'Confirm')">
+                                        <i class="fa-solid fa-user-minus" style="font-size: 0.8rem;"></i>
+                                    </button>
+                                </form>
+                            }
+                        </div>
                     }
                 </div>
             </div>
@@ -170,32 +195,36 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow rounded-4 overflow-hidden">
             <div class="modal-header bg-dark text-white border-0 py-3">
-                <h5 class="modal-title fw-bold"><i class="fa-solid fa-paper-plane me-2"></i>Invite Musician</h5>
+                <h5 class="modal-title fw-bold"><i class="fas fa-paper-plane me-2"></i>Invite Musician</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form asp-action="Invite" method="post">
-                <input type="hidden" name="BandId" value="@Model.Id" />
+            <form asp-controller="Bands" asp-action="Invite" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="bandId" value="@Model.Id" />
+
                 <div class="modal-body p-4">
                     <div class="mb-3">
-                        <label class="form-label small fw-bold text-uppercase text-muted">User Email</label>
+                        <label class="form-label small fw-bold text-uppercase text-muted">User Email or Username</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0 rounded-start-3"><i class="fa-solid fa-at text-muted"></i></span>
-                            <input type="email" name="Email" class="form-control bg-light border-start-0 rounded-end-3" placeholder="email@example.com" required>
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="fas fa-search text-muted"></i>
+                            </span>
+                            <input type="text" name="searchTerm" class="form-control bg-light border-start-0 shadow-none" placeholder="example@mail.com" required>
                         </div>
                     </div>
-                    <div class="mb-0">
+                    <div class="mb-3">
                         <label class="form-label small fw-bold text-uppercase text-muted">Instrument</label>
-                        <select name="Instrument" class="form-select bg-light rounded-3 shadow-none">
-                            @foreach (var inst in Enum.GetValues<InstrumentType>())
+                        <select name="instrument" class="form-select bg-light shadow-none" required>
+                            <option value="">-- Select Instrument --</option>
+                            @foreach (var instr in Enum.GetValues<InstrumentType>())
                             {
-                                <option value="@inst">@inst</option>
+                                <option value="@instr">@instr</option>
                             }
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer border-0 p-4 pt-0">
-                    <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">Send Invitation</button>
+                    <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm">Send Invitation</button>
                 </div>
             </form>
         </div>
@@ -233,7 +262,7 @@
         .hover-bg:hover {
             background-color: #f8f9fa;
             border-color: #e9ecef;
-            transform: translateX(8px);
+            transform: translateX(5px);
         }
 
     .transition-all {

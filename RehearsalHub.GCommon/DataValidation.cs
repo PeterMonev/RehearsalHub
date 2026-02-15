@@ -47,5 +47,11 @@ namespace RehearsalHub.Common
 
             public const string DurationRegex = @"^\d{1,2}:\d{2}$";
         }
+
+        public static class Notification
+        {
+            public const int MessageMinLength = 3;
+            public const int MessageMaxLength = 500;
+        }
     }
 }

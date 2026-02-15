@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NoficationViewModel>
+
+<div class="container py-5">
+    <h2 class="text-white mb-4">🔔 Your Notifications</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-secondary text-center">
+            You have no notifications yet.
+        </div>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var note in Model)
+            {
+                <div class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-2 d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 text-warning">@note.Message</h5>
+                        </div>
+                        <p class="mb-1 small text-muted">@note.CreatedOn</p>
+
+                        @if (!string.IsNullOrEmpty(note.LinkUrl))
+                        {
+                            <a href="@note.LinkUrl" class="btn btn-sm btn-outline-light mt-2">View Details</a>
+                        }
+                    </div>
+
+                    <form asp-controller="Notifications" asp-action="Delete" asp-route-id="@note.Id" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger btn-sm" title="Delete">
+                            <i class="fas fa-trash"></i> X
+                        </button>
+                    </form>
+                </div>
+            }
+        </div>
+    }
+</div>

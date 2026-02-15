@@ -1,0 +1,51 @@
+﻿@model IEnumerable<InviteBandMemberInputModel>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Band Invitations 🎸</h2>
+    
+    <div id="invitations-container">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">No pending invitations.</div>
+        }
+        else
+        {
+            <div class="row" id="invitations-list">
+                @foreach (var invite in Model)
+                {
+                    <div class="col-md-6 mb-3" id="invite-@invite.Id">
+                        <div class="card shadow-sm border-0 rounded-4 p-3">
+                            <div class="d-flex align-items-center">
+                                <img src="@(string.IsNullOrEmpty(invite.BandImageUrl) ? "https://ui-avatars.com/api/?name=" + invite.BandName : invite.BandImageUrl)" 
+                                     class="rounded-circle me-3" 
+                                     style="width: 60px; height: 60px; object-fit: cover;"
+                                     alt="@invite.BandName">
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-1">@invite.BandName</h5>
+                                    <!-- ⭐ ПОКАЗВАМЕ MESSAGE -->
+                                    <p class="text-muted small mb-1">@invite.Message</p>
+                                    <p class="text-primary small mb-0 fw-bold">By: @invite.InvitedBy</p>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2 mt-3">
+                                <form asp-action="Accept" asp-route-id="@invite.Id" method="post" class="flex-fill accept-form" data-invite-id="@invite.Id">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-success btn-sm rounded-pill px-3 w-100">
+                                        <i class="fas fa-check me-1"></i> Accept
+                                    </button>
+                                </form>
+                                <form asp-action="Decline" asp-route-id="@invite.Id" method="post" class="flex-fill decline-form" data-invite-id="@invite.Id">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 w-100">
+                                        <i class="fas fa-times me-1"></i> Decline
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,15 +1,10 @@
-﻿function initializeDeleteConfirmation() {
-    const deleteButtons = document.querySelectorAll('.btn-delete-confirm');
-
-    deleteButtons.forEach(button => {
-        button.replaceWith(button.cloneNode(true));
-    });
-
-    document.querySelectorAll('.btn-delete-confirm').forEach(button => {
+﻿document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-delete-confirm').forEach(function (button) {
         button.addEventListener('click', function (e) {
+            e.preventDefault();
             const form = this.closest('form');
-            const message = this.getAttribute('data-confirm-message') || "This action cannot be undone!";
-            const title = this.getAttribute('data-confirm-title') || "Are you sure?";
+            const message = this.getAttribute('data-message') || "You won't be able to revert this!";
+            const title = this.getAttribute('data-title') || "Are you sure?";
 
             Swal.fire({
                 title: title,
@@ -18,9 +13,9 @@
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',
                 cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Yes, do it!',
+                confirmButtonText: 'Yes, delete it!',
                 cancelButtonText: 'Cancel',
-                borderRadius: '15px'
+                reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit();
@@ -28,7 +23,23 @@
             });
         });
     });
+});
+
+// Global confirmDelete function (for onclick usage)
+function confirmDelete(formId, message, title) {
+    Swal.fire({
+        title: title || 'Are you sure?',
+        text: message || "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(formId).submit();
+        }
+    });
 }
-
-document.addEventListener('DOMContentLoaded', initializeDeleteConfirmation);
-

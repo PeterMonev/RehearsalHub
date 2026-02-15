@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using static RehearsalHub.Common.DataValidation.Profile;
 using static RehearsalHub.Common.ImageConstants;
 using static RehearsalHub.Common.EntityConstants;
+using RehearsalHub.Data.Models.Models;
 
 namespace RehearsalHub.Data.Models
 {
@@ -20,9 +21,10 @@ namespace RehearsalHub.Data.Models
 
         [Required]
         [MaxLength(ImageUrlMaxLength)]
-        public string ProfilePictureUrl {  get; set; }
+        public string ProfilePictureUrl { get; set; }
         public virtual ICollection<BandMember> BandMembers { get; set; }
         public virtual ICollection<Band> OwnedBands { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; } = new HashSet<Notification>();
 
         [Column(TypeName = DateTimeColumnType)]
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
@@ -33,6 +35,8 @@ namespace RehearsalHub.Data.Models
 
         [Column(TypeName = DateTimeColumnType)]
         public DateTime? DeletedOn { get; set; }
+
+
 
     }
 }
