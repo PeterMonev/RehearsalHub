@@ -1,8 +1,172 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "RehearsalHub - Organize Your Sound";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-section text-white text-center mb-5">
+    <div class="container hero-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="mb-3">Unleash Your Band's Potential.</h1>
+                <p class="lead mb-5 fs-4" style="opacity: 0.9;">The all-in-one platform to manage your songs, organize setlists, and schedule rehearsals without missing a beat.</p>
+
+                @if (!User.Identity?.IsAuthenticated ?? true)
+                {
+                    <div class="d-flex justify-content-center gap-3">
+                        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-brand-red btn-lg px-5 py-3 rounded-pill">Start Rocking Now <i class="bi bi-arrow-right"></i></a>
+                        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">Login</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-content-center gap-3">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="section-title text-uppercase">Everything You Need</h2>
+        <p class="text-muted mt-3 fs-5">Focus on the music. We handle the organization.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card feature-card p-4 text-center">
+                <div class="card-body">
+                    <div class="feature-icon-wrapper">
+                        <i class="bi bi-music-note-beamed"></i>
+                    </div>
+                    <h4 class="fw-bold">Song Vault</h4>
+                    <p class="text-muted">Store chords, lyrics, BPM, and keys in one secure place. Never lose a riff idea again.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card feature-card p-4 text-center">
+                <div class="card-body">
+                    <div class="feature-icon-wrapper">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <h4 class="fw-bold">Band Crew</h4>
+                    <p class="text-muted">Manage members, assign roles, and keep everyone on the same page for the next gig.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card feature-card p-4 text-center">
+                <div class="card-body">
+                    <div class="feature-icon-wrapper">
+                        <i class="bi bi-calendar-event-fill"></i>
+                    </div>
+                    <h4 class="fw-bold">Smart Rehearsals</h4>
+                    <p class="text-muted">Schedule practices, track attendance, and define what songs need work next session.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card feature-card p-4 text-center">
+                <div class="card-body">
+                    <div class="feature-icon-wrapper">
+                        <i class="bi bi-list-check"></i>
+                    </div>
+                    <h4 class="fw-bold">Gig Setlists</h4>
+                    <p class="text-muted">Curate the perfect flow for your live show. Drag, drop, and get ready to stage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-5 mt-5 bg-light text-center border-top">
+    <div class="container">
+        <h3 class="fw-bold mb-4">Ready to amplify your workflow?</h3>
+        @if (!User.Identity?.IsAuthenticated ?? true)
+        {
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-dark btn-lg rounded-pill px-5">Join RehearsalHub Free</a>
+        }
+    </div>
+</div>
+
+<style>
+
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .hero-section {
+        background: linear-gradient(to bottom, rgba(26, 26, 26, 0.85), rgba(230, 57, 70, 0.2)), url('https://images.unsplash.com/photo-1598653222000-6b7b7a552625?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; 
+        min-height: 65vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 3px solid #e63946;
+    }
+
+    .hero-content h1 {
+        font-weight: 700;
+        font-size: 3.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .btn-brand-red {
+        background-color: #e63946;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-brand-red:hover {
+            background-color: #c42b37;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+        }
+
+    .feature-card {
+        border: none;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        border-top: 4px solid transparent;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            border-top: 4px solid #e63946;
+        }
+
+    .feature-icon-wrapper {
+        font-size: 2.5rem;
+        color: #e63946;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+        font-weight: 700;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: #e63946;
+            bottom: 0;
+            left: 25%;
+        }
+</style>

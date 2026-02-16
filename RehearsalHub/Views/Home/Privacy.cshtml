@@ -1,6 +1,77 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 border-start border-danger border-4 ps-4">
+            <h1 class="display-4 fw-black text-uppercase tracking-tight">
+                Privacy <span class="text-danger">Policy</span>
+            </h1>
+            <p class="lead text-muted">Your security is our priority, while you focus on the music.</p>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div class="glass-card p-4 p-md-5 shadow-sm mb-4 bg-white rounded-4">
+                <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-shield-lock-fill text-danger me-2"></i> Information Collection</h3>
+                <p class="text-secondary">
+                    At <strong>RehearsalHub</strong>, we collect only the information that is absolutely necessary to manage your bands and songs.
+                    This includes your email address for identification and the information you voluntarily share within the platform.
+                </p>
+
+                <hr class="my-5 opacity-10">
+
+                <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-eye-slash-fill text-danger me-2"></i> Information Sharing</h3>
+                <p class="text-secondary">
+                    Your songs and lyrics are your property. We do not share, sell, or provide your data to third parties for marketing purposes.
+                    Band data is visible only to the members you have personally invited.
+                </p>
+
+                <hr class="my-5 opacity-10">
+
+                <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-cookie text-danger me-2"></i> Cookies</h3>
+                <p class="text-secondary">
+                    We use only necessary cookies that keep your session active (Login session). Without them, you would not be able to stay logged in while navigating between pages.
+                </p>
+            </div>
+
+            <p class="text-muted small">
+                Last updated: @DateTime.Now.ToString("dd MMMM yyyy") г.
+            </p>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="p-4 rounded-4 bg-dark text-white shadow-lg sticky-top" style="top: 100px; z-index: 1;">
+                <h5 class="fw-bold mb-3 text-danger">Questions?</h5>
+                <p class="small opacity-75">If you want to know more about how we protect your riffs and lyrics, feel free to contact us.</p>
+                <hr class="opacity-25">
+                <div class="d-grid gap-2">
+                    <a href="mailto:support@rehearsalhub.com" class="btn btn-outline-light rounded-pill btn-sm">
+                        <i class="bi bi-envelope-at me-2"></i> Email Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .fw-black {
+        font-weight: 900;
+    }
+
+    .tracking-tight {
+        letter-spacing: -1.5px;
+    }
+
+    .glass-card {
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+</style>

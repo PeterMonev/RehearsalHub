@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Terms of Use";
+}
+
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 border-start border-danger border-4 ps-4">
+            <h1 class="display-4 fw-black text-uppercase tracking-tight">
+                Terms of <span class="text-danger">Use</span>
+            </h1>
+            <p class="lead text-muted">Welcome to RehearsalHub. Please read these terms carefully before using our platform.</p>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div class="glass-card p-4 p-md-5 shadow-sm mb-4 bg-white rounded-4">
+
+                <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-person-check-fill text-danger me-2"></i> 1. Acceptance of Terms</h3>
+                <p class="text-secondary">
+                    By creating an account or using RehearsalHub, you agree to be bound by these Terms of Use. If you do not agree, please do not use the service.
+                </p>
+
+                <hr class="my-5 opacity-10">
+
+                <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-music-note-beamed text-danger me-2"></i> 2. User Content & Ownership</h3>
+                <p class="text-secondary">
+                    You retain all ownership rights to your songs, lyrics, and arrangements. However, by uploading them, you grant RehearsalHub a license to display them solely for the purpose of operating the service.
+                </p>
+
+                <hr class="my-5 opacity-10">
+
+                <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-shield-shaded text-danger me-2"></i> 3. User Obligations</h3>
+                <p class="text-secondary">
+                    You agree not to upload harmful content, share your account credentials, or use the service for any illegal activities.
+                </p>
+
+                <hr class="my-5 opacity-10">
+
+                <h3 class="fw-bold mb-4 text-dark"><i class="bi bi-x-octagon-fill text-danger me-2"></i> 4. Termination</h3>
+                <p class="text-secondary">
+                    We reserve the right to suspend or terminate your account if you violate these terms.
+                </p>
+            </div>
+
+            <p class="text-muted small">
+                Last updated: @DateTime.Now.ToString("dd MMMM yyyy") г.
+            </p>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="p-4 rounded-4 bg-dark text-white shadow-lg sticky-top" style="top: 100px; z-index: 1;">
+                <h5 class="fw-bold mb-3 text-danger">Legal Concerns?</h5>
+                <p class="small opacity-75">If you have any questions regarding these Terms, please contact our legal department.</p>
+                <hr class="opacity-25">
+                <div class="d-grid gap-2">
+                    <a href="mailto:legal@rehearsalhub.com" class="btn btn-outline-light rounded-pill btn-sm">
+                        <i class="bi bi-envelope-at me-2"></i> Contact Legal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

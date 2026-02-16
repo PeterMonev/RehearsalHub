@@ -11,4 +11,8 @@
     <ProjectReference Include="..\RehearsalHub.GCommon\RehearsalHub.GCommon.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Home\" />
+  </ItemGroup>
+
 </Project>

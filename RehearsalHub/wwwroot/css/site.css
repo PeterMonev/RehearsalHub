@@ -17,6 +17,147 @@ html {
   min-height: 100%;
 }
 
+
+
 body {
-  margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    margin-top: 40px;
+}
+
+:root {
+    --rock-red: #e63946;
+    --dark-bg: #121212;
+    --glass-bg: rgba(18, 18, 18, 0.95);
+}
+
+.bg-dark-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.fw-black {
+    font-weight: 900;
+}
+
+.tracking-tight {
+    letter-spacing: -1px;
+}
+
+.nav-link-custom {
+    color: rgba(255,255,255,0.7) !important;
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+    .nav-link-custom:hover {
+        color: #fff !important;
+    }
+
+    .nav-link-custom::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 5px;
+        left: 15%;
+        background-color: var(--rock-red);
+        transition: width 0.3s ease;
+    }
+
+    .nav-link-custom:hover::after {
+        width: 70%;
+    }
+
+.login-wrapper .btn-danger {
+    background: linear-gradient(45deg, #e63946, #b91d2c);
+    letter-spacing: 0.5px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+    .login-wrapper .btn-danger:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(230, 57, 70, 0.6);
+        background: linear-gradient(45deg, #ff4d5a, #e63946);
+    }
+
+.login-wrapper .nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.login-wrapper .fw-bold {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+.shadow-danger {
+    box-shadow: 0 0 15px rgba(230, 57, 70, 0.4);
+}
+
+.shadow-danger-sm {
+    box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+}
+
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 15px;
+        margin-top: 15px;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-link-custom::after {
+        display: none;
+    }
+
+    .nav-item {
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        padding: 5px 0;
+    }
+}
+
+.animate.slideIn {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    animation-name: slideIn;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+}
+
+.hover-opacity-100:hover {
+    opacity: 1 !important;
+    transition: 0.3s;
+}
+
+.hover-red:hover {
+    color: #e63946 !important;
+    padding-left: 5px; 
+    transition: 0.3s;
+}
+
+footer h6 {
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+footer {
+    border-top: 3px solid #e63946;
 }
