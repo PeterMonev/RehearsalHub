@@ -1,0 +1,80 @@
+﻿@model SetlistInputModel
+
+@{
+    ViewData["Title"] = "Edit Setlist";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-6">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <div class="card-header bg-warning text-dark p-4 border-0">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-white bg-opacity-50 rounded-circle p-3 me-3">
+                            <i class="fa-solid fa-pen-to-square fa-2x"></i>
+                        </div>
+                        <div>
+                            <h2 class="mb-0 fw-bold">Edit Setlist</h2>
+                            <p class="mb-0 opacity-75">
+                                @if (!string.IsNullOrEmpty(Model.BandName))
+                                {
+                                    <small>@Model.BandName</small>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Edit" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="BandId" />
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label fw-bold text-dark">
+                                <i class="fa-solid fa-heading text-warning me-2"></i>Setlist Name
+                            </label>
+                            <input asp-for="Name"
+                                   class="form-control form-control-lg border-2 rounded-3"
+                                   placeholder="e.g., Summer Tour 2024"
+                                   autofocus />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="RehearsalDate" class="form-label fw-bold text-dark">
+                                <i class="fa-solid fa-calendar text-primary me-2"></i>Rehearsal Date (Optional)
+                            </label>
+                            <input asp-for="RehearsalDate"
+                                   type="datetime-local"
+                                   class="form-control form-control-lg border-2 rounded-3" />
+                            <span asp-validation-for="RehearsalDate" class="text-danger small"></span>
+                            <div class="form-text">
+                                <i class="fa-solid fa-info-circle me-1"></i>
+                                Leave empty to remove the rehearsal date
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-warning btn-lg rounded-pill flex-grow-1 fw-bold shadow text-dark">
+                                <i class="fa-solid fa-check me-2"></i>Save Changes
+                            </button>
+                            <a asp-action="Details" asp-route-id="@Model.Id"
+                               class="btn btn-outline-secondary btn-lg rounded-pill px-4 fw-bold">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

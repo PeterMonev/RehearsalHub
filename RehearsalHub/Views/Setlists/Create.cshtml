@@ -1,0 +1,89 @@
+﻿@model SetlistInputModel
+
+@{
+    ViewData["Title"] = "Create Setlist";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-6">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <div class="card-header bg-success text-white p-4 border-0">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                            <i class="fa-solid fa-compact-disc fa-2x"></i>
+                        </div>
+                        <div>
+                            <h2 class="mb-0 fw-bold">Create New Setlist</h2>
+                            <p class="mb-0 opacity-75">
+                                @if (!string.IsNullOrEmpty(Model.BandName))
+                                {
+                                    <small>for @Model.BandName</small>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="BandId" />
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label fw-bold text-dark">
+                                <i class="fa-solid fa-heading text-success me-2"></i>Setlist Name
+                            </label>
+                            <input asp-for="Name"
+                                   class="form-control form-control-lg border-2 rounded-3"
+                                   placeholder="e.g., Summer Tour 2024, Wedding Set, Covers Night"
+                                   autofocus />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="RehearsalDate" class="form-label fw-bold text-dark">
+                                <i class="fa-solid fa-calendar text-primary me-2"></i>Rehearsal Date (Optional)
+                            </label>
+                            <input asp-for="RehearsalDate"
+                                   type="datetime-local"
+                                   class="form-control form-control-lg border-2 rounded-3" />
+                            <span asp-validation-for="RehearsalDate" class="text-danger small"></span>
+                            <div class="form-text">
+                                <i class="fa-solid fa-info-circle me-1"></i>
+                                Optionally set a target rehearsal or performance date
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info border-0 rounded-3 mb-4">
+                            <div class="d-flex align-items-start">
+                                <i class="fa-solid fa-lightbulb fa-lg me-3 mt-1"></i>
+                                <div>
+                                    <strong>Next Steps:</strong>
+                                    <p class="mb-0 mt-1 small">After creating the setlist, you'll be able to add songs from your band's library.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success btn-lg rounded-pill flex-grow-1 fw-bold shadow">
+                                <i class="fa-solid fa-check me-2"></i>Create Setlist
+                            </button>
+                            <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.BandId"
+                               class="btn btn-outline-secondary btn-lg rounded-pill px-4 fw-bold">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

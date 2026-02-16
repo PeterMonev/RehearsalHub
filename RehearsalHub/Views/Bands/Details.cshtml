@@ -95,15 +95,13 @@
                         <i class="fa-solid fa-compact-disc text-success me-2"></i>Setlists & Repertoire
                     </h2>
                     <div class="d-flex gap-2">
-                        <a asp-controller="Songs" asp-action="Index" asp-route-bandId="@Model.Id" class="btn btn-sm btn-outline-dark rounded-pill px-3 fw-bold">
+                        @* <a asp-controller="Songs" asp-action="Index" asp-route-bandId="@Model.Id" class="btn btn-sm btn-outline-dark rounded-pill px-3 fw-bold">
                             <i class="fa-solid fa-list-music me-1"></i> Library
-                        </a>
-                        @if (Model.IsOwner)
-                        {
+                        </a> *@
+                       
                             <a asp-controller="Setlists" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">
                                 + New List
                             </a>
-                        }
                     </div>
                 </div>
                 <div class="card-body p-4">
@@ -199,12 +197,10 @@
                 </div>
             </div>
 
-            @if (Model.IsOwner)
-            {
+           
                 <a asp-controller="Songs" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-outline-primary w-100 rounded-4 py-3 border-dashed border-2 fw-bold transition-all">
                     <i class="fa-solid fa-plus-circle me-2"></i>Add New Song to Band
                 </a>
-            }
         </div>
     </div>
 </div>

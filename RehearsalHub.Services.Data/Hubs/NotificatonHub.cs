@@ -3,17 +3,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RehearsalHub.Services.Data.Invitation;
 
+/// <summary>
+/// SignalR hub responsible for notifying users about their pending band invitations.
+/// </summary>
 public class NotificationsHub : Hub
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<NotificationsHub> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NotificationsHub"/> class.
+    /// </summary>
+    /// <param name="serviceProvider">The service provider used to resolve scoped services.</param>
+    /// <param name="logger">Logger for recording hub events and errors.</param>
     public NotificationsHub(IServiceProvider serviceProvider, ILogger<NotificationsHub> logger)
     {
         _serviceProvider = serviceProvider;
         _logger = logger;
     }
 
+    /// <summary>
+    /// Called when a client connects to the hub.
+    /// Logs the connection details.
+    /// </summary>
     public override async Task OnConnectedAsync()
     {
         var userId = Context.UserIdentifier;
@@ -22,6 +34,10 @@ public class NotificationsHub : Hub
         await base.OnConnectedAsync();
     }
 
+    /// <summary>
+    /// Sends the initial count of pending invitations to the connected client.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public async Task GetInitialCount()
     {
         var userId = Context.UserIdentifier;
@@ -50,7 +66,11 @@ public class NotificationsHub : Hub
         }
     }
 
-    // ⭐ НОВА ФУНКЦИЯ - Refresh invitations list
+    /// <summary>
+    /// Refreshes the list of pending invitations for the connected client.
+    /// Sends the latest invitations to the caller.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public async Task RefreshInvitations()
     {
         var userId = Context.UserIdentifier;
