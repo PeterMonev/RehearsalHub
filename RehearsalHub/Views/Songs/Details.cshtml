@@ -1,0 +1,127 @@
+﻿@model RehearsalHub.Web.ViewModels.Song.SongDetailsViewModel
+
+@{
+    ViewData["Title"] = "Song Details";
+}
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3">
+                    <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Library</a></li>
+                    <li class="breadcrumb-item active">@Model.Title</li>
+                </ol>
+            </nav>
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center bg-white p-4 rounded-4 shadow-sm border-start border-primary border-5">
+                <div>
+                    <span class="badge bg-primary mb-2">@Model.Genre</span>
+                    <h1 class="display-5 fw-bold mb-1">@Model.Title</h1>
+                    <p class="fs-5 text-muted mb-0"><i class="fa-solid fa-user-astronaut me-2"></i>@Model.Artist</p>
+                </div>
+
+                @if (Model.CanEdit)
+                {
+                    <div class="mt-3 mt-md-0 d-flex gap-2">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-white px-4 rounded-pill fw-bold">
+                            <i class="fa-solid fa-pen-to-square me-2"></i>Edit
+                        </a>
+
+                        <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    class="btn btn-outline-danger px-4 rounded-pill fw-bold btn-delete-confirm"
+                                    data-title="Delete Song?"
+                                    data-message="Are you sure you want to delete '@Model.Title'?">
+                                <i class="fa-solid fa-trash me-2"></i>Delete
+                            </button>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-4"><i class="fa-solid fa-dna text-primary me-2"></i>Musical DNA</h4>
+                    <div class="row g-3">
+                        <div class="col-4">
+                            <div class="p-3 border rounded-3 text-center bg-light">
+                                <small class="text-muted d-block text-uppercase fw-bold">Key</small>
+                                <span class="fs-4 fw-bold text-primary">@Model.MusicalKey</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 border rounded-3 text-center bg-light">
+                                <small class="text-muted d-block text-uppercase fw-bold">Tempo</small>
+                                <span class="fs-4 fw-bold text-dark">@Model.Tempo <small class="fs-6">BPM</small></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 border rounded-3 text-center bg-light">
+                                <small class="text-muted d-block text-uppercase fw-bold">Duration</small>
+                                <span class="fs-4 fw-bold text-dark">@Model.Duration</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-4"><i class="fa-solid fa-list-ul text-primary me-2"></i>Setlists</h4>
+                    @if (Model.IncludedInSetlists.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var setlist in Model.IncludedInSetlists)
+                            {
+                                <div class="list-group-item px-0 py-3 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">@setlist.Name</h6>
+                                        <small class="text-muted">Band: @setlist.BandName</small>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">Not included in any setlists.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm rounded-4 bg-dark text-white p-4 mb-4">
+                <h5 class="fw-bold mb-3 text-warning">Quick Actions</h5>
+                <button class="btn btn-outline-light w-100 text-start py-3 mb-2 rounded-3" onclick="window.print()">
+                    <i class="fa-solid fa-print me-2"></i>Print Sheet
+                </button>
+            </div>
+
+            @if (Model.OwnerBandId.HasValue)
+            {
+                <div class="card border-0 shadow-sm rounded-4 p-4">
+                    <h6 class="text-muted text-uppercase small fw-bold">Managed by</h6>
+                    <h5 class="fw-bold mb-2">@Model.OwnerBandName</h5>
+                    <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.OwnerBandId" class="text-primary text-decoration-none fw-bold">View Band Profile &rarr;</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        transition: all 0.2s ease;
+    }
+</style>

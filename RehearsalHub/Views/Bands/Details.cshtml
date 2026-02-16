@@ -26,13 +26,13 @@
                     @if (Model.IsOwner)
                     {
                         <div class="d-flex justify-content-center justify-content-md-end gap-2">
-                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 btn-banner-action">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-lg rounded-pill px-4 shadow-lg fw-bold border-2">
                                 <i class="fa-solid fa-pen-to-square me-2"></i>Edit
                             </a>
                             <form asp-action="Delete" asp-route-id="@Model.Id" method="post" id="deleteForm-@Model.Id">
                                 @Html.AntiForgeryToken()
                                 <button type="button"
-                                        class="btn btn-danger btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 btn-banner-action"
+                                        class="btn btn-danger btn-lg rounded-pill px-4 shadow-lg fw-bold border-2"
                                         onclick="confirmDelete('deleteForm-@Model.Id', 'All rehearsals and setlists will be deleted!', 'Delete this band forever?')">
                                     <i class="fa-solid fa-trash me-2"></i>Delete
                                 </button>
@@ -51,9 +51,12 @@
                     <h2 class="h4 fw-bold mb-0 text-dark">
                         <i class="fa-solid fa-clock-rotate-left text-primary me-2"></i>Upcoming Sessions
                     </h2>
-                    <a asp-controller="Rehearsals" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-primary rounded-pill px-3 fw-bold">
-                        + Book
-                    </a>
+                    @if (Model.IsOwner)
+                    {
+                        <a asp-controller="Rehearsals" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-primary rounded-pill px-3 fw-bold">
+                            + Book
+                        </a>
+                    }
                 </div>
                 <div class="card-body p-4">
                     @if (!Model.UpcomingRehearsals.Any())
@@ -89,18 +92,26 @@
             <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
                 <div class="card-header bg-white border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
                     <h2 class="h4 fw-bold mb-0 text-dark">
-                        <i class="fa-solid fa-compact-disc text-success me-2"></i>Setlists
+                        <i class="fa-solid fa-compact-disc text-success me-2"></i>Setlists & Repertoire
                     </h2>
-                    <a asp-controller="Setlists" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">
-                        + New List
-                    </a>
+                    <div class="d-flex gap-2">
+                        <a asp-controller="Songs" asp-action="Index" asp-route-bandId="@Model.Id" class="btn btn-sm btn-outline-dark rounded-pill px-3 fw-bold">
+                            <i class="fa-solid fa-list-music me-1"></i> Library
+                        </a>
+                        @if (Model.IsOwner)
+                        {
+                            <a asp-controller="Setlists" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">
+                                + New List
+                            </a>
+                        }
+                    </div>
                 </div>
                 <div class="card-body p-4">
                     <div class="row g-3">
                         @if (Model.Setlists == null || !Model.Setlists.Any())
                         {
                             <div class="col-12 text-center py-4 bg-light rounded-4 border border-dashed">
-                                <p class="text-muted mb-0">No setlists created.</p>
+                                <p class="text-muted mb-0">No setlists created yet.</p>
                             </div>
                         }
                         else
@@ -128,7 +139,7 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 bg-white p-4">
+            <div class="card border-0 shadow-sm rounded-4 bg-white p-4 mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
                     <div>
                         <h3 class="h5 fw-bold mb-0 text-dark">Lineup</h3>
@@ -147,7 +158,7 @@
                     @foreach (var member in Model.Members)
                     {
                         <div class="p-2 rounded-4 d-flex align-items-center justify-content-between hover-bg transition-all border border-transparent">
-                            <a asp-controller="Users" asp-action="Profile" asp-route-id="@member.UserId" class="text-decoration-none d-flex align-items-center flex-grow-1">
+                            <div class="d-flex align-items-center flex-grow-1">
                                 <div class="position-relative">
                                     <img src="@(string.IsNullOrEmpty(member.AvatarUrl) ? $"https://ui-avatars.com/api/?name={member.FullName}&background=random" : member.AvatarUrl)"
                                          class="rounded-circle border border-2 shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
@@ -162,11 +173,13 @@
                                     <p class="mb-0 fw-bold text-dark lh-sm">@member.FullName</p>
                                     <small class="text-primary fw-medium">@member.Instrument</small>
                                 </div>
-                            </a>
+                            </div>
 
                             @{
-                                bool isMe = User.FindFirst(ClaimTypes.NameIdentifier)?.Value == member.UserId;
+                                var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                                bool isMe = currentUserId == member.UserId;
                             }
+
                             @if (!member.IsLeader && (Model.IsOwner || isMe))
                             {
                                 <form asp-controller="Bands" asp-action="RemoveMember" method="post" id="removeMemberForm-@member.UserId">
@@ -185,6 +198,13 @@
                     }
                 </div>
             </div>
+
+            @if (Model.IsOwner)
+            {
+                <a asp-controller="Songs" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-outline-primary w-100 rounded-4 py-3 border-dashed border-2 fw-bold transition-all">
+                    <i class="fa-solid fa-plus-circle me-2"></i>Add New Song to Band
+                </a>
+            }
         </div>
     </div>
 </div>
@@ -230,38 +250,19 @@
 </div>
 
 <style>
-    .btn-banner-action {
-        position: relative;
-        z-index: 50;
+    .border-dashed {
+        border-style: dashed !important;
     }
-
-    .invite-btn {
-        border: none;
-        letter-spacing: 0.5px;
-        background: linear-gradient(45deg, #0d6efd, #0b5ed7);
-    }
-
-        .invite-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3) !important;
-            background: linear-gradient(45deg, #0b5ed7, #0a58ca);
-        }
 
     .item-card:hover .transition-all {
         transform: translateY(-3px);
         box-shadow: 0 8px 15px rgba(0,0,0,0.1) !important;
-        background-color: #fff !important;
     }
 
-    .hover-bg {
-        border: 1px solid transparent;
+    .hover-bg:hover {
+        background-color: #f8f9fa;
+        transform: translateX(5px);
     }
-
-        .hover-bg:hover {
-            background-color: #f8f9fa;
-            border-color: #e9ecef;
-            transform: translateX(5px);
-        }
 
     .transition-all {
         transition: all 0.25s ease-in-out;
@@ -271,7 +272,7 @@
         border-bottom: 4px solid #198754 !important;
     }
 
-    a.text-decoration-none {
-        color: inherit;
+    .invite-btn:hover {
+        transform: scale(1.05);
     }
 </style>

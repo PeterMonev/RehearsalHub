@@ -1,4 +1,5 @@
-﻿using RehearsalHub.Data.Models.Enums;
+﻿using Microsoft.AspNetCore.Identity;
+using RehearsalHub.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static RehearsalHub.Common.DataValidation.Song;
@@ -38,17 +39,21 @@ namespace RehearsalHub.Data.Models
         public MusicalKey MusicalKey { get; set; }
 
         [Range(0, 320, ErrorMessage = "Tempo must be between 00 and 320 BPM")]
-        public int? Tempo {  get; set; }
+        public int? Tempo { get; set; }
 
         [Required]
-        public bool IsPrivate { get; set;}
+        public bool IsPrivate { get; set; }
 
         public int? OwnerBandId { get; set; }
 
         [ForeignKey(nameof(OwnerBandId))]
-        
+
         public Band? OwnerBand { get; set; }
 
-        public virtual ICollection<SetlistSong> SetlistSongs { get; set; } 
+        public virtual ICollection<SetlistSong> SetlistSongs { get; set; }
+        public string CreatorId { get; set; } = null!;
+
+        [ForeignKey(nameof(CreatorId))]
+        public virtual ApplicationUser Creator { get; set; } = null!; 
     }
 }

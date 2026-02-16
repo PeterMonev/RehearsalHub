@@ -10,7 +10,7 @@ namespace RehearsalHub.Data.Configuration
     {
         private readonly IEnumerable<BandMember> BandMembers = new List<BandMember>
         {
-            new BandMember { Id = 1, BandId = 1, UserId = "seed-user-1", Role = BandRole.Owner, IsConfirmed = true, Instrument = InstrumentType.Guitar, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
+            new BandMember { Id = 1, BandId = 1, UserId = "de305d54-75b4-4311-81d9-7ed39190224b", Role = BandRole.Owner, IsConfirmed = true, Instrument = InstrumentType.Guitar, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new BandMember { Id = 2, BandId = 1, UserId = "seed-user-2", Role = BandRole.Member, IsConfirmed = true, Instrument = InstrumentType.Bass, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new BandMember { Id = 3, BandId = 2, UserId = "seed-user-2", Role = BandRole.Owner, IsConfirmed = true, Instrument = InstrumentType.Guitar, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new BandMember { Id = 4, BandId = 2, UserId = "seed-user-3", Role = BandRole.Member, IsConfirmed = true, Instrument = InstrumentType.Drums, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
@@ -20,7 +20,7 @@ namespace RehearsalHub.Data.Configuration
             new BandMember { Id = 8, BandId = 4, UserId = "seed-user-5", Role = BandRole.Member, IsConfirmed = true, Instrument = InstrumentType.Bass, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new BandMember { Id = 9, BandId = 5, UserId = "seed-user-5", Role = BandRole.Owner, IsConfirmed = true, Instrument = InstrumentType.Vocals, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new BandMember { Id = 10, BandId = 5, UserId = "seed-user-6", Role = BandRole.Member, IsConfirmed = true, Instrument = InstrumentType.Drums, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
-            new BandMember { Id = 11, BandId = 6, UserId = "seed-user-6", Role = BandRole.Owner, IsConfirmed = true, Instrument = InstrumentType.Keyboard, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
+            new BandMember { Id = 11, BandId = 6, UserId = "de305d54-75b4-4311-81d9-7ed39190224b", Role = BandRole.Owner, IsConfirmed = true, Instrument = InstrumentType.Keyboard, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new BandMember { Id = 12, BandId = 6, UserId = "seed-user-7", Role = BandRole.Member, IsConfirmed = true, Instrument = InstrumentType.Guitar, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new BandMember { Id = 13, BandId = 7, UserId = "seed-user-7", Role = BandRole.Owner, IsConfirmed = true, Instrument = InstrumentType.Synthesizer, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new BandMember { Id = 14, BandId = 7, UserId = "seed-user-8", Role = BandRole.Member, IsConfirmed = true, Instrument = InstrumentType.Vocals, AvatarUrl = GetRandomMemberImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },

@@ -12,6 +12,19 @@ namespace RehearsalHub.Data.Configuration
 
         private readonly IEnumerable<ApplicationUser> Users = new List<ApplicationUser>()
         {
+                 new ApplicationUser
+                {
+                    Id = "de305d54-75b4-4311-81d9-7ed39190224b",
+                    UserName = "admin@rehearsalhub.com",
+                    NormalizedUserName = "ADMIN@REHEARSALHUB.COM",
+                    Email = "admin@rehearsalhub.com",
+                    NormalizedEmail = "ADMIN@REHEARSALHUB.COM",
+                    EmailConfirmed = true,
+                    SecurityStamp = "939c0540-025c-43f1-9b63-938804008272",
+                    PasswordHash = _hasher.HashPassword(null!, "Admin123!"),
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false
+                },
                 new ApplicationUser
                 {
                     Id = "seed-user-1",

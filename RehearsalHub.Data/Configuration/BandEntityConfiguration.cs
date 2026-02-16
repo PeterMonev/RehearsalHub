@@ -10,7 +10,7 @@ namespace RehearsalHub.Data.Configuration
     {
         private readonly IEnumerable<Band> Bands = new List<Band>
         {
-            new Band { Id = 1, Name = "RockStars", Genre = MusicGenre.Rock, OwnerId = "seed-user-1", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
+            new Band { Id = 1, Name = "RockStars", Genre = MusicGenre.Rock, OwnerId = "de305d54-75b4-4311-81d9-7ed39190224b", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new Band { Id = 2, Name = "MetalHeads", Genre = MusicGenre.Metal, OwnerId = "seed-user-2", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new Band { Id = 3, Name = "Jazz Collective", Genre = MusicGenre.Jazz, OwnerId = "seed-user-3", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new Band { Id = 4, Name = "Blues Brothers", Genre = MusicGenre.Blues, OwnerId = "seed-user-4", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
@@ -20,7 +20,7 @@ namespace RehearsalHub.Data.Configuration
             new Band { Id = 8, Name = "Pop Squad", Genre = MusicGenre.Pop, OwnerId = "seed-user-8", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new Band { Id = 9, Name = "Heavy Unit", Genre = MusicGenre.Metal, OwnerId = "seed-user-9", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new Band { Id = 10, Name = "Alternative Vibes", Genre = MusicGenre.Rock, OwnerId = "seed-user-10", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
-            new Band { Id = 11, Name = "Soul Train", Genre = MusicGenre.Funk, OwnerId = "seed-user-1", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
+            new Band { Id = 11, Name = "Soul Train", Genre = MusicGenre.Funk, OwnerId = "de305d54-75b4-4311-81d9-7ed39190224b", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new Band { Id = 12, Name = "Night Jam", Genre = MusicGenre.Jazz, OwnerId = "seed-user-2", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new Band { Id = 13, Name = "Garage Noise", Genre = MusicGenre.Rock, OwnerId = "seed-user-3", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
             new Band { Id = 14, Name = "Dark Riffs", Genre = MusicGenre.Metal, OwnerId = "seed-user-4", ImageUrl = GetRandomBandImage(), CreatedOn = DateTime.UtcNow, IsDeleted = false },
