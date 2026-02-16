@@ -1,0 +1,68 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<div class="manage-nav-wrapper">
+    <ul class="nav nav-pills flex-column gap-2" id="manage-nav">
+        <li class="nav-item">
+            <a class="nav-link rounded-pill fw-bold py-2 px-4 @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">
+                <i class="fa-solid fa-address-card me-2"></i> Profile
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link rounded-pill fw-bold py-2 px-4 @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">
+                <i class="fa-solid fa-envelope me-2"></i> Email
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link rounded-pill fw-bold py-2 px-4 @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">
+                <i class="fa-solid fa-lock me-2"></i> Password
+            </a>
+        </li>
+        @if (hasExternalLogins)
+        {
+            <li id="external-logins" class="nav-item">
+                <a id="external-login" class="nav-link rounded-pill fw-bold py-2 px-4 @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">
+                    <i class="fa-solid fa-share-nodes me-2"></i> External logins
+                </a>
+            </li>
+        }
+        <li class="nav-item">
+            <a class="nav-link rounded-pill fw-bold py-2 px-4 @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">
+                <i class="fa-solid fa-shield-halved me-2"></i> 2FA Security
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link rounded-pill fw-bold py-2 px-4 @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">
+                <i class="fa-solid fa-database me-2"></i> Personal Data
+            </a>
+        </li>
+    </ul>
+</div>
+
+<style>
+    #manage-nav .nav-link {
+        color: #495057;
+        background-color: transparent;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid transparent;
+    }
+
+        #manage-nav .nav-link:hover {
+            background-color: rgba(230, 57, 70, 0.05);
+            color: #e63946;
+            transform: translateX(5px);
+        }
+
+        #manage-nav .nav-link.active {
+            background-color: #e63946 !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+        }
+
+    .manage-nav-wrapper {
+        position: sticky;
+        top: 20px;
+    }
+</style>
