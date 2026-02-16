@@ -1,0 +1,292 @@
+﻿@model AddSongToSetlistViewModel
+
+@{
+    ViewData["Title"] = $"Add Songs to {Model.SetlistName}";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4 bg-success bg-opacity-10">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-success rounded-circle p-3 me-3 text-white">
+                            <i class="fa-solid fa-plus-circle fa-2x"></i>
+                        </div>
+                        <div>
+                            <h2 class="mb-0 fw-bold text-dark">Add Songs to Setlist</h2>
+                            <p class="mb-0 text-muted">@Model.SetlistName</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="AddSongs" asp-route-id="@Model.SetlistId" method="post">
+                @Html.AntiForgeryToken()
+
+                @if (!Model.AvailableSongs.Any())
+                {
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body text-center py-5">
+                            <i class="fa-solid fa-music fa-4x text-muted opacity-25 mb-4"></i>
+                            <h4 class="text-dark mb-3">No Songs Available</h4>
+                            <p class="text-muted mb-4">
+                                You need to create songs first before adding them to a setlist.
+                            </p>
+                            <a asp-controller="Songs" asp-action="Create" asp-route-bandId="@Model.BandId"
+                               class="btn btn-success btn-lg rounded-pill px-5 fw-bold">
+                                <i class="fa-solid fa-plus me-2"></i>Create New Song
+                            </a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <div class="mb-3">
+                                <div class="input-group input-group-lg shadow-sm">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="fa-solid fa-search text-primary"></i>
+                                    </span>
+                                    <input type="text"
+                                           id="addSongsSearch"
+                                           class="form-control border-start-0 border-end-0"
+                                           placeholder="Search songs by title or artist...">
+                                    <button type="button" class="btn btn-outline-secondary" id="addSongsClearSearch">
+                                        <i class="fa-solid fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="me-2 text-muted small fw-semibold">
+                                    <i class="fa-solid fa-filter me-1"></i>FILTERS:
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label small text-muted fw-semibold mb-2">
+                                        <i class="fa-solid fa-guitar me-1"></i>Genre
+                                    </label>
+                                    <div class="btn-group w-100 shadow-sm" role="group">
+                                        <button type="button" class="btn btn-primary add-songs-filter active" data-filter="all" data-type="genre">
+                                            All
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary add-songs-filter" data-filter="Rock" data-type="genre">
+                                            Rock
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary add-songs-filter" data-filter="Pop" data-type="genre">
+                                            Pop
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary add-songs-filter" data-filter="Jazz" data-type="genre">
+                                            Jazz
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label small text-muted fw-semibold mb-2">
+                                        <i class="fa-solid fa-gauge-high me-1"></i>Tempo
+                                    </label>
+                                    <div class="btn-group w-100 shadow-sm" role="group">
+                                        <button type="button" class="btn btn-success add-songs-filter active" data-filter="all" data-type="tempo">
+                                            All
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success add-songs-filter" data-filter="slow" data-type="tempo">
+                                            <i class="fa-solid fa-turtle"></i> Slow
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success add-songs-filter" data-filter="medium" data-type="tempo">
+                                            <i class="fa-solid fa-walking"></i> Med
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success add-songs-filter" data-filter="fast" data-type="tempo">
+                                            <i class="fa-solid fa-fire"></i> Fast
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label small text-muted fw-semibold mb-2">
+                                        <i class="fa-solid fa-eye me-1"></i>Show
+                                    </label>
+                                    <div class="btn-group w-100 shadow-sm" role="group">
+                                        <button type="button" class="btn btn-secondary add-songs-filter active" data-filter="available" data-type="show">
+                                            Available
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary add-songs-filter" data-filter="added" data-type="show">
+                                            Added
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary add-songs-filter" data-filter="all" data-type="show">
+                                            All
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="addSongsActiveFilters" class="mt-3 pt-3 border-top d-none">
+                                <div class="d-flex flex-wrap align-items-center gap-2">
+                                    <span class="badge bg-light text-dark border px-3 py-2">
+                                        <i class="fa-solid fa-filter me-1"></i>Active Filters:
+                                    </span>
+                                    <div id="addSongsFilterBadges"></div>
+                                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill ms-auto" id="addSongsClearAll">
+                                        <i class="fa-solid fa-times me-1"></i>Clear All
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm rounded-4 mb-3">
+                        <div class="card-body p-3">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div class="d-flex align-items-center gap-3">
+                                    <h5 class="mb-0 fw-bold text-dark">
+                                        <i class="fa-solid fa-list-music me-2 text-success"></i>
+                                        <span id="addSongsCount">@Model.AvailableSongs.Count</span> Songs
+                                    </h5>
+                                    <span id="addSongsSelected" class="badge bg-success bg-opacity-25 text-success px-3 py-2">0 selected</span>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill" id="addSongsSelectAll">
+                                    <i class="fa-solid fa-check-double me-1"></i>Select All Visible
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <div id="addSongsContainer" class="row g-3">
+                                @foreach (var song in Model.AvailableSongs)
+                                {
+                                    <div class="col-12 col-md-6 add-song-card"
+                                         data-title="@song.Title.ToLower()"
+                                         data-artist="@song.Artist.ToLower()"
+                                         data-genre="@song.Genre"
+                                         data-tempo="@song.TempoCategory"
+                                         data-added="@song.IsAlreadyInSetlist.ToString().ToLower()">
+                                        <div class="card border-2 rounded-3 h-100 transition-all song-card @(song.IsAlreadyInSetlist ? "border-success bg-success bg-opacity-10" : "")">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex align-items-start">
+                                                    @if (!song.IsAlreadyInSetlist)
+                                                    {
+                                                        <div class="form-check me-3">
+                                                            <input class="form-check-input add-song-check"
+                                                                   type="checkbox"
+                                                                   name="selectedSongIds"
+                                                                   value="@song.Id"
+                                                                   id="song-@song.Id"
+                                                                   style="width: 24px; height: 24px;">
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="me-3">
+                                                            <i class="fa-solid fa-check-circle fa-2x text-success"></i>
+                                                        </div>
+                                                    }
+
+                                                    <label for="song-@song.Id" class="flex-grow-1 cursor-pointer">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            <div class="bg-success bg-opacity-10 p-2 rounded-3 me-2 text-success">
+                                                                <i class="fa-solid fa-music"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h6 class="mb-0 fw-bold text-dark">@song.Title</h6>
+                                                                <small class="text-muted">@song.Artist</small>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            <span class="badge bg-info bg-opacity-10 text-info">@song.Genre</span>
+                                                            @if (song.Tempo.HasValue)
+                                                            {
+                                                                <span class="badge bg-light text-dark border">@song.Tempo BPM</span>
+                                                            }
+                                                            <span class="badge bg-light text-muted border">
+                                                                <i class="fa-regular fa-clock me-1"></i>@song.Duration
+                                                            </span>
+                                                            @if (song.IsAlreadyInSetlist)
+                                                            {
+                                                                <span class="badge bg-success text-white">
+                                                                    <i class="fa-solid fa-check me-1"></i>Already Added
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div id="addSongsNoResults" class="text-center py-5 d-none">
+                                <i class="fa-solid fa-search fa-3x text-muted opacity-25 mb-3"></i>
+                                <p class="text-muted mb-0">No songs found matching your filters.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                <a asp-action="Details" asp-route-id="@Model.SetlistId"
+                                   class="btn btn-outline-secondary btn-lg rounded-pill px-4 fw-bold">
+                                    <i class="fa-solid fa-arrow-left me-2"></i>Cancel
+                                </a>
+                                <div class="d-flex align-items-center gap-3">
+                                    <button type="submit"
+                                            class="btn btn-success btn-lg rounded-pill px-5 fw-bold shadow">
+                                        <i class="fa-solid fa-plus-circle me-2"></i>Add <span id="addSongsSubmitCount">0</span> Selected
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .song-card {
+        transition: all 0.2s ease;
+    }
+
+        .song-card:hover:not(.bg-success) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-color: #198754 !important;
+        }
+
+    .form-check-input:checked {
+        background-color: #198754;
+        border-color: #198754;
+    }
+
+    .transition-all {
+        transition: all 0.2s ease;
+    }
+
+    .add-songs-filter {
+        transition: all 0.2s ease;
+    }
+
+        .add-songs-filter.active {
+            transform: scale(1.05);
+        }
+
+    .badge {
+        font-weight: 500;
+        letter-spacing: 0.3px;
+    }
+</style>
+
