@@ -54,6 +54,14 @@ namespace RehearsalHub.Data
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired();
 
+            builder.Entity<Song>(entity =>
+            {
+                entity.HasOne(s => s.Creator)
+                      .WithMany() 
+                      .HasForeignKey(s => s.CreatorId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
             builder.Entity<Notification>()
                 .HasQueryFilter(n => !n.Recipient.IsDeleted);
 

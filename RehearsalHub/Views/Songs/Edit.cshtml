@@ -1,0 +1,109 @@
+﻿@using RehearsalHub.Data.Models.Enums
+@model SongInputModel
+
+@{
+    ViewData["Title"] = "Edit Song";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="text-center mb-5">
+                <div class="bg-warning bg-opacity-10 d-inline-block p-4 rounded-circle mb-3">
+                    <i class="fa-solid fa-pen-to-square fa-3x text-warning"></i>
+                </div>
+                <h1 class="fw-bold">Edit Track</h1>
+                <p class="text-muted">Fine-tune the details for <span class="fw-bold text-dark">@Model.Title</span>.</p>
+            </div>
+
+            <form asp-action="Edit" method="post" class="needs-validation">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="BandId" />
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100 rounded-4">
+                            <div class="card-header bg-dark text-white py-3 rounded-top-4">
+                                <h5 class="mb-0"><i class="fa-solid fa-file-invoice me-2"></i>Basic Info</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="mb-3">
+                                    <label asp-for="Title" class="form-label fw-bold"></label>
+                                    <input asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Artist" class="form-label fw-bold"></label>
+                                    <input asp-for="Artist" class="form-control" />
+                                    <span asp-validation-for="Artist" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Duration" class="form-label fw-bold"></label>
+                                    <input asp-for="Duration" class="form-control" placeholder="00:00" />
+                                    <span asp-validation-for="Duration" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-0">
+                                    <label asp-for="Genre" class="form-label fw-bold"></label>
+                                    <select asp-for="Genre" class="form-select" asp-items="Html.GetEnumSelectList<MusicGenre>()">
+                                        <option value="">-- Select Genre --</option>
+                                    </select>
+                                    <span asp-validation-for="Genre" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100 rounded-4">
+                            <div class="card-header bg-dark text-white py-3 rounded-top-4">
+                                <h5 class="mb-0"><i class="fa-solid fa-sliders me-2"></i>Musical Details</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="mb-3">
+                                    <label asp-for="MusicalKey" class="form-label fw-bold">Musical Key</label>
+                                    <select asp-for="MusicalKey" class="form-select" asp-items="Html.GetEnumSelectList<MusicalKey>()">
+                                        <option value="">-- Select Key --</option>
+                                    </select>
+                                    <span asp-validation-for="MusicalKey" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Tempo" class="form-label fw-bold">Tempo (BPM)</label>
+                                    <input asp-for="Tempo" type="number" class="form-control" />
+                                    <span asp-validation-for="Tempo" class="text-danger small"></span>
+                                </div>
+
+                                <div class="p-3 bg-light rounded-3 border">
+                                    <div class="form-check form-switch mb-0">
+                                        <input asp-for="IsPrivate" class="form-check-input" type="checkbox">
+                                        <label asp-for="IsPrivate" class="form-check-label fw-bold">Private Song</label>
+                                    </div>
+                                    <small class="text-muted d-block mt-1">
+                                        If checked, only members of the selected band can see this song.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-5 p-4 bg-white rounded-4 shadow-sm">
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary px-4 rounded-pill">
+                        <i class="fa-solid fa-arrow-left me-2"></i>Cancel
+                    </a>
+                    <button type="submit" class="btn btn-warning btn-lg px-5 rounded-pill shadow text-white">
+                        <i class="fa-solid fa-save me-2"></i>Update Song
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

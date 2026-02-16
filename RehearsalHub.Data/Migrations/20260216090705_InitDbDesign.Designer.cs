@@ -12,8 +12,8 @@ using RehearsalHub.Data;
 namespace RehearsalHub.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260215180906_InintDbDesign")]
-    partial class InintDbDesign
+    [Migration("20260216090705_InitDbDesign")]
+    partial class InitDbDesign
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -248,17 +248,36 @@ namespace RehearsalHub.Data.Migrations
                     b.HasData(
                         new
                         {
+                            Id = "de305d54-75b4-4311-81d9-7ed39190224b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "45c9cace-138e-46d1-9195-28e6f7593f3a",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 3, 994, DateTimeKind.Utc).AddTicks(8447),
+                            Email = "admin@rehearsalhub.com",
+                            EmailConfirmed = true,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@REHEARSALHUB.COM",
+                            NormalizedUserName = "ADMIN@REHEARSALHUB.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDyfIfPwTSWbl9qKVvSz5+sT0hFZaVAMl6bayawA7Tk/XaI9rz9DAL+x+Moanw6i8w==",
+                            PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "/images/defaults/users/user1.png",
+                            SecurityStamp = "939c0540-025c-43f1-9b63-938804008272",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@rehearsalhub.com"
+                        },
+                        new
+                        {
                             Id = "seed-user-1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "231851ae-f302-4857-8cfd-fc91fba49cc1",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 5, 661, DateTimeKind.Utc).AddTicks(8246),
+                            ConcurrencyStamp = "8c55eb00-81cf-4548-9284-99af889754a9",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 79, DateTimeKind.Utc).AddTicks(2728),
                             Email = "rockstar@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ROCKSTAR@TEST.COM",
                             NormalizedUserName = "ROCKSTAR@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC1A1rtgNmzFRdIsHz4pqUB3rHZYflkyAvqE9LQ3AjEidD1musF6eXXoN0LH4tCFEg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJUpkYsSgFaX6yCpz1VxA4U/zLzEHQAdWJ0FFFcT17LkzNcWVcWwvScW+TB6+A1zMQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/images/defaults/users/user2.png",
                             SecurityStamp = "59846067-8896-4874-9160-5582f3c306d1",
@@ -269,17 +288,17 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5eb0714c-4abf-4246-b2e1-941927510eac",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 5, 740, DateTimeKind.Utc).AddTicks(9826),
+                            ConcurrencyStamp = "c873e88c-d596-4ac9-a815-b63840618dc1",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 160, DateTimeKind.Utc).AddTicks(1292),
                             Email = "metalhead@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "METALHEAD@TEST.COM",
                             NormalizedUserName = "METALHEAD@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL+c1xI+rUizvXtZYqQwNTcwodAGm/0sgspluoBp0HuD9D3oWuhZtoJh/E/7Dl7+nw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGhUjHGjCUDUp8bEexru0dBBQL+D74IW3UkLHcBWasF3a2AzD6FdqIIzPbmLHlCurA==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "/images/defaults/users/user3.png",
+                            ProfilePictureUrl = "/images/defaults/users/user1.png",
                             SecurityStamp = "f4c9448a-6f4e-4f0e-9180-2a86d2358899",
                             TwoFactorEnabled = false,
                             UserName = "metalhead@test.com"
@@ -288,15 +307,15 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cac5fecc-a9e2-459b-8acb-34b7a52511c7",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 5, 819, DateTimeKind.Utc).AddTicks(9167),
+                            ConcurrencyStamp = "7ebae486-31ea-4adf-be82-cad68f2cc2af",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 238, DateTimeKind.Utc).AddTicks(8367),
                             Email = "jazzman@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "JAZZMAN@TEST.COM",
                             NormalizedUserName = "JAZZMAN@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM/E6qnI3jIa0racHNbS7eo/bLyzSYuUpxHIif8XquHQx+NOKClwg5ovilVeJlAkgQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP5AhvrkPISguGfbLTy/Jofv8qhFqeWKDXk/b7Rfc8IBK0zw/+6d6yE6xbgwgEfQkQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/images/defaults/users/user1.png",
                             SecurityStamp = "788019a3-5c56-4b8c-8f96-339832679f22",
@@ -307,18 +326,18 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5131fb65-4898-4542-afd3-9217ca1b258b",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 5, 897, DateTimeKind.Utc).AddTicks(3082),
+                            ConcurrencyStamp = "dc1e8bf9-3f25-406d-853f-16e38dcec535",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 322, DateTimeKind.Utc).AddTicks(4076),
                             Email = "bluesman@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BLUESMAN@TEST.COM",
                             NormalizedUserName = "BLUESMAN@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFHH/fCVPdbRhzdsTz2V/UehkJGL9xMHdZ5lc9G0gZ6wYYgTa12f5cvBVEbr607DxA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC9EN+2ghVo0kT0ii+ncXkBZRQZYppokutdnUBXUcI0XznKZ3wLS5wsnMgQ2XVJjPw==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "/images/defaults/users/user3.png",
-                            SecurityStamp = "1b4dd8f5-039b-4bee-9bb3-d4b3ac4ee8d9",
+                            ProfilePictureUrl = "/images/defaults/users/user2.png",
+                            SecurityStamp = "6a264f32-d15e-4a88-95ad-7c02c14bdd57",
                             TwoFactorEnabled = false,
                             UserName = "bluesman@test.com"
                         },
@@ -326,18 +345,18 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "564d29c6-8622-4a0d-b023-ea2713dafa1e",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 4, DateTimeKind.Utc).AddTicks(4364),
+                            ConcurrencyStamp = "89ba3aad-9217-4c1f-8f02-069e468ecd10",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 404, DateTimeKind.Utc).AddTicks(3483),
                             Email = "funky@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "FUNKY@TEST.COM",
                             NormalizedUserName = "FUNKY@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEK7a3fTl5P3Ad/bB4MDQ/HvlsmUhXexOnsQE/hKbtK9XwEq/YDwXsbpGxk3ukCA1uw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAsPRzutkY5jNyPNvvbMNmMPo39DQygp8bb5CUqGGD0H3BHu0Z1v1ws8A4bKz0a3bg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/images/defaults/users/user1.png",
-                            SecurityStamp = "fe43dbac-6c43-463e-a3ac-77df3f6d63a2",
+                            SecurityStamp = "337685f6-ebe2-4675-9154-dfaf5041d1db",
                             TwoFactorEnabled = false,
                             UserName = "funky@test.com"
                         },
@@ -345,18 +364,18 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cde72d96-e4da-4b82-bb14-1a924eb5de4d",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 112, DateTimeKind.Utc).AddTicks(2471),
+                            ConcurrencyStamp = "4908ae1b-5b5c-4429-a964-71f2eb167b26",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 491, DateTimeKind.Utc).AddTicks(205),
                             Email = "hiphop@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "HIPHOP@TEST.COM",
                             NormalizedUserName = "HIPHOP@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAJcrnqhLiN4kTFGz+eD7hzgvoMRzD9QTDNn6M5si9mt43V7rIXCabePj2UQlu07Dw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDMCJQXE3734dSho8RGkOKAit8nzf37iGlCySaitnZfraqZ9iFAuU2Z4mpsiRN3GUw==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "/images/defaults/users/user1.png",
-                            SecurityStamp = "f90bbb4c-2f2f-48af-a585-4fb5ef730215",
+                            ProfilePictureUrl = "/images/defaults/users/user2.png",
+                            SecurityStamp = "45d1e391-12f0-4b6d-a7dd-bb133359ebfb",
                             TwoFactorEnabled = false,
                             UserName = "hiphop@test.com"
                         },
@@ -364,18 +383,18 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b1c18e10-e527-4dc0-a893-d51c597c3dde",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 214, DateTimeKind.Utc).AddTicks(8997),
+                            ConcurrencyStamp = "2c626eb3-8711-470d-bca8-155443cdbb26",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 574, DateTimeKind.Utc).AddTicks(8494),
                             Email = "electro@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ELECTRO@TEST.COM",
                             NormalizedUserName = "ELECTRO@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGXoNFayZMTTsWB6ekikssa0Zdil6Zljq/9hZKwaACBCIz5Y7pUrtAaNGT5FOF6uWA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPL3e/jdWkOSJ3AYStn39Y5zCfX8tAgjeAg0QTq4BbKUIE7QwZCzUOTGektqdw9n+g==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "/images/defaults/users/user1.png",
-                            SecurityStamp = "a1e0329b-a9f0-4825-b52d-c3b36a379bbb",
+                            ProfilePictureUrl = "/images/defaults/users/user2.png",
+                            SecurityStamp = "ff81f31c-fafb-4d93-9afd-103045c3b709",
                             TwoFactorEnabled = false,
                             UserName = "electro@test.com"
                         },
@@ -383,18 +402,18 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0f307659-115d-4cc8-b12c-5fdc9928eef7",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 292, DateTimeKind.Utc).AddTicks(4009),
+                            ConcurrencyStamp = "acb396a4-8eaa-4944-89a4-4cde44be73b3",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 654, DateTimeKind.Utc).AddTicks(5270),
                             Email = "popstar@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "POPSTAR@TEST.COM",
                             NormalizedUserName = "POPSTAR@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAED93nzzl/SKRaF4J8m5zVc3HZAbOWjlsi+/X1eaXpu/JtcmW0if9Sqy6x2ZzJsxjjA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENm0VngeRGLSgx+qBOvTdWkkKRZH1i2GoIRWDdVrI2UyNXnWOesh8TwfZFnhagQaWQ==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "/images/defaults/users/user3.png",
-                            SecurityStamp = "2c3becbc-327f-42bf-b6b2-46a7a47ceaa8",
+                            ProfilePictureUrl = "/images/defaults/users/user2.png",
+                            SecurityStamp = "2d5cf7e4-90ac-403f-ae3a-b81b0ed8a0a3",
                             TwoFactorEnabled = false,
                             UserName = "popstar@test.com"
                         },
@@ -402,18 +421,18 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8a95828c-0a1f-4d4b-afd9-acfe76433acc",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 369, DateTimeKind.Utc).AddTicks(3884),
+                            ConcurrencyStamp = "2b3632a2-8b42-42d7-a6c1-167485417302",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 738, DateTimeKind.Utc).AddTicks(2605),
                             Email = "soul@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SOUL@TEST.COM",
                             NormalizedUserName = "SOUL@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAggqoEDSNGcYBWycpKf1S4UGrXZXon6PqzK32ZrMzH0xqXGcg+U4B3x4AMsiBcn+A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK08i2H4QrRh4JHcQaF2bDpZT2mpS8mDgOqf3A+auynIQvCY6NrTjqLzwbqeAqT6fw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/images/defaults/users/user3.png",
-                            SecurityStamp = "9da7f6ed-c169-4526-8eff-4185a8094bf4",
+                            SecurityStamp = "05d51a4a-95c5-4ded-8b85-2a08f660e9ba",
                             TwoFactorEnabled = false,
                             UserName = "soul@test.com"
                         },
@@ -421,18 +440,18 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = "seed-user-10",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e90e8660-f125-44bd-acc2-b798f011082c",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 444, DateTimeKind.Utc).AddTicks(7129),
+                            ConcurrencyStamp = "b59cd028-e930-434e-8fdb-50b8b4691064",
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(233),
                             Email = "garage@test.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GARAGE@TEST.COM",
                             NormalizedUserName = "GARAGE@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECUJfjRnOKpCq2Vde5SNy7aWs2tsDZYwkInZmw/dG2j1sVW8QqBQAtzhBoQzxrMpzg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK/5y46IX35lO9+XMSE4eJP5XZnx+UEwmGgpustt89ebIhaWNJxugDKfHcxUKPt0Uw==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "/images/defaults/users/user1.png",
-                            SecurityStamp = "8c0e929b-e32d-44af-8c04-897ae18e92f7",
+                            ProfilePictureUrl = "/images/defaults/users/user2.png",
+                            SecurityStamp = "b05826c1-3a95-474c-aaff-421462acf61e",
                             TwoFactorEnabled = false,
                             UserName = "garage@test.com"
                         });
@@ -487,19 +506,19 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6130),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9106),
                             Genre = 1,
                             ImageUrl = "/images/defaults/bands/band3.png",
                             IsDeleted = false,
                             Name = "RockStars",
-                            OwnerId = "seed-user-1"
+                            OwnerId = "de305d54-75b4-4311-81d9-7ed39190224b"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6151),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9169),
                             Genre = 2,
-                            ImageUrl = "/images/defaults/bands/band1.png",
+                            ImageUrl = "/images/defaults/bands/band2.png",
                             IsDeleted = false,
                             Name = "MetalHeads",
                             OwnerId = "seed-user-2"
@@ -507,9 +526,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6154),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9173),
                             Genre = 4,
-                            ImageUrl = "/images/defaults/bands/band1.png",
+                            ImageUrl = "/images/defaults/bands/band3.png",
                             IsDeleted = false,
                             Name = "Jazz Collective",
                             OwnerId = "seed-user-3"
@@ -517,7 +536,7 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6157),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9177),
                             Genre = 5,
                             ImageUrl = "/images/defaults/bands/band1.png",
                             IsDeleted = false,
@@ -527,7 +546,7 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6160),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9180),
                             Genre = 6,
                             ImageUrl = "/images/defaults/bands/band3.png",
                             IsDeleted = false,
@@ -537,7 +556,7 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6164),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9201),
                             Genre = 7,
                             ImageUrl = "/images/defaults/bands/band1.png",
                             IsDeleted = false,
@@ -547,9 +566,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6185),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9204),
                             Genre = 8,
-                            ImageUrl = "/images/defaults/bands/band1.png",
+                            ImageUrl = "/images/defaults/bands/band3.png",
                             IsDeleted = false,
                             Name = "ElectroWave",
                             OwnerId = "seed-user-7"
@@ -557,7 +576,7 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6188),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9214),
                             Genre = 3,
                             ImageUrl = "/images/defaults/bands/band1.png",
                             IsDeleted = false,
@@ -567,9 +586,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6196),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9219),
                             Genre = 2,
-                            ImageUrl = "/images/defaults/bands/band1.png",
+                            ImageUrl = "/images/defaults/bands/band2.png",
                             IsDeleted = false,
                             Name = "Heavy Unit",
                             OwnerId = "seed-user-9"
@@ -577,9 +596,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6199),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9225),
                             Genre = 1,
-                            ImageUrl = "/images/defaults/bands/band2.png",
+                            ImageUrl = "/images/defaults/bands/band3.png",
                             IsDeleted = false,
                             Name = "Alternative Vibes",
                             OwnerId = "seed-user-10"
@@ -587,17 +606,17 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6234),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9229),
                             Genre = 6,
-                            ImageUrl = "/images/defaults/bands/band1.png",
+                            ImageUrl = "/images/defaults/bands/band3.png",
                             IsDeleted = false,
                             Name = "Soul Train",
-                            OwnerId = "seed-user-1"
+                            OwnerId = "de305d54-75b4-4311-81d9-7ed39190224b"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6242),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9232),
                             Genre = 4,
                             ImageUrl = "/images/defaults/bands/band3.png",
                             IsDeleted = false,
@@ -607,9 +626,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6245),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9236),
                             Genre = 1,
-                            ImageUrl = "/images/defaults/bands/band3.png",
+                            ImageUrl = "/images/defaults/bands/band1.png",
                             IsDeleted = false,
                             Name = "Garage Noise",
                             OwnerId = "seed-user-3"
@@ -617,9 +636,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6249),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9240),
                             Genre = 2,
-                            ImageUrl = "/images/defaults/bands/band3.png",
+                            ImageUrl = "/images/defaults/bands/band2.png",
                             IsDeleted = false,
                             Name = "Dark Riffs",
                             OwnerId = "seed-user-4"
@@ -627,9 +646,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6251),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9243),
                             Genre = 5,
-                            ImageUrl = "/images/defaults/bands/band1.png",
+                            ImageUrl = "/images/defaults/bands/band3.png",
                             IsDeleted = false,
                             Name = "Smooth Tones",
                             OwnerId = "seed-user-5"
@@ -637,9 +656,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6255),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9247),
                             Genre = 1,
-                            ImageUrl = "/images/defaults/bands/band1.png",
+                            ImageUrl = "/images/defaults/bands/band2.png",
                             IsDeleted = false,
                             Name = "Stage Kings",
                             OwnerId = "seed-user-6"
@@ -647,9 +666,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6257),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9250),
                             Genre = 6,
-                            ImageUrl = "/images/defaults/bands/band3.png",
+                            ImageUrl = "/images/defaults/bands/band1.png",
                             IsDeleted = false,
                             Name = "Groove Lab",
                             OwnerId = "seed-user-7"
@@ -657,9 +676,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6261),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9342),
                             Genre = 7,
-                            ImageUrl = "/images/defaults/bands/band3.png",
+                            ImageUrl = "/images/defaults/bands/band2.png",
                             IsDeleted = false,
                             Name = "Beat Makers",
                             OwnerId = "seed-user-8"
@@ -667,9 +686,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6265),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9346),
                             Genre = 8,
-                            ImageUrl = "/images/defaults/bands/band1.png",
+                            ImageUrl = "/images/defaults/bands/band2.png",
                             IsDeleted = false,
                             Name = "Synth Storm",
                             OwnerId = "seed-user-9"
@@ -677,9 +696,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(6268),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 817, DateTimeKind.Utc).AddTicks(9349),
                             Genre = 3,
-                            ImageUrl = "/images/defaults/bands/band3.png",
+                            ImageUrl = "/images/defaults/bands/band1.png",
                             IsDeleted = false,
                             Name = "Pop Nation",
                             OwnerId = "seed-user-10"
@@ -748,22 +767,22 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 1,
-                            AvatarUrl = "/images/defaults/members/member1.png",
+                            AvatarUrl = "/images/defaults/members/member3.png",
                             BandId = 1,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9714),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3063),
                             Instrument = 0,
                             IsConfirmed = true,
                             IsDeleted = false,
                             IsDeletedInvitation = false,
                             Role = 0,
-                            UserId = "seed-user-1"
+                            UserId = "de305d54-75b4-4311-81d9-7ed39190224b"
                         },
                         new
                         {
                             Id = 2,
                             AvatarUrl = "/images/defaults/members/member3.png",
                             BandId = 1,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9726),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3072),
                             Instrument = 1,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -774,9 +793,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 3,
-                            AvatarUrl = "/images/defaults/members/member2.png",
+                            AvatarUrl = "/images/defaults/members/member3.png",
                             BandId = 2,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9729),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3075),
                             Instrument = 0,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -789,7 +808,7 @@ namespace RehearsalHub.Data.Migrations
                             Id = 4,
                             AvatarUrl = "/images/defaults/members/member1.png",
                             BandId = 2,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9731),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3078),
                             Instrument = 2,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -800,9 +819,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 5,
-                            AvatarUrl = "/images/defaults/members/member2.png",
-                            BandId = 3,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9734),
+                            AvatarUrl = "/images/defaults/members/member3.png",
+                            BandId = 13,
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3081),
                             Instrument = 3,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -815,7 +834,7 @@ namespace RehearsalHub.Data.Migrations
                             Id = 6,
                             AvatarUrl = "/images/defaults/members/member2.png",
                             BandId = 3,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9738),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3085),
                             Instrument = 5,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -826,9 +845,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 7,
-                            AvatarUrl = "/images/defaults/members/member3.png",
+                            AvatarUrl = "/images/defaults/members/member1.png",
                             BandId = 4,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9741),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3088),
                             Instrument = 0,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -839,9 +858,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 8,
-                            AvatarUrl = "/images/defaults/members/member3.png",
+                            AvatarUrl = "/images/defaults/members/member1.png",
                             BandId = 4,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9800),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3091),
                             Instrument = 1,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -852,9 +871,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 9,
-                            AvatarUrl = "/images/defaults/members/member3.png",
+                            AvatarUrl = "/images/defaults/members/member2.png",
                             BandId = 5,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9803),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3094),
                             Instrument = 4,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -865,9 +884,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 10,
-                            AvatarUrl = "/images/defaults/members/member2.png",
+                            AvatarUrl = "/images/defaults/members/member3.png",
                             BandId = 5,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9807),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3098),
                             Instrument = 2,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -878,22 +897,22 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 11,
-                            AvatarUrl = "/images/defaults/members/member1.png",
+                            AvatarUrl = "/images/defaults/members/member3.png",
                             BandId = 6,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9810),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3101),
                             Instrument = 3,
                             IsConfirmed = true,
                             IsDeleted = false,
                             IsDeletedInvitation = false,
                             Role = 0,
-                            UserId = "seed-user-6"
+                            UserId = "de305d54-75b4-4311-81d9-7ed39190224b"
                         },
                         new
                         {
                             Id = 12,
-                            AvatarUrl = "/images/defaults/members/member2.png",
+                            AvatarUrl = "/images/defaults/members/member1.png",
                             BandId = 6,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9812),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3104),
                             Instrument = 0,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -906,7 +925,7 @@ namespace RehearsalHub.Data.Migrations
                             Id = 13,
                             AvatarUrl = "/images/defaults/members/member3.png",
                             BandId = 7,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9815),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3106),
                             Instrument = 7,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -917,9 +936,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 14,
-                            AvatarUrl = "/images/defaults/members/member1.png",
+                            AvatarUrl = "/images/defaults/members/member2.png",
                             BandId = 7,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9817),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3109),
                             Instrument = 4,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -932,7 +951,7 @@ namespace RehearsalHub.Data.Migrations
                             Id = 15,
                             AvatarUrl = "/images/defaults/members/member2.png",
                             BandId = 8,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9820),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3112),
                             Instrument = 5,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -943,9 +962,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 16,
-                            AvatarUrl = "/images/defaults/members/member1.png",
+                            AvatarUrl = "/images/defaults/members/member2.png",
                             BandId = 8,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9823),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3115),
                             Instrument = 2,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -958,7 +977,7 @@ namespace RehearsalHub.Data.Migrations
                             Id = 17,
                             AvatarUrl = "/images/defaults/members/member2.png",
                             BandId = 9,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9825),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3118),
                             Instrument = 0,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -971,7 +990,7 @@ namespace RehearsalHub.Data.Migrations
                             Id = 18,
                             AvatarUrl = "/images/defaults/members/member1.png",
                             BandId = 9,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9829),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3172),
                             Instrument = 1,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -982,9 +1001,9 @@ namespace RehearsalHub.Data.Migrations
                         new
                         {
                             Id = 19,
-                            AvatarUrl = "/images/defaults/members/member1.png",
+                            AvatarUrl = "/images/defaults/members/member3.png",
                             BandId = 10,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9831),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3175),
                             Instrument = 3,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -997,7 +1016,7 @@ namespace RehearsalHub.Data.Migrations
                             Id = 20,
                             AvatarUrl = "/images/defaults/members/member2.png",
                             BandId = 10,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 445, DateTimeKind.Utc).AddTicks(9834),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(3178),
                             Instrument = 2,
                             IsConfirmed = true,
                             IsDeleted = false,
@@ -1105,7 +1124,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 1,
                             BandId = 1,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2398),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(5994),
                             EndRehearsal = new DateTime(2026, 5, 20, 17, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Evening Practice",
@@ -1116,7 +1135,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 2,
                             BandId = 2,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2428),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6023),
                             EndRehearsal = new DateTime(2026, 5, 21, 14, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Studio Jam",
@@ -1127,7 +1146,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 3,
                             BandId = 3,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2466),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6055),
                             EndRehearsal = new DateTime(2026, 5, 22, 9, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Sound Check",
@@ -1138,7 +1157,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 4,
                             BandId = 4,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2484),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6072),
                             EndRehearsal = new DateTime(2026, 5, 23, 18, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Full Band",
@@ -1149,7 +1168,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 5,
                             BandId = 5,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2508),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6098),
                             EndRehearsal = new DateTime(2026, 5, 24, 9, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Warmup",
@@ -1160,7 +1179,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 6,
                             BandId = 6,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2524),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6114),
                             EndRehearsal = new DateTime(2026, 5, 25, 21, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Late Night",
@@ -1171,7 +1190,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 7,
                             BandId = 7,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2537),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6127),
                             EndRehearsal = new DateTime(2026, 5, 26, 15, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Groove Session",
@@ -1182,7 +1201,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 8,
                             BandId = 8,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2585),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6168),
                             EndRehearsal = new DateTime(2026, 5, 27, 12, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Drum Focus",
@@ -1193,7 +1212,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 9,
                             BandId = 9,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2598),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6182),
                             EndRehearsal = new DateTime(2026, 5, 28, 16, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Vocal Practice",
@@ -1204,7 +1223,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 10,
                             BandId = 10,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(2616),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(6200),
                             EndRehearsal = new DateTime(2026, 5, 29, 16, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Stage Run",
@@ -1257,7 +1276,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 1,
                             BandId = 1,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5253),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8679),
                             IsDeleted = false,
                             Name = "Rehearsal Set"
                         },
@@ -1265,7 +1284,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 2,
                             BandId = 1,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5260),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8686),
                             IsDeleted = false,
                             Name = "Live Show"
                         },
@@ -1273,7 +1292,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 3,
                             BandId = 2,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5262),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8688),
                             IsDeleted = false,
                             Name = "Practice Night"
                         },
@@ -1281,7 +1300,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 4,
                             BandId = 3,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5264),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8690),
                             IsDeleted = false,
                             Name = "Festival Set"
                         },
@@ -1289,7 +1308,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 5,
                             BandId = 4,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5312),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8692),
                             IsDeleted = false,
                             Name = "Warmup"
                         },
@@ -1297,7 +1316,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 6,
                             BandId = 5,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5315),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8695),
                             IsDeleted = false,
                             Name = "Main Set"
                         },
@@ -1305,7 +1324,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 7,
                             BandId = 6,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5317),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8697),
                             IsDeleted = false,
                             Name = "Encore Set"
                         },
@@ -1313,7 +1332,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 8,
                             BandId = 7,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5319),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8699),
                             IsDeleted = false,
                             Name = "Acoustic"
                         },
@@ -1321,7 +1340,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 9,
                             BandId = 8,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5321),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8701),
                             IsDeleted = false,
                             Name = "Heavy Set"
                         },
@@ -1329,7 +1348,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 10,
                             BandId = 9,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5324),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8703),
                             IsDeleted = false,
                             Name = "Chill Set"
                         },
@@ -1337,7 +1356,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 11,
                             BandId = 10,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5325),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8705),
                             IsDeleted = false,
                             Name = "Night Session"
                         },
@@ -1345,7 +1364,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 12,
                             BandId = 11,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5327),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8707),
                             IsDeleted = false,
                             Name = "Club Gig"
                         },
@@ -1353,7 +1372,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 13,
                             BandId = 12,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5329),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8709),
                             IsDeleted = false,
                             Name = "Studio Test"
                         },
@@ -1361,7 +1380,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 14,
                             BandId = 13,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5331),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8711),
                             IsDeleted = false,
                             Name = "Jam Session"
                         },
@@ -1369,7 +1388,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 15,
                             BandId = 14,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5333),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8713),
                             IsDeleted = false,
                             Name = "Road Trip"
                         },
@@ -1377,7 +1396,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 16,
                             BandId = 15,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5334),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8715),
                             IsDeleted = false,
                             Name = "Basement"
                         },
@@ -1385,7 +1404,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 17,
                             BandId = 16,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5336),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8768),
                             IsDeleted = false,
                             Name = "Open Air"
                         },
@@ -1393,7 +1412,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 18,
                             BandId = 17,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5339),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8771),
                             IsDeleted = false,
                             Name = "Late Show"
                         },
@@ -1401,7 +1420,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 19,
                             BandId = 18,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5341),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8773),
                             IsDeleted = false,
                             Name = "Soundcheck"
                         },
@@ -1409,7 +1428,7 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 20,
                             BandId = 19,
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(5342),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 818, DateTimeKind.Utc).AddTicks(8775),
                             IsDeleted = false,
                             Name = "Final Show"
                         });
@@ -1548,6 +1567,10 @@ namespace RehearsalHub.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
@@ -1586,6 +1609,8 @@ namespace RehearsalHub.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatorId");
+
                     b.HasIndex("OwnerBandId");
 
                     b.ToTable("Songs");
@@ -1595,7 +1620,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 1,
                             Artist = "AC/DC",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8967),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2413),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:15",
                             Genre = 1,
                             IsDeleted = false,
@@ -1608,7 +1634,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 2,
                             Artist = "Guns N' Roses",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8974),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2421),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:56",
                             Genre = 1,
                             IsDeleted = false,
@@ -1621,7 +1648,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 3,
                             Artist = "Led Zeppelin",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8977),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2424),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "08:02",
                             Genre = 1,
                             IsDeleted = false,
@@ -1634,7 +1662,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 4,
                             Artist = "Pink Floyd",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8979),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2427),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:22",
                             Genre = 1,
                             IsDeleted = false,
@@ -1647,7 +1676,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 5,
                             Artist = "Eagles",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8982),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2429),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:30",
                             Genre = 1,
                             IsDeleted = false,
@@ -1660,7 +1690,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 6,
                             Artist = "Deep Purple",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8988),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2433),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:40",
                             Genre = 1,
                             IsDeleted = false,
@@ -1673,7 +1704,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 7,
                             Artist = "Aerosmith",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8991),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2436),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:28",
                             Genre = 1,
                             IsDeleted = false,
@@ -1686,7 +1718,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 8,
                             Artist = "Bon Jovi",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8993),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2438),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:09",
                             Genre = 1,
                             IsDeleted = false,
@@ -1699,7 +1732,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 9,
                             Artist = "Red Hot Chili Peppers",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8996),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2441),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:24",
                             Genre = 1,
                             IsDeleted = false,
@@ -1712,7 +1746,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 10,
                             Artist = "Nirvana",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(8999),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2444),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:01",
                             Genre = 1,
                             IsDeleted = false,
@@ -1725,7 +1760,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 11,
                             Artist = "Queen",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9002),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2486),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:35",
                             Genre = 1,
                             IsDeleted = false,
@@ -1738,7 +1774,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 12,
                             Artist = "Led Zeppelin",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9005),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2489),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:34",
                             Genre = 1,
                             IsDeleted = false,
@@ -1751,7 +1788,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 13,
                             Artist = "AC/DC",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9007),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2491),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:28",
                             Genre = 1,
                             IsDeleted = false,
@@ -1764,7 +1802,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 14,
                             Artist = "Oasis",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9009),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2494),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:18",
                             Genre = 1,
                             IsDeleted = false,
@@ -1777,7 +1816,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 15,
                             Artist = "The Rolling Stones",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9011),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2496),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:22",
                             Genre = 1,
                             IsDeleted = false,
@@ -1790,7 +1830,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 16,
                             Artist = "Led Zeppelin",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9013),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2499),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:56",
                             Genre = 1,
                             IsDeleted = false,
@@ -1803,7 +1844,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 17,
                             Artist = "The Rolling Stones",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9015),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2501),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:33",
                             Genre = 1,
                             IsDeleted = false,
@@ -1816,7 +1858,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 18,
                             Artist = "Queen",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9018),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2505),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:55",
                             Genre = 1,
                             IsDeleted = false,
@@ -1829,7 +1872,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 19,
                             Artist = "Fleetwood Mac",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9021),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2508),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:38",
                             Genre = 1,
                             IsDeleted = false,
@@ -1842,7 +1886,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 20,
                             Artist = "Van Halen",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9023),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2510),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:01",
                             Genre = 1,
                             IsDeleted = false,
@@ -1855,7 +1900,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 21,
                             Artist = "The Police",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9025),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2513),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:12",
                             Genre = 1,
                             IsDeleted = false,
@@ -1868,7 +1914,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 22,
                             Artist = "Bryan Adams",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9028),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2515),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:35",
                             Genre = 1,
                             IsDeleted = false,
@@ -1881,7 +1928,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 23,
                             Artist = "Survivor",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9030),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2519),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:04",
                             Genre = 1,
                             IsDeleted = false,
@@ -1894,7 +1942,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 24,
                             Artist = "The Clash",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9032),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2521),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:06",
                             Genre = 1,
                             IsDeleted = false,
@@ -1907,7 +1956,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 25,
                             Artist = "The Clash",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9034),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2524),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:20",
                             Genre = 1,
                             IsDeleted = false,
@@ -1920,7 +1970,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 26,
                             Artist = "Pink Floyd",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9037),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2527),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:34",
                             Genre = 1,
                             IsDeleted = false,
@@ -1933,7 +1984,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 27,
                             Artist = "Bruce Springsteen",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9039),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2529),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:31",
                             Genre = 1,
                             IsDeleted = false,
@@ -1946,7 +1998,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 28,
                             Artist = "The Police",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9041),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2532),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:13",
                             Genre = 1,
                             IsDeleted = false,
@@ -1959,7 +2012,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 29,
                             Artist = "U2",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9044),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2535),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:56",
                             Genre = 1,
                             IsDeleted = false,
@@ -1972,7 +2026,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 30,
                             Artist = "R.E.M.",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9047),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2538),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:28",
                             Genre = 1,
                             IsDeleted = false,
@@ -1985,7 +2040,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 31,
                             Artist = "Dire Straits",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9049),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2545),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:48",
                             Genre = 1,
                             IsDeleted = false,
@@ -1998,7 +2054,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 32,
                             Artist = "Radiohead",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9051),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2547),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:23",
                             Genre = 1,
                             IsDeleted = false,
@@ -2011,7 +2068,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 33,
                             Artist = "Radiohead",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9053),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2550),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:59",
                             Genre = 1,
                             IsDeleted = false,
@@ -2024,7 +2082,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 34,
                             Artist = "The White Stripes",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9078),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2553),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:51",
                             Genre = 1,
                             IsDeleted = false,
@@ -2037,7 +2096,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 35,
                             Artist = "Muse",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9081),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2556),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:40",
                             Genre = 1,
                             IsDeleted = false,
@@ -2050,7 +2110,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 36,
                             Artist = "Foo Fighters",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9083),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2559),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:15",
                             Genre = 1,
                             IsDeleted = false,
@@ -2063,7 +2124,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 37,
                             Artist = "Foo Fighters",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9087),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2561),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:10",
                             Genre = 1,
                             IsDeleted = false,
@@ -2076,7 +2138,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 38,
                             Artist = "Linkin Park",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9089),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2564),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:36",
                             Genre = 1,
                             IsDeleted = false,
@@ -2089,7 +2152,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 39,
                             Artist = "The Cranberries",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9091),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2566),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:06",
                             Genre = 1,
                             IsDeleted = false,
@@ -2102,7 +2166,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 40,
                             Artist = "ZZ Top",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9093),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2568),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:13",
                             Genre = 1,
                             IsDeleted = false,
@@ -2115,7 +2180,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 41,
                             Artist = "Metallica",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9096),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2571),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "08:35",
                             Genre = 2,
                             IsDeleted = false,
@@ -2128,7 +2194,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 42,
                             Artist = "Black Sabbath",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9099),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2574),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:48",
                             Genre = 2,
                             IsDeleted = false,
@@ -2141,7 +2208,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 43,
                             Artist = "Iron Maiden",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9101),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2576),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:12",
                             Genre = 2,
                             IsDeleted = false,
@@ -2154,7 +2222,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 44,
                             Artist = "Slayer",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9103),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2665),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:14",
                             Genre = 2,
                             IsDeleted = false,
@@ -2167,7 +2236,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 45,
                             Artist = "Megadeth",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9105),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2669),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:32",
                             Genre = 2,
                             IsDeleted = false,
@@ -2180,7 +2250,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 46,
                             Artist = "Judas Priest",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9108),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2672),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:06",
                             Genre = 2,
                             IsDeleted = false,
@@ -2193,7 +2264,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 47,
                             Artist = "Pantera",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9110),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2674),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:14",
                             Genre = 2,
                             IsDeleted = false,
@@ -2206,7 +2278,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 48,
                             Artist = "Rage Against the Machine",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9112),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2677),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:51",
                             Genre = 2,
                             IsDeleted = false,
@@ -2219,7 +2292,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 49,
                             Artist = "Rammstein",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9114),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2679),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:54",
                             Genre = 2,
                             IsDeleted = false,
@@ -2232,7 +2306,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 50,
                             Artist = "System of a Down",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9116),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2682),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:30",
                             Genre = 2,
                             IsDeleted = false,
@@ -2245,7 +2320,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 51,
                             Artist = "Metallica",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9118),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2684),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:31",
                             Genre = 2,
                             IsDeleted = false,
@@ -2258,7 +2334,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 52,
                             Artist = "Iron Maiden",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9121),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2687),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "07:11",
                             Genre = 2,
                             IsDeleted = false,
@@ -2271,7 +2348,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 53,
                             Artist = "Motörhead",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9123),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2690),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:49",
                             Genre = 2,
                             IsDeleted = false,
@@ -2284,7 +2362,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 54,
                             Artist = "Megadeth",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9126),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2693),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:02",
                             Genre = 2,
                             IsDeleted = false,
@@ -2297,7 +2376,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 55,
                             Artist = "Pantera",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9128),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2695),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:03",
                             Genre = 2,
                             IsDeleted = false,
@@ -2310,7 +2390,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 56,
                             Artist = "Slipknot",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9130),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2702),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:44",
                             Genre = 2,
                             IsDeleted = false,
@@ -2323,7 +2404,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 57,
                             Artist = "Tool",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9132),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2705),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:47",
                             Genre = 2,
                             IsDeleted = false,
@@ -2336,7 +2418,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 58,
                             Artist = "Iron Maiden",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9135),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2708),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "07:18",
                             Genre = 2,
                             IsDeleted = false,
@@ -2349,7 +2432,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 59,
                             Artist = "Type O Negative",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9139),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2710),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "11:15",
                             Genre = 2,
                             IsDeleted = false,
@@ -2362,7 +2446,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 60,
                             Artist = "System of a Down",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9145),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2713),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:39",
                             Genre = 2,
                             IsDeleted = false,
@@ -2375,7 +2460,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 61,
                             Artist = "Sepultura",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9147),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2715),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:32",
                             Genre = 2,
                             IsDeleted = false,
@@ -2388,7 +2474,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 62,
                             Artist = "Ozzy Osbourne",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9150),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2718),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:56",
                             Genre = 2,
                             IsDeleted = false,
@@ -2401,7 +2488,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 63,
                             Artist = "Dio",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9152),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2720),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:14",
                             Genre = 2,
                             IsDeleted = false,
@@ -2414,7 +2502,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 64,
                             Artist = "Judas Priest",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9155),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2723),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:35",
                             Genre = 2,
                             IsDeleted = false,
@@ -2427,7 +2516,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 65,
                             Artist = "Anthrax",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9157),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2725),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:59",
                             Genre = 2,
                             IsDeleted = false,
@@ -2440,7 +2530,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 66,
                             Artist = "Korn",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9240),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2729),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:19",
                             Genre = 2,
                             IsDeleted = false,
@@ -2453,7 +2544,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 67,
                             Artist = "Korn",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9243),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2732),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:15",
                             Genre = 2,
                             IsDeleted = false,
@@ -2466,7 +2558,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 68,
                             Artist = "Rammstein",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9245),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2734),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:24",
                             Genre = 2,
                             IsDeleted = false,
@@ -2479,7 +2572,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 69,
                             Artist = "Rob Zombie",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9247),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2737),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:42",
                             Genre = 2,
                             IsDeleted = false,
@@ -2492,7 +2586,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 70,
                             Artist = "Rage Against the Machine",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9250),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2741),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:14",
                             Genre = 2,
                             IsDeleted = false,
@@ -2505,7 +2600,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 71,
                             Artist = "Metallica",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9252),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2743),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:28",
                             Genre = 2,
                             IsDeleted = false,
@@ -2518,7 +2614,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 72,
                             Artist = "Metallica",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9254),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2746),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "07:27",
                             Genre = 2,
                             IsDeleted = false,
@@ -2531,7 +2628,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 73,
                             Artist = "Iron Maiden",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9256),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2748),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:07",
                             Genre = 2,
                             IsDeleted = false,
@@ -2544,7 +2642,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 74,
                             Artist = "Avenged Sevenfold",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9258),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2751),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:16",
                             Genre = 2,
                             IsDeleted = false,
@@ -2557,7 +2656,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 75,
                             Artist = "Avenged Sevenfold",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9262),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2753),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:13",
                             Genre = 2,
                             IsDeleted = false,
@@ -2570,7 +2670,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 76,
                             Artist = "Avenged Sevenfold",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9264),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2756),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "08:00",
                             Genre = 2,
                             IsDeleted = false,
@@ -2583,7 +2684,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 77,
                             Artist = "Papa Roach",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9266),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2814),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:19",
                             Genre = 2,
                             IsDeleted = false,
@@ -2596,7 +2698,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 78,
                             Artist = "Disturbed",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9269),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2819),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:05",
                             Genre = 2,
                             IsDeleted = false,
@@ -2609,7 +2712,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 79,
                             Artist = "Disturbed",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9272),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2822),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:38",
                             Genre = 2,
                             IsDeleted = false,
@@ -2622,7 +2726,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 80,
                             Artist = "System of a Down",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9274),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2824),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:15",
                             Genre = 2,
                             IsDeleted = false,
@@ -2635,7 +2740,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 81,
                             Artist = "B.B. King",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9276),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2827),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:24",
                             Genre = 5,
                             IsDeleted = false,
@@ -2648,7 +2754,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 82,
                             Artist = "Stevie Ray Vaughan",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9278),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2829),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:39",
                             Genre = 5,
                             IsDeleted = false,
@@ -2661,7 +2768,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 83,
                             Artist = "Eric Clapton",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9281),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2832),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:14",
                             Genre = 5,
                             IsDeleted = false,
@@ -2674,7 +2782,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 84,
                             Artist = "Muddy Waters",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9283),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2834),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:49",
                             Genre = 5,
                             IsDeleted = false,
@@ -2687,7 +2796,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 85,
                             Artist = "Jimi Hendrix",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9285),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2837),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:50",
                             Genre = 5,
                             IsDeleted = false,
@@ -2700,7 +2810,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 86,
                             Artist = "Albert King",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9287),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2839),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:47",
                             Genre = 5,
                             IsDeleted = false,
@@ -2713,7 +2824,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 87,
                             Artist = "Robert Johnson",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9289),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2842),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:59",
                             Genre = 5,
                             IsDeleted = false,
@@ -2726,7 +2838,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 88,
                             Artist = "Howlin' Wolf",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9291),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2845),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:07",
                             Genre = 5,
                             IsDeleted = false,
@@ -2739,7 +2852,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 89,
                             Artist = "Stevie Ray Vaughan",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9294),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2848),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:21",
                             Genre = 5,
                             IsDeleted = false,
@@ -2752,7 +2866,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 90,
                             Artist = "Elmore James",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9297),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2850),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:45",
                             Genre = 5,
                             IsDeleted = false,
@@ -2765,7 +2880,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 91,
                             Artist = "Gary Moore",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9299),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2853),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "06:10",
                             Genre = 5,
                             IsDeleted = false,
@@ -2778,7 +2894,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 92,
                             Artist = "John Lee Hooker",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9301),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2855),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:29",
                             Genre = 5,
                             IsDeleted = false,
@@ -2791,7 +2908,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 93,
                             Artist = "Gary Moore",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9303),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2858),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:58",
                             Genre = 5,
                             IsDeleted = false,
@@ -2804,7 +2922,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 94,
                             Artist = "Buddy Guy",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9305),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2860),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:36",
                             Genre = 5,
                             IsDeleted = false,
@@ -2817,7 +2936,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 95,
                             Artist = "T-Bone Walker",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9307),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2863),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:02",
                             Genre = 5,
                             IsDeleted = false,
@@ -2830,7 +2950,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 96,
                             Artist = "Elmore James",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9310),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2865),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:43",
                             Genre = 5,
                             IsDeleted = false,
@@ -2843,7 +2964,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 97,
                             Artist = "Muddy Waters",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9312),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2868),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:23",
                             Genre = 5,
                             IsDeleted = false,
@@ -2856,7 +2978,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 98,
                             Artist = "Willie Dixon",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9314),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2871),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:49",
                             Genre = 5,
                             IsDeleted = false,
@@ -2869,7 +2992,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 99,
                             Artist = "Freddie King",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9317),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2874),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:38",
                             Genre = 5,
                             IsDeleted = false,
@@ -2882,7 +3006,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 100,
                             Artist = "Big Brother & The Holding Company",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9319),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2877),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "09:28",
                             Genre = 5,
                             IsDeleted = false,
@@ -2895,7 +3020,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 101,
                             Artist = "Derek and the Dominos",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9322),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2879),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:02",
                             Genre = 5,
                             IsDeleted = false,
@@ -2908,7 +3034,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 102,
                             Artist = "Joe Bonamassa",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9325),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2883),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "07:20",
                             Genre = 5,
                             IsDeleted = false,
@@ -2921,7 +3048,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 103,
                             Artist = "Joe Bonamassa",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9327),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2885),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "08:13",
                             Genre = 5,
                             IsDeleted = false,
@@ -2934,7 +3062,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 104,
                             Artist = "Stevie Ray Vaughan",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9329),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2888),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "09:11",
                             Genre = 5,
                             IsDeleted = false,
@@ -2947,7 +3076,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 105,
                             Artist = "Stevie Ray Vaughan",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9331),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2890),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:28",
                             Genre = 5,
                             IsDeleted = false,
@@ -2960,7 +3090,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 106,
                             Artist = "Led Zeppelin",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9334),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2892),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "07:24",
                             Genre = 5,
                             IsDeleted = false,
@@ -2973,7 +3104,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 107,
                             Artist = "Buddy Guy",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9379),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2895),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:29",
                             Genre = 5,
                             IsDeleted = false,
@@ -2986,7 +3118,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 108,
                             Artist = "Buddy Guy",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9381),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2898),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "08:23",
                             Genre = 5,
                             IsDeleted = false,
@@ -2999,7 +3132,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 109,
                             Artist = "Howlin' Wolf",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9384),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2901),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:22",
                             Genre = 5,
                             IsDeleted = false,
@@ -3012,7 +3146,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 110,
                             Artist = "Etta James",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9386),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2903),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:07",
                             Genre = 5,
                             IsDeleted = false,
@@ -3025,7 +3160,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 111,
                             Artist = "Etta James",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9388),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2906),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:35",
                             Genre = 5,
                             IsDeleted = false,
@@ -3038,7 +3174,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 112,
                             Artist = "Otis Rush",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9390),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2908),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:06",
                             Genre = 5,
                             IsDeleted = false,
@@ -3051,7 +3188,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 113,
                             Artist = "Sonny Boy Williamson II",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9392),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2910),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:08",
                             Genre = 5,
                             IsDeleted = false,
@@ -3064,7 +3202,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 114,
                             Artist = "Howlin' Wolf",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9395),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2913),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "02:53",
                             Genre = 5,
                             IsDeleted = false,
@@ -3077,7 +3216,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 115,
                             Artist = "Koko Taylor",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9397),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2953),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "03:00",
                             Genre = 5,
                             IsDeleted = false,
@@ -3090,7 +3230,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 116,
                             Artist = "Albert King",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9399),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2956),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:18",
                             Genre = 5,
                             IsDeleted = false,
@@ -3103,7 +3244,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 117,
                             Artist = "Cream",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9401),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2958),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:10",
                             Genre = 5,
                             IsDeleted = false,
@@ -3116,7 +3258,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 118,
                             Artist = "Joe Bonamassa",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9404),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2961),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "05:07",
                             Genre = 5,
                             IsDeleted = false,
@@ -3129,7 +3272,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 119,
                             Artist = "John Mayer",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9407),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2963),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:05",
                             Genre = 5,
                             IsDeleted = false,
@@ -3142,7 +3286,8 @@ namespace RehearsalHub.Data.Migrations
                         {
                             Id = 120,
                             Artist = "The Doors",
-                            CreatedOn = new DateTime(2026, 2, 15, 18, 9, 6, 446, DateTimeKind.Utc).AddTicks(9409),
+                            CreatedOn = new DateTime(2026, 2, 16, 9, 7, 4, 819, DateTimeKind.Utc).AddTicks(2966),
+                            CreatorId = "de305d54-75b4-4311-81d9-7ed39190224b",
                             Duration = "04:04",
                             Genre = 5,
                             IsDeleted = false,
@@ -3294,9 +3439,17 @@ namespace RehearsalHub.Data.Migrations
 
             modelBuilder.Entity("RehearsalHub.Data.Models.Song", b =>
                 {
+                    b.HasOne("RehearsalHub.Data.Models.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("RehearsalHub.Data.Models.Band", "OwnerBand")
                         .WithMany()
                         .HasForeignKey("OwnerBandId");
+
+                    b.Navigation("Creator");
 
                     b.Navigation("OwnerBand");
                 });

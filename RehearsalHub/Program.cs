@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
+using RehearsalHub.Services;
 using RehearsalHub.Services.Data.Bands;
 using RehearsalHub.Services.Data.Invitation;
 using RehearsalHub.Services.Data.Notifications;
+using RehearsalHub.Services.Data.Songs;
 using RehearsalHub.Services.Data.Users;
-using RehearsalHub.Services;
 
 namespace RehearsalHub
 {
@@ -38,7 +39,7 @@ namespace RehearsalHub
             builder.Services.AddScoped<IInvitationService, InvitationService>();
             builder.Services.AddScoped<IBandService, BandService>();
             builder.Services.AddScoped<IUserService, UserService>();
-
+            builder.Services.AddScoped<ISongService, SongService>();
 
             var app = builder.Build();
 
