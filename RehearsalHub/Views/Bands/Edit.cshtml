@@ -8,70 +8,75 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-11 col-xl-10">
-            <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 1rem;">
+            <div class="card border-0 shadow-lg overflow-hidden rounded-5">
                 <div class="row g-0">
-                    <div class="col-md-4 bg-dark d-flex align-items-center justify-content-center p-5 text-center" style="min-height: 450px;">
+                    <div class="col-md-4 bg-band-gradient d-flex align-items-center justify-content-center p-5 text-center" style="min-height: 450px;">
                         <div class="w-100">
                             <div class="mb-4">
-                                <i class="bi bi-guitar-fill text-primary" style="font-size: 4.5rem;"></i>
+                                <i class="fa-solid fa-guitar text-white animate-rock" style="font-size: 5rem;"></i>
                             </div>
-                            <h2 class="text-white fw-bold mb-3">Edit Band</h2>
-                            <p class="text-secondary mb-4 px-3">Keep your profile fresh.</p>
+                            <h2 class="text-white fw-black mb-2 text-uppercase tracking-tight">Edit Band</h2>
+                            <p class="text-white opacity-75 mb-4">Refine your band's presence</p>
 
                             @if (!string.IsNullOrEmpty(Model.ImageUrl))
                             {
-                                <div class="mt-2 p-2 bg-secondary bg-opacity-10 rounded-3">
-                                    <img src="@Model.ImageUrl" id="preview" class="img-fluid rounded shadow-sm border border-secondary" 
-                                         style="max-height: 180px; width: 100%; object-fit: cover;" 
-                                         onerror="this.src='https://via.placeholder.com/300x200?text=Invalid+URL'"/>
+                                <div class="mt-2 p-1 bg-white bg-opacity-20 rounded-4 backdrop-blur shadow-lg">
+                                    <img src="@Model.ImageUrl" id="preview" class="img-fluid rounded-4"
+                                         style="max-height: 200px; width: 100%; object-fit: cover;"
+                                         onerror="this.src='https://via.placeholder.com/300x200?text=Invalid+URL'" />
                                 </div>
                             }
                         </div>
                     </div>
 
                     <div class="col-md-8 p-4 p-md-5 bg-white">
-                        <div class="mb-4 pb-2 border-bottom">
-                            <h4 class="text-dark fw-bold mb-1">General Settings</h4>
+                        <div class="mb-5 pb-2 border-bottom">
+                            <h3 class="text-dark fw-black mb-1">General Settings 🎸</h3>
+                            <p class="text-muted small">Update your band's core information</p>
                         </div>
 
                         <form asp-action="Edit" method="post">
-                            <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-4 small mb-4 border-0 shadow-sm"></div>
                             <input type="hidden" asp-for="Id" />
 
                             <div class="row g-4">
                                 <div class="col-12">
-                                    <label asp-for="Name" class="form-label fw-bold small mb-1">BAND NAME</label>
+                                    <label asp-for="Name" class="form-label fw-bold text-dark ms-1">BAND NAME</label>
                                     <div class="input-group">
-                                        <span class="input-group-text bg-light text-primary border-end-0"><i class="bi bi-music-note-list"></i></span>
-                                        <input asp-for="Name" class="form-control bg-light border-start-0 py-2" style="padding-left: 10px;" />
+                                        <span class="input-group-text bg-light text-band-accent border-2 border-end-0 rounded-start-4"><i class="fa-solid fa-signature"></i></span>
+                                        <input asp-for="Name" class="form-control form-control-lg bg-light border-2 border-start-0 rounded-end-4 focus-ring-band" placeholder="Enter band name..." />
                                     </div>
-                                    <span asp-validation-for="Name" class="text-danger small d-block mt-1"></span>
+                                    <span asp-validation-for="Name" class="text-danger small ms-1 mt-1"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label asp-for="Genre" class="form-label fw-bold small mb-1">GENRE</label>
+                                    <label asp-for="Genre" class="form-label fw-bold text-dark ms-1">GENRE</label>
                                     <div class="input-group">
-                                        <span class="input-group-text bg-light text-primary border-end-0"><i class="bi bi-vinyl-fill"></i></span>
-                                        <select asp-for="Genre" class="form-select bg-light border-start-0 py-2" asp-items="Html.GetEnumSelectList<MusicGenre>()">
-                                            <option value="">Select...</option>
+                                        <span class="input-group-text bg-light text-band-accent border-2 border-end-0 rounded-start-4"><i class="fa-solid fa-compact-disc"></i></span>
+                                        <select asp-for="Genre" class="form-select form-select-lg bg-light border-2 border-start-0 rounded-end-4 focus-ring-band" asp-items="Html.GetEnumSelectList<MusicGenre>()">
+                                            <option value="">Select genre...</option>
                                         </select>
                                     </div>
-                                    <span asp-validation-for="Genre" class="text-danger small d-block mt-1"></span>
+                                    <span asp-validation-for="Genre" class="text-danger small ms-1 mt-1"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label asp-for="ImageUrl" class="form-label fw-bold small mb-1">COVER URL</label>
+                                    <label asp-for="ImageUrl" class="form-label fw-bold text-dark ms-1">COVER IMAGE URL</label>
                                     <div class="input-group">
-                                        <span class="input-group-text bg-light text-primary border-end-0"><i class="bi bi-link-45deg"></i></span>
-                                        <input asp-for="ImageUrl" id="imageUrlInput" class="form-control bg-light border-start-0 py-2" />
+                                        <span class="input-group-text bg-light text-band-accent border-2 border-end-0 rounded-start-4"><i class="fa-solid fa-image"></i></span>
+                                        <input asp-for="ImageUrl" id="imageUrlInput" class="form-control form-control-lg bg-light border-2 border-start-0 rounded-end-4 focus-ring-band" placeholder="https://..." />
                                     </div>
-                                    <span asp-validation-for="ImageUrl" class="text-danger small d-block mt-1"></span>
+                                    <span asp-validation-for="ImageUrl" class="text-danger small ms-1 mt-1"></span>
                                 </div>
 
-                                <div class="col-12 mt-5 pt-3 border-top">
-                                    <div class="d-flex gap-3">
-                                        <button type="submit" class="btn btn-primary px-5 fw-bold">Save Changes</button>
-                                        <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancel</a>
+                                <div class="col-12 mt-5 pt-4 border-top">
+                                    <div class="d-flex flex-column flex-md-row gap-3">
+                                        <button type="submit" class="btn btn-band-action btn-lg rounded-pill px-5 fw-black shadow-lg hover-scale py-3">
+                                            SAVE CHANGES
+                                        </button>
+                                        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-light-dark btn-lg rounded-pill px-4 fw-bold hover-scale py-3 text-muted">
+                                            Cancel
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -83,6 +88,94 @@
     </div>
 </div>
 
+<style>
+    .bg-band-gradient {
+        background: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00, #191414);
+        background-size: 400% 400%;
+        animation: gradientAnimation 12s ease infinite;
+    }
+
+    @@keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .animate-rock {
+        display: inline-block;
+        animation: rockAngle 3s ease-in-out infinite;
+    }
+
+    @@keyframes rockAngle {
+        0%, 100% {
+            transform: rotate(-5deg);
+        }
+
+        50% {
+            transform: rotate(10deg);
+        }
+    }
+
+    .text-band-accent {
+        color: #FF4500 !important;
+    }
+
+    .btn-band-action {
+        background: #FF4500;
+        color: white;
+        border: none;
+        letter-spacing: 1px;
+    }
+
+        .btn-band-action:hover {
+            background: #e63e00;
+            color: white;
+        }
+
+    .hover-scale {
+        transition: all 0.2s ease;
+    }
+
+        .hover-scale:hover {
+            transform: translateY(-3px);
+        }
+
+    .focus-ring-band:focus {
+        border-color: #FF4500;
+        box-shadow: 0 0 0 0.25rem rgba(255, 69, 0, 0.15);
+    }
+
+    .fw-black {
+        font-weight: 900;
+    }
+
+    .rounded-5 {
+        border-radius: 2.5rem !important;
+    }
+
+    .rounded-4 {
+        border-radius: 1.25rem !important;
+    }
+
+    .backdrop-blur {
+        backdrop-filter: blur(5px);
+    }
+
+    .btn-outline-light-dark {
+        border: 2px solid #eee;
+    }
+</style>
+
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

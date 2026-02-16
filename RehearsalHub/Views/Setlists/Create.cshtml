@@ -7,73 +7,75 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-xl-6">
-            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
 
-                <div class="card-header bg-success text-white p-4 border-0">
-                    <div class="d-flex align-items-center">
-                        <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
-                            <i class="fa-solid fa-compact-disc fa-2x"></i>
+                <div class="card-header bg-band-gradient text-white p-5 border-0 text-center text-md-start">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start flex-wrap">
+                        <div class="bg-white bg-opacity-25 rounded-circle p-3 me-md-4 mb-3 mb-md-0 shadow-sm">
+                            <i class="fa-solid fa-compact-disc fa-3x"></i>
                         </div>
                         <div>
-                            <h2 class="mb-0 fw-bold">Create New Setlist</h2>
-                            <p class="mb-0 opacity-75">
+                            <h1 class="mb-0 fw-black display-6">Create New Setlist</h1>
+                            <p class="mb-0 opacity-75 fs-5">
                                 @if (!string.IsNullOrEmpty(Model.BandName))
                                 {
-                                    <small>for @Model.BandName</small>
+                                    <span><i class="fa-solid fa-users me-1 small"></i> for @Model.BandName</span>
                                 }
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-body p-4 p-md-5">
+                <div class="card-body p-4 p-md-5 bg-white">
                     <form asp-action="Create" method="post">
                         @Html.AntiForgeryToken()
                         <input type="hidden" asp-for="BandId" />
 
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-4 mb-4 border-0 shadow-sm"></div>
 
                         <div class="mb-4">
-                            <label asp-for="Name" class="form-label fw-bold text-dark">
-                                <i class="fa-solid fa-heading text-success me-2"></i>Setlist Name
+                            <label asp-for="Name" class="form-label fw-bold text-dark ms-1">
+                                <i class="fa-solid fa-heading text-band-accent me-2"></i>Setlist Name
                             </label>
                             <input asp-for="Name"
-                                   class="form-control form-control-lg border-2 rounded-3"
-                                   placeholder="e.g., Summer Tour 2024, Wedding Set, Covers Night"
+                                   class="form-control form-control-lg border-2 rounded-4 shadow-sm focus-ring-band"
+                                   placeholder="e.g., Summer Tour 2026, Wedding Gig"
                                    autofocus />
-                            <span asp-validation-for="Name" class="text-danger small"></span>
+                            <span asp-validation-for="Name" class="text-danger small ms-1"></span>
                         </div>
 
                         <div class="mb-4">
-                            <label asp-for="RehearsalDate" class="form-label fw-bold text-dark">
-                                <i class="fa-solid fa-calendar text-primary me-2"></i>Rehearsal Date (Optional)
+                            <label asp-for="RehearsalDate" class="form-label fw-bold text-dark ms-1">
+                                <i class="fa-solid fa-calendar text-band-accent me-2"></i>Date & Time (Optional)
                             </label>
                             <input asp-for="RehearsalDate"
                                    type="datetime-local"
-                                   class="form-control form-control-lg border-2 rounded-3" />
-                            <span asp-validation-for="RehearsalDate" class="text-danger small"></span>
-                            <div class="form-text">
-                                <i class="fa-solid fa-info-circle me-1"></i>
-                                Optionally set a target rehearsal or performance date
+                                   class="form-control form-control-lg border-2 rounded-4 shadow-sm focus-ring-band" />
+                            <span asp-validation-for="RehearsalDate" class="text-danger small ms-1"></span>
+                            <div class="form-text ms-1 mt-2">
+                                <i class="fa-solid fa-circle-info me-1 opacity-75"></i>
+                                Set a target rehearsal or show date
                             </div>
                         </div>
 
-                        <div class="alert alert-info border-0 rounded-3 mb-4">
-                            <div class="d-flex align-items-start">
-                                <i class="fa-solid fa-lightbulb fa-lg me-3 mt-1"></i>
+                        <div class="alert bg-light border-0 rounded-4 mb-5 p-3">
+                            <div class="d-flex align-items-start text-dark">
+                                <div class="bg-band-accent-soft p-2 rounded-3 me-3">
+                                    <i class="fa-solid fa-guitar fa-lg text-band-accent"></i>
+                                </div>
                                 <div>
-                                    <strong>Next Steps:</strong>
-                                    <p class="mb-0 mt-1 small">After creating the setlist, you'll be able to add songs from your band's library.</p>
+                                    <strong class="d-block mb-1">Rock Ready?</strong>
+                                    <p class="mb-0 small text-muted">Next, you'll pick the songs from your band's library to build the perfect flow.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-success btn-lg rounded-pill flex-grow-1 fw-bold shadow">
-                                <i class="fa-solid fa-check me-2"></i>Create Setlist
+                        <div class="d-flex flex-column flex-md-row gap-3">
+                            <button type="submit" class="btn btn-band-action btn-lg rounded-pill flex-grow-1 fw-black shadow-lg hover-scale py-3">
+                                <i class="fa-solid fa-plus-circle me-2"></i>CREATE SETLIST
                             </button>
                             <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.BandId"
-                               class="btn btn-outline-secondary btn-lg rounded-pill px-4 fw-bold">
+                               class="btn btn-outline-light-dark btn-lg rounded-pill px-4 fw-bold hover-scale py-3 text-muted">
                                 Cancel
                             </a>
                         </div>
@@ -83,6 +85,77 @@
         </div>
     </div>
 </div>
+
+<style>
+    .bg-band-gradient {
+        background: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00, #191414);
+        background-size: 400% 400%;
+        animation: gradientAnimation 12s ease infinite;
+    }
+
+    @@keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .text-band-accent {
+        color: #FF4500 !important;
+    }
+
+    .bg-band-accent-soft {
+        background-color: rgba(255, 69, 0, 0.1);
+    }
+
+    .btn-band-action {
+        background-color: #FF4500;
+        color: white;
+        border: none;
+        letter-spacing: 0.5px;
+    }
+
+        .btn-band-action:hover {
+            background-color: #e63e00;
+            color: white;
+        }
+
+    .hover-scale {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .hover-scale:hover {
+            transform: translateY(-3px);
+        }
+
+    .focus-ring-band:focus {
+        border-color: #FF4500;
+        box-shadow: 0 0 0 0.25rem rgba(255, 69, 0, 0.25);
+    }
+
+    .fw-black {
+        font-weight: 900;
+    }
+
+    .rounded-5 {
+        border-radius: 2rem !important;
+    }
+
+    .rounded-4 {
+        border-radius: 1.25rem !important;
+    }
+
+    .btn-outline-light-dark {
+        border: 2px solid #eee;
+    }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

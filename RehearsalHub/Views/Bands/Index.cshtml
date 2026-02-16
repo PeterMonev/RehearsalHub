@@ -146,8 +146,11 @@
                 <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
                     <a class="page-link border-0 px-4 py-2"
                        asp-route-page="@(Model.CurrentPage - 1)"
-                       asp-route-searchTerm="@currentSearch">Previous</a>
+                       asp-route-searchTerm="@currentSearch">
+                        <i class="bi bi-chevron-left me-1"></i> Previous
+                    </a>
                 </li>
+
                 @for (int i = 1; i <= Model.TotalPages; i++)
                 {
                     <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
@@ -156,13 +159,19 @@
                            asp-route-searchTerm="@currentSearch">@i</a>
                     </li>
                 }
+
                 <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
                     <a class="page-link border-0 px-4 py-2"
                        asp-route-page="@(Model.CurrentPage + 1)"
-                       asp-route-searchTerm="@currentSearch">Next</a>
+                       asp-route-searchTerm="@currentSearch">
+                        Next <i class="bi bi-chevron-right ms-1"></i>
+                    </a>
                 </li>
             </ul>
         </nav>
     }
 </div>
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/bands-index.css" asp-append-version="true" />
+}
