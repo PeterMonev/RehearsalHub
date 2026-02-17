@@ -1,0 +1,184 @@
+﻿.band-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-radius: 1rem;
+}
+
+    .band-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+
+.badge.bg-warning {
+    background: linear-gradient(90deg, #ffbc00, #ff8000);
+    color: #111;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+}
+
+    .badge.bg-warning:hover {
+        transform: scale(1.05);
+    }
+
+.badge.bg-dark {
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+}
+
+.rehearsal-item {
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+    .rehearsal-item:hover {
+        background: rgba(255, 95, 109, 0.05);
+        transform: translateX(5px);
+        border-radius: 0.75rem;
+    }
+
+.date-badge {
+    width: 50px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #ff5f6d, #ffc371);
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 95, 109, 0.4);
+    }
+
+.btn-outline-secondary, .btn-outline-danger {
+    transition: all 0.2s ease;
+}
+
+    .btn-outline-secondary:hover {
+        background: rgba(0,0,0,0.05);
+    }
+
+    .btn-outline-danger:hover {
+        background: rgba(255,95,109,0.1);
+        color: #ff5f6d;
+    }
+
+.text-center.bg-light {
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    transition: transform 0.2s ease;
+}
+
+    .text-center.bg-light:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    }
+
+.pagination .page-link {
+    border-radius: 50px;
+    margin: 0 2px;
+    transition: all 0.2s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background: linear-gradient(90deg, #ff5f6d, #ffc371);
+    color: #fff;
+    border: none;
+    box-shadow: 0 6px 12px rgba(255, 95, 109, 0.4);
+}
+
+.pagination .page-link:hover {
+    background: rgba(255, 95, 109, 0.1);
+    color: #ff5f6d;
+}
+
+.btn-success.btn-lg {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    border: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-success.btn-lg:hover {
+        transform: scale(1.05) translateY(-2px);
+        box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+    }
+
+.band-card .card-footer {
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.btn-outline-secondary.rounded-pill {
+    border: 2px solid #6c757d;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+    .btn-outline-secondary.rounded-pill:hover {
+        background-color: #6c757d;
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(108, 117, 125, 0.2);
+    }
+
+.btn-outline-danger.rounded-pill {
+    border: 2px solid #dc3545;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+    .btn-outline-danger.rounded-pill:hover {
+        background: linear-gradient(135deg, #ff416c, #ff4b2b);
+        border-color: transparent;
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    }
+
+.pagination {
+    background: #fff;
+    padding: 8px;
+    gap: 5px;
+}
+
+    .pagination .page-link {
+        border: none !important;
+        color: #444;
+        font-weight: 600;
+        border-radius: 50px !important; 
+        padding: 8px 20px;
+        transition: all 0.3s ease;
+    }
+
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    background-color: #f8f9fa;
+    border: 1px solid #eee !important;
+}
+
+.page-item:not(.disabled):hover .page-link {
+    background: #333 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+.page-item.disabled .page-link {
+    background-color: #f1f1f1;
+    color: #bbb;
+    opacity: 0.6;
+}
+
+/* Активната страница */
+.page-item.active .page-link {
+    background: linear-gradient(135deg, #6e8efb, #a777e3) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(110, 142, 251, 0.4);
+}

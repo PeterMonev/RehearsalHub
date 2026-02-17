@@ -10,56 +10,77 @@
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
 
             <div class="text-center mb-5">
-                <div class="display-1 mb-2">🎸</div>
-                <h1 class="display-5 fw-bold text-dark">@ViewData["Title"]</h1>
-                <p class="lead text-muted col-lg-8 mx-auto">
+                <div class="display-1 mb-2 animate-rock">🎸</div>
+                <h1 class="display-5 fw-black text-dark text-uppercase tracking-tight">@ViewData["Title"]</h1>
+                <p class="lead text-muted col-lg-10 mx-auto">
                     Take the first step towards harmony. Create your group and start jamming!
                 </p>
             </div>
 
-            <div class="card shadow-lg border-0 rounded-4 overflow-hidden mb-4">
-                <div class="card-body p-4 p-md-5">
+            <div class="card shadow-lg border-0 rounded-5 overflow-hidden mb-4">
+                <div class="card-header bg-band-gradient p-4 border-0">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-bolt-lightning text-white me-2"></i>
+                        <span class="text-white fw-bold tracking-tight text-uppercase">Band Profile Setup</span>
+                    </div>
+                </div>
+                <div class="card-body p-4 p-md-5 bg-white">
                     <form asp-action="Create" method="post" autocomplete="off" class="needs-validation">
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3" role="alert"></div>
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-4 border-0 shadow-sm" role="alert"></div>
 
                         <div class="row g-4">
                             <div class="col-12">
-                                <label asp-for="Name" class="form-label fw-bold text-dark mb-1">Band Name</label>
+                                <label asp-for="Name" class="form-label fw-bold text-dark ms-1">BAND NAME</label>
                                 <div class="input-group input-group-lg">
-                                    <span class="input-group-text bg-light border-0"><i class="bi bi-people text-primary"></i></span>
-                                    <input asp-for="Name" class="form-control bg-light border-0 py-3" placeholder="e.g. The Rockers" />
+                                    <span class="input-group-text bg-light border-2 border-end-0 rounded-start-4 text-band-accent">
+                                        <i class="fa-solid fa-users"></i>
+                                    </span>
+                                    <input asp-for="Name" class="form-control bg-light border-2 border-start-0 rounded-end-4 py-3 focus-ring-band" placeholder="e.g. The Rockers" />
                                 </div>
-                                <span asp-validation-for="Name" class="text-danger small ps-1"></span>
+                                <span asp-validation-for="Name" class="text-danger small ps-1 mt-1"></span>
                             </div>
 
                             <div class="col-md-6">
-                                <label asp-for="Genre" class="form-label fw-bold text-dark mb-1">Genre</label>
-                                <select asp-for="Genre" class="form-select form-select-lg bg-light border-0" asp-items="Html.GetEnumSelectList<MusicGenre>()">
-                                    <option value="">Select Genre...</option>
-                                </select>
-                                <span asp-validation-for="Genre" class="text-danger small ps-1"></span>
+                                <label asp-for="Genre" class="form-label fw-bold text-dark ms-1">GENRE</label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light border-2 border-end-0 rounded-start-4 text-band-accent">
+                                        <i class="fa-solid fa-guitar"></i>
+                                    </span>
+                                    <select asp-for="Genre" class="form-select bg-light border-2 border-start-0 rounded-end-4 focus-ring-band" asp-items="Html.GetEnumSelectList<MusicGenre>()">
+                                        <option value="">Select Genre...</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Genre" class="text-danger small ps-1 mt-1"></span>
                             </div>
 
                             <div class="col-md-6">
-                                <label asp-for="SelectedInstrument" class="form-label fw-bold text-dark mb-1">Your Instrument</label>
-                                <select asp-for="SelectedInstrument" class="form-select form-select-lg bg-light border-0" asp-items="Html.GetEnumSelectList<InstrumentType>()">
-                                    <option value="">Select...</option>
-                                </select>
-                                <span asp-validation-for="SelectedInstrument" class="text-danger small ps-1"></span>
+                                <label asp-for="SelectedInstrument" class="form-label fw-bold text-dark ms-1">YOUR INSTRUMENT</label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light border-2 border-end-0 rounded-start-4 text-band-accent">
+                                        <i class="fa-solid fa-drum"></i>
+                                    </span>
+                                    <select asp-for="SelectedInstrument" class="form-select bg-light border-2 border-start-0 rounded-end-4 focus-ring-band" asp-items="Html.GetEnumSelectList<InstrumentType>()">
+                                        <option value="">Select...</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="SelectedInstrument" class="text-danger small ps-1 mt-1"></span>
                             </div>
 
                             <div class="col-12">
-                                <label asp-for="ImageUrl" class="form-label fw-bold text-dark mb-1">Band Image URL</label>
+                                <label asp-for="ImageUrl" class="form-label fw-bold text-dark ms-1">IMAGE URL</label>
                                 <div class="input-group input-group-lg">
-                                    <span class="input-group-text bg-light border-0"><i class="bi bi-image text-primary"></i></span>
-                                    <input asp-for="ImageUrl" class="form-control bg-light border-0 py-3" placeholder="https://..." />
+                                    <span class="input-group-text bg-light border-2 border-end-0 rounded-start-4 text-band-accent">
+                                        <i class="fa-solid fa-image"></i>
+                                    </span>
+                                    <input asp-for="ImageUrl" class="form-control bg-light border-2 border-start-0 rounded-end-4 py-3 focus-ring-band" placeholder="https://..." />
                                 </div>
-                                <span asp-validation-for="ImageUrl" class="text-danger small ps-1"></span>
+                                <span asp-validation-for="ImageUrl" class="text-danger small ps-1 mt-1"></span>
                             </div>
 
                             <div class="col-12 mt-5">
-                                <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill fw-bold py-3 shadow-sm scale-hover">
-                                    <i class="bi bi-rocket-takeoff me-2"></i>Create Band
+                                <button type="submit" class="btn btn-band-action btn-lg w-100 rounded-pill fw-black py-3 shadow-lg hover-scale">
+                                    <i class="fa-solid fa-rocket me-2"></i>CREATE BAND
                                 </button>
                             </div>
                         </div>
@@ -67,15 +88,106 @@
                 </div>
             </div>
 
-            <div class="text-center">
-                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">
-                    <i class="bi bi-arrow-left me-1"></i>Back to My Bands
+            <div class="text-center mt-4">
+                <a asp-action="Index" class="btn btn-link text-muted text-decoration-none hover-red fw-bold">
+                    <i class="fa-solid fa-arrow-left me-1"></i> Back to My Bands
                 </a>
             </div>
 
         </div>
     </div>
 </div>
+
+<style>
+    .bg-band-gradient {
+        background: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00, #191414);
+        background-size: 400% 400%;
+        animation: gradientAnimation 12s ease infinite;
+    }
+
+    @@keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .animate-rock {
+        display: inline-block;
+        animation: rockAngle 3s ease-in-out infinite;
+    }
+
+    @@keyframes rockAngle {
+        0%, 100% {
+            transform: rotate(-10deg);
+        }
+
+        50% {
+            transform: rotate(15deg);
+        }
+    }
+
+    .text-band-accent {
+        color: #FF4500 !important;
+    }
+
+    .btn-band-action {
+        background: #FF4500;
+        color: white;
+        border: none;
+        letter-spacing: 1.5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-band-action:hover {
+            background: #e63e00;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3);
+        }
+
+    .hover-scale {
+        transition: transform 0.2s ease;
+    }
+
+        .hover-scale:hover {
+            transform: translateY(-3px);
+        }
+
+    .focus-ring-band:focus {
+        border-color: #FF4500 !important;
+        box-shadow: 0 0 0 0.25rem rgba(255, 69, 0, 0.15) !important;
+        background-color: #fff !important;
+    }
+
+    .fw-black {
+        font-weight: 900;
+    }
+
+    .rounded-5 {
+        border-radius: 2rem !important;
+    }
+
+    .rounded-4 {
+        border-radius: 1.25rem !important;
+    }
+
+    .tracking-tight {
+        letter-spacing: -1px;
+    }
+
+    .hover-red:hover {
+        color: #FF4500 !important;
+        transition: 0.3s;
+    }
+</style>
 
 @section Scripts {
     @{

@@ -18,7 +18,10 @@
             <div class="row align-items-end g-3">
                 <div class="col-12 col-md-7 text-white text-center text-md-start">
                     <span class="badge bg-warning text-dark mb-3 fw-bold px-3 py-2 text-uppercase shadow-sm">@Model.Genre</span>
-                    <h1 class="display-3 fw-bold mb-0" style="text-shadow: 3px 3px 20px rgba(0,0,0,1);">@Model.Name</h1>
+                <h1 class="display-3 fw-bold mb-0 p-3"
+                    style="text-shadow: 3px 3px 20px rgba(0,0,0,1); background: rgba(0,0,0,0.2); backdrop-filter: blur(5px); border-radius: 1rem; display: inline-block;">
+                    @Model.Name
+                </h1>
                 </div>
 
                 <div class="col-12 col-md-5">
@@ -30,11 +33,11 @@
                             </a>
                             <form asp-action="Delete" asp-route-id="@Model.Id" method="post" id="deleteForm-@Model.Id">
                                 @Html.AntiForgeryToken()
-                                <button type="button"
-                                        class="btn btn-danger btn-lg rounded-pill px-4 shadow-lg fw-bold border-2"
-                                        onclick="confirmDelete('deleteForm-@Model.Id', 'All rehearsals and setlists will be deleted!', 'Delete this band forever?')">
-                                    <i class="fa-solid fa-trash me-2"></i>Delete
-                                </button>
+                            <button type="button"
+                                    class="btn btn-outline-light btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 hover-danger"
+                                    onclick="...">
+                                <i class="fa-solid fa-trash me-2"></i>Delete
+                            </button>
                             </form>
                         </div>
                     }
@@ -241,31 +244,6 @@
         </div>
     </div>
 </div>
-
-<style>
-    .border-dashed {
-        border-style: dashed !important;
-    }
-
-    .item-card:hover .transition-all {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.1) !important;
-    }
-
-    .hover-bg:hover {
-        background-color: #f8f9fa;
-        transform: translateX(5px);
-    }
-
-    .transition-all {
-        transition: all 0.25s ease-in-out;
-    }
-
-    .border-bottom-hover:hover {
-        border-bottom: 4px solid #198754 !important;
-    }
-
-    .invite-btn:hover {
-        transform: scale(1.05);
-    }
-</style>
+@section Styles {
+    <link rel="stylesheet" href="~/css/bands-index.css" asp-append-version="true" />
+}
