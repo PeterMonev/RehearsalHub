@@ -1,0 +1,164 @@
+﻿@model RehearsalInputModel
+
+@{
+    ViewData["Title"] = "Book Rehearsal";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <div class="card-header bg-gradient-primary p-4 p-md-5 border-0 position-relative">
+                    <div class="gradient-overlay"></div>
+                    <div class="d-flex align-items-center text-white position-relative">
+                        <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                            <i class="fa-solid fa-calendar-plus fa-2x"></i>
+                        </div>
+                        <div>
+                            <h2 class="mb-0 fw-bold">Book Rehearsal</h2>
+                            @if (!string.IsNullOrEmpty(Model.BandName))
+                            {
+                                <p class="mb-0 opacity-75">
+                                    <i class="fa-solid fa-users me-1"></i> @Model.BandName
+                                </p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5 bg-white">
+                    <form asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="BandId" />
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label fw-bold text-dark">
+                                <i class="fa-solid fa-heading text-warning me-2"></i>Rehearsal Name
+                            </label>
+                            <input asp-for="Name"
+                                   class="form-control form-control-lg border-2 rounded-3 custom-input"
+                                   placeholder="e.g., Pre-Gig Rehearsal"
+                                   autofocus />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="StartRehearsal" class="form-label fw-bold text-dark">
+                                    <i class="fa-solid fa-play text-success me-2"></i>Start Date & Time
+                                </label>
+                                <input asp-for="StartRehearsal"
+                                       type="datetime-local"
+                                       class="form-control form-control-lg border-2 rounded-3 custom-input" />
+                                <span asp-validation-for="StartRehearsal" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="EndRehearsal" class="form-label fw-bold text-dark">
+                                    <i class="fa-solid fa-stop text-danger me-2"></i>End Date & Time
+                                </label>
+                                <input asp-for="EndRehearsal"
+                                       type="datetime-local"
+                                       class="form-control form-control-lg border-2 rounded-3 custom-input" />
+                                <span asp-validation-for="EndRehearsal" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="SetlistId" class="form-label fw-bold text-dark">
+                                <i class="fa-solid fa-compact-disc text-info me-2"></i>Select Setlist (Optional)
+                            </label>
+                            <select asp-for="SetlistId" class="form-select form-select-lg border-2 rounded-3 custom-input">
+                                <option value="">-- No Setlist --</option>
+                                @foreach (var setlist in Model.AvailableSetlists)
+                                {
+                                    <option value="@setlist.Id">@setlist.Name (@setlist.SongsCount songs)</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Notes" class="form-label fw-bold text-dark">
+                                <i class="fa-solid fa-sticky-note text-warning me-2"></i>Notes
+                            </label>
+                            <textarea asp-for="Notes"
+                                      class="form-control border-2 rounded-3 custom-input"
+                                      rows="3"
+                                      placeholder="What's the focus of this practice?"></textarea>
+                            <span asp-validation-for="Notes" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex flex-column flex-md-row gap-3 pt-3">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow-sm order-md-2 btn-rock">
+                                <i class="fa-solid fa-calendar-check me-2"></i>Confirm Booking
+                            </button>
+                            <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.BandId"
+                               class="btn btn-light btn-lg rounded-pill px-4 fw-bold text-muted order-md-1">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00, #191414);
+        background-size: 200% 200%;
+        animation: rockGradient 8s ease infinite;
+    }
+
+    .gradient-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.transparenttextures.com/patterns/stardust.png');
+        opacity: 0.15;
+    }
+
+    .btn-rock {
+        background: linear-gradient(135deg, #FF4B2B 0%, #FF8811 100%);
+        border: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .btn-rock:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+            background: linear-gradient(135deg, #FF5B3B 0%, #FF9821 100%);
+        }
+
+    .custom-input:focus {
+        border-color: #FF8811;
+        box-shadow: 0 0 0 0.25rem rgba(255, 136, 17, 0.25);
+    }
+
+    @@keyframes rockGradient {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

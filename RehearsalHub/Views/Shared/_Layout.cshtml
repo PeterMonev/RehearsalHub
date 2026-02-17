@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RehearsalHub</title>
+    @RenderSection("Styles", required: false)
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css">
-
 </head>
 <body>
 
@@ -49,16 +49,27 @@
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link nav-link-custom px-lg-3 text-info-hover" asp-controller="Bands" asp-action="Index">My Bands</a>
+                                <a class="nav-link nav-link-custom px-lg-3 text-info-hover" asp-controller="Bands" asp-action="Index">
+                                    <i class="fa-solid fa-guitar me-1"></i>My Bands
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-custom px-lg-3 text-warning-hover" asp-controller="Songs" asp-action="Index">Songs</a>
+                                <a class="nav-link nav-link-custom px-lg-3 text-warning-hover" asp-controller="Songs" asp-action="Index">
+                                    <i class="fa-solid fa-music me-1"></i>Songs
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom px-lg-3" asp-controller="Rehearsals" asp-action="MyRehearsals">
+                                    <i class="fa-solid fa-calendar-days me-1"></i>Rehearsals
+                                </a>
                             </li>
                             <li class="nav-item mt-2 mt-lg-0 ms-lg-2">
                                 <a class="btn btn-danger btn-sm rounded-pill px-4 fw-bold shadow-danger-sm" asp-controller="Bands" asp-action="Create">
-                                    <i class="fa-solid fa-plus me-1"></i> Add Band
+                                    <i class="fa-solid fa-plus-circle me-1"></i>Add Band
                                 </a>
                             </li>
+                           
+                           
                         }
                     </ul>
 
@@ -154,7 +165,6 @@
     <script src="~/js/site-messages.js" asp-append-version="true"></script>
     <script src="~/js/site-search.js" asp-append-version="true"></script>
     <script src="~/js/site-search-addsong.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Styles", required: false)
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

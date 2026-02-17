@@ -1,0 +1,349 @@
+﻿@model RehearsalHub.Web.ViewModels.Rehearsal.RehearsalDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container py-4">
+
+    <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+        <div class="card-body p-4 p-md-5 bg-gradient-primary">
+            <div class="row align-items-center text-white">
+                <div class="col-md-8">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                            <i class="fa-solid fa-calendar-check fa-2x"></i>
+                        </div>
+                        <div>
+                            <h1 class="mb-0 fw-bold display-6">@Model.Name</h1>
+                            <p class="mb-0 opacity-75">
+                                <i class="fa-solid fa-users me-2"></i>@Model.BandName
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        @if (Model.IsHappeningNow)
+                        {
+                            <span class="badge bg-danger px-3 py-2 fs-6 animate-pulse">
+                                <i class="fa-solid fa-circle-dot me-2"></i>HAPPENING NOW!
+                            </span>
+                        }
+                        else if (Model.IsUpcoming)
+                        {
+                            <span class="badge bg-success px-3 py-2 fs-6">
+                                <i class="fa-solid fa-calendar-days me-2"></i>Upcoming
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary px-3 py-2 fs-6">
+                                <i class="fa-solid fa-check me-2"></i>Completed
+                            </span>
+                        }
+
+                        <span class="badge bg-white bg-opacity-25 text-white px-3 py-2">
+                            <i class="fa-solid fa-calendar me-2"></i>@Model.FormattedDate
+                        </span>
+                        <span class="badge bg-white bg-opacity-25 text-white px-3 py-2">
+                            <i class="fa-solid fa-clock me-2"></i>@Model.FormattedStartTime - @Model.FormattedEndTime
+                        </span>
+                        <span class="badge bg-white bg-opacity-25 text-white px-3 py-2">
+                            <i class="fa-solid fa-hourglass-half me-2"></i>@Model.Duration
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-3 mt-md-0">
+                    @if (Model.CanEdit)
+                    {
+                        <div class="d-flex flex-column gap-2">
+                            <a asp-action="Edit" asp-route-id="@Model.Id"
+                               class="btn btn-light btn-lg rounded-pill fw-bold shadow">
+                                <i class="fa-solid fa-pen-to-square me-2"></i>Edit
+                            </a>
+                            <div class="d-flex gap-2">
+                                <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.BandId"
+                                   class="btn btn-outline-light rounded-pill flex-grow-1 fw-bold">
+                                    <i class="fa-solid fa-arrow-left me-2"></i>Back
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@Model.Id" method="post" id="deleteRehearsalForm">
+                                    @Html.AntiForgeryToken()
+                                    <button type="button"
+                                            class="btn btn-outline-light rounded-pill fw-bold px-4"
+                                            onclick="confirmDelete('deleteRehearsalForm', 'Cancel this rehearsal?')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.BandId"
+                           class="btn btn-outline-light btn-lg rounded-pill fw-bold w-100">
+                            <i class="fa-solid fa-arrow-left me-2"></i>Back to Band
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-lg-8">
+            @if (Model.SetlistId.HasValue && Model.Songs.Any())
+            {
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-header bg-white border-0 p-4 pb-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="h4 fw-bold mb-0 text-dark">
+                                <i class="fa-solid fa-compact-disc text-success me-2"></i>@Model.SetlistName
+                            </h2>
+                            <a asp-controller="Setlists" asp-action="Details" asp-route-id="@Model.SetlistId"
+                               class="btn btn-sm btn-outline-success rounded-pill px-3">
+                                <i class="fa-solid fa-arrow-up-right-from-square me-1"></i>View Setlist
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+             
+                        <div class="d-none d-md-block">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light rounded-3">
+                                    <tr>
+                                        <th class="ps-3 text-muted fw-semibold">#</th>
+                                        <th class="text-muted fw-semibold">Song</th>
+                                        <th class="text-muted fw-semibold">Genre</th>
+                                        <th class="text-center text-muted fw-semibold">BPM</th>
+                                        <th class="text-center text-muted fw-semibold">Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int pos = 1;
+                                    }
+                                    @foreach (var song in Model.Songs)
+                                    {
+                                        <tr>
+                                            <td class="ps-3">
+                                                <span class="badge bg-light text-dark border">@pos</span>
+                                            </td>
+                                            <td>
+                                                <div class="fw-bold text-dark">@song.Title</div>
+                                                <small class="text-muted">@song.Artist</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info bg-opacity-10 text-info">@song.Genre</span>
+                                            </td>
+                                            <td class="text-center">
+                                                @if (song.Tempo.HasValue)
+                                                {
+                                                    <span class="text-dark small">@song.Tempo</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted small">—</span>
+                                                }
+                                            </td>
+                                            <td class="text-center text-muted small">@song.Duration</td>
+                                        </tr>
+                                        pos++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                      
+                        <div class="d-md-none">
+                            @{
+                                int mPos = 1;
+                            }
+                            @foreach (var song in Model.Songs)
+                            {
+                                <div class="d-flex align-items-center p-3 border rounded-3 mb-2">
+                                    <span class="badge bg-light text-dark border me-3">@mPos</span>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold text-dark small">@song.Title</div>
+                                        <div class="text-muted" style="font-size:0.75rem;">@song.Artist</div>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-info bg-opacity-10 text-info">@song.Genre</span>
+                                        <div class="text-muted mt-1" style="font-size:0.75rem;">@song.Duration</div>
+                                    </div>
+                                </div>
+                                mPos++;
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Model.SetlistId.HasValue)
+            {
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-body p-5 text-center">
+                        <i class="fa-solid fa-compact-disc fa-3x text-muted opacity-25 mb-3"></i>
+                        <h5 class="fw-bold text-dark mb-2">@Model.SetlistName</h5>
+                        <p class="text-muted mb-3">This setlist has no songs yet.</p>
+                        @if (Model.CanEdit)
+                        {
+                            <a asp-controller="Setlists" asp-action="AddSongs" asp-route-id="@Model.SetlistId"
+                               class="btn btn-success rounded-pill px-4">
+                                <i class="fa-solid fa-plus me-2"></i>Add Songs
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-body p-5 text-center bg-light rounded-4">
+                        <i class="fa-solid fa-music fa-3x text-muted opacity-25 mb-3"></i>
+                        <p class="text-muted mb-0">No setlist assigned to this rehearsal.</p>
+                        @if (Model.CanEdit)
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id"
+                               class="btn btn-outline-primary rounded-pill px-4 mt-3">
+                                <i class="fa-solid fa-plus me-2"></i>Assign a Setlist
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-0 p-4 pb-3">
+                    <h3 class="h5 fw-bold mb-0 text-dark">
+                        <i class="fa-solid fa-circle-info text-primary me-2"></i>Details
+                    </h3>
+                </div>
+                <div class="card-body p-4 pt-0">
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex align-items-start">
+                            <div class="bg-primary bg-opacity-10 rounded-3 p-2 me-3 text-primary" style="min-width:36px; text-align:center;">
+                                <i class="fa-solid fa-calendar"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block">Date</small>
+                                <strong class="text-dark">@Model.FormattedDate</strong>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start">
+                            <div class="bg-success bg-opacity-10 rounded-3 p-2 me-3 text-success" style="min-width:36px; text-align:center;">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block">Time</small>
+                                <strong class="text-dark">@Model.FormattedStartTime – @Model.FormattedEndTime</strong>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start">
+                            <div class="bg-warning bg-opacity-10 rounded-3 p-2 me-3 text-warning" style="min-width:36px; text-align:center;">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block">Duration</small>
+                                <strong class="text-dark">@Model.Duration</strong>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start">
+                            <div class="bg-info bg-opacity-10 rounded-3 p-2 me-3 text-info" style="min-width:36px; text-align:center;">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block">Band</small>
+                                <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.BandId"
+                                   class="fw-bold text-dark text-decoration-none">@Model.BandName</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start">
+                            <div class="bg-success bg-opacity-10 rounded-3 p-2 me-3 text-success" style="min-width:36px; text-align:center;">
+                                <i class="fa-solid fa-compact-disc"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block">Setlist</small>
+                                @if (Model.SetlistId.HasValue)
+                                {
+                                    <a asp-controller="Setlists" asp-action="Details" asp-route-id="@Model.SetlistId"
+                                       class="fw-bold text-dark text-decoration-none">@Model.SetlistName</a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No setlist</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Notes))
+            {
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-header bg-white border-0 p-4 pb-3">
+                        <h3 class="h5 fw-bold mb-0 text-dark">
+                            <i class="fa-solid fa-sticky-note text-warning me-2"></i>Notes
+                        </h3>
+                    </div>
+                    <div class="card-body p-4 pt-0">
+                        <p class="text-dark mb-0" style="white-space: pre-wrap;">@Model.Notes</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        position: relative;
+        background: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00, #191414);
+        background-size: 200% 200%;
+        animation: rockGradient 8s ease infinite;
+        border-radius: 1rem;
+        overflow: hidden;
+        animation: gradientAnimation 12s ease infinite;
+    }
+
+    @@keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .gradient-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.transparenttextures.com/patterns/stardust.png');
+        opacity: 0.2;
+        pointer-events: none;
+    }
+
+    .animate-pulse {
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9ff;
+    }
+</style>
