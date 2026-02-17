@@ -4,37 +4,38 @@
     ViewData["Title"] = "Song Details";
 }
 
-<div class="container py-5">
+<div class="container py-5 animate-fade-in">
     <div class="row mb-4">
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-3">
-                    <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Library</a></li>
-                    <li class="breadcrumb-item active">@Model.Title</li>
+                    <li class="breadcrumb-item"><a asp-action="Index" class="text-orange-red text-decoration-none fw-bold">Library</a></li>
+                    <li class="breadcrumb-item active text-muted">@Model.Title</li>
                 </ol>
             </nav>
 
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center bg-white p-4 rounded-4 shadow-sm border-start border-primary border-5">
-                <div>
-                    <span class="badge bg-primary mb-2">@Model.Genre</span>
-                    <h1 class="display-5 fw-bold mb-1">@Model.Title</h1>
-                    <p class="fs-5 text-muted mb-0"><i class="fa-solid fa-user-astronaut me-2"></i>@Model.Artist</p>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center bg-dark-spotify p-4 rounded-4 shadow-lg position-relative overflow-hidden">
+                <div class="gradient-stripe-vertical"></div>
+                <div class="ps-3">
+                    <span class="badge btn-gradient mb-2 px-3 py-2 rounded-pill">@Model.Genre</span>
+                    <h1 class="display-5 fw-bold mb-1 text-white">@Model.Title</h1>
+                    <p class="fs-5 text-gradient-static mb-0"><i class="fa fa-user me-2"></i>@Model.Artist</p>
                 </div>
 
                 @if (Model.CanEdit)
                 {
-                    <div class="mt-3 mt-md-0 d-flex gap-2">
-                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-white px-4 rounded-pill fw-bold">
-                            <i class="fa-solid fa-pen-to-square me-2"></i>Edit
+                    <div class="mt-4 mt-md-0 d-flex gap-2 position-relative" style="z-index: 2;">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-gradient px-4 rounded-pill fw-bold">
+                            <i class="fa fa-pencil me-2"></i>Edit Song
                         </a>
 
                         <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
                             @Html.AntiForgeryToken()
                             <button type="submit"
-                                    class="btn btn-outline-danger px-4 rounded-pill fw-bold btn-delete-confirm"
+                                    class="btn btn-outline-light px-4 rounded-pill fw-bold btn-delete-confirm"
                                     data-title="Delete Song?"
                                     data-message="Are you sure you want to delete '@Model.Title'?">
-                                <i class="fa-solid fa-trash me-2"></i>Delete
+                                <i class="fa fa-trash me-2"></i>Delete
                             </button>
                         </form>
                     </div>
@@ -45,71 +46,86 @@
 
     <div class="row g-4">
         <div class="col-lg-7">
-            <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
                 <div class="card-body p-4">
-                    <h4 class="fw-bold mb-4"><i class="fa-solid fa-dna text-primary me-2"></i>Musical DNA</h4>
+                    <h4 class="fw-bold mb-4 small-caps"><i class="fa fa-bolt text-orange-red me-2"></i>Musical DNA</h4>
                     <div class="row g-3">
                         <div class="col-4">
-                            <div class="p-3 border rounded-3 text-center bg-light">
-                                <small class="text-muted d-block text-uppercase fw-bold">Key</small>
-                                <span class="fs-4 fw-bold text-primary">@Model.MusicalKey</span>
+                            <div class="p-3 border-0 rounded-4 text-center bg-dark-soft shadow-sm transition-hover">
+                                <small class="text-muted d-block text-uppercase fw-bold mb-1" style="font-size: 0.7rem;">Key</small>
+                                <span class="fs-3 fw-bold text-orange-red">@Model.MusicalKey</span>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="p-3 border rounded-3 text-center bg-light">
-                                <small class="text-muted d-block text-uppercase fw-bold">Tempo</small>
-                                <span class="fs-4 fw-bold text-dark">@Model.Tempo <small class="fs-6">BPM</small></span>
+                            <div class="p-3 border-0 rounded-4 text-center bg-dark-soft shadow-sm transition-hover">
+                                <small class="text-muted d-block text-uppercase fw-bold mb-1" style="font-size: 0.7rem;">Tempo</small>
+                                <span class="fs-3 fw-bold text-dark">@Model.Tempo <small class="fs-6">BPM</small></span>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="p-3 border rounded-3 text-center bg-light">
-                                <small class="text-muted d-block text-uppercase fw-bold">Duration</small>
-                                <span class="fs-4 fw-bold text-dark">@Model.Duration</span>
+                            <div class="p-3 border-0 rounded-4 text-center bg-dark-soft shadow-sm transition-hover">
+                                <small class="text-muted d-block text-uppercase fw-bold mb-1" style="font-size: 0.7rem;">Duration</small>
+                                <span class="fs-3 fw-bold text-dark">@Model.Duration</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-body p-4">
-                    <h4 class="fw-bold mb-4"><i class="fa-solid fa-list-ul text-primary me-2"></i>Setlists</h4>
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="mb-0 fw-bold small-caps"><i class="fa fa-list text-orange-red me-2"></i>Included in Setlists</h5>
+                </div>
+                <div class="card-body p-0">
                     @if (Model.IncludedInSetlists.Any())
                     {
                         <div class="list-group list-group-flush">
                             @foreach (var setlist in Model.IncludedInSetlists)
                             {
-                                <div class="list-group-item px-0 py-3 d-flex justify-content-between align-items-center">
+                                <div class="list-group-item px-4 py-3 d-flex justify-content-between align-items-center bg-hover-light border-light">
                                     <div>
                                         <h6 class="mb-0 fw-bold">@setlist.Name</h6>
                                         <small class="text-muted">Band: @setlist.BandName</small>
                                     </div>
+                                    <i class="fa fa-chevron-right text-muted small"></i>
                                 </div>
                             }
                         </div>
                     }
                     else
                     {
-                        <p class="text-muted mb-0">Not included in any setlists.</p>
+                        <div class="p-4 text-center">
+                            <p class="text-muted mb-0">Not included in any setlists yet.</p>
+                        </div>
                     }
                 </div>
             </div>
         </div>
 
         <div class="col-lg-5">
-            <div class="card border-0 shadow-sm rounded-4 bg-dark text-white p-4 mb-4">
-                <h5 class="fw-bold mb-3 text-warning">Quick Actions</h5>
-                <button class="btn btn-outline-light w-100 text-start py-3 mb-2 rounded-3" onclick="window.print()">
-                    <i class="fa-solid fa-print me-2"></i>Print Sheet
+            <div class="card border-0 shadow-lg rounded-4 bg-dark-spotify text-white p-4 mb-4 overflow-hidden position-relative">
+                <div class="icon-watermark">
+                    <i class="fa fa-print"></i>
+                </div>
+                <h5 class="fw-bold mb-3 position-relative" style="z-index: 2;">Quick Actions</h5>
+                <button class="btn btn-outline-light w-100 text-start py-3 mb-2 rounded-4 border-2 shadow-sm transition-all position-relative" style="z-index: 2;" onclick="window.print()">
+                    <i class="fa fa-print me-2"></i>Print Sheet Music
                 </button>
             </div>
 
             @if (Model.OwnerBandId.HasValue)
             {
-                <div class="card border-0 shadow-sm rounded-4 p-4">
-                    <h6 class="text-muted text-uppercase small fw-bold">Managed by</h6>
-                    <h5 class="fw-bold mb-2">@Model.OwnerBandName</h5>
-                    <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.OwnerBandId" class="text-primary text-decoration-none fw-bold">View Band Profile &rarr;</a>
+                <div class="card border-0 shadow-sm rounded-4 p-4 border-top border-orange-red border-4">
+                    <h6 class="text-muted text-uppercase small fw-bold mb-3">Managed by</h6>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-box-gradient-small rounded-3 me-3">
+                            <i class="fa fa-users text-white"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">@Model.OwnerBandName</h5>
+                    </div>
+                    <a asp-controller="Bands" asp-action="Details" asp-route-id="@Model.OwnerBandId" class="text-orange-red text-decoration-none fw-bold hover-underline">
+                        View Band Profile <i class="fa fa-arrow-right ms-1"></i>
+                    </a>
                 </div>
             }
         </div>
@@ -117,11 +133,83 @@
 </div>
 
 <style>
-    body {
-        background-color: #f8f9fa;
+    :root {
+        --spotify-black: #191414;
+        --orange-red: #FF4500;
+        --deep-red: #FF0000;
+        --dark-orange: #FF8C00;
+        --gradient-main: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00, #191414);
     }
 
-    .card {
-        transition: all 0.2s ease;
+    body { background-color: #f4f4f4; }
+
+    .bg-dark-spotify { background-color: var(--spotify-black) !important; }
+    .bg-dark-soft { background-color: #f8f9fa; }
+    .text-orange-red { color: var(--orange-red); }
+
+    .text-gradient-static {
+        background: linear-gradient(45deg, #FF4500, #FF8C00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .btn-gradient {
+        background: var(--gradient-main);
+        background-size: 300% 300%;
+        color: white !important;
+        border: none;
+        transition: all 0.3s ease;
+        animation: gradientShift 10s ease infinite;
+    }
+
+    .btn-gradient:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .gradient-stripe-vertical {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        background: var(--gradient-main);
+    }
+
+    .icon-box-gradient-small {
+        background: var(--gradient-main);
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .transition-hover:hover {
+        background-color: white !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important;
+        transform: translateY(-3px);
+    }
+
+    .icon-watermark {
+        position: absolute;
+        right: -20px;
+        bottom: -20px;
+        font-size: 8rem;
+        color: rgba(255, 255, 255, 0.05);
+        transform: rotate(-15deg);
+    }
+
+    .small-caps { font-variant: small-caps; letter-spacing: 1px; }
+
+    .bg-hover-light:hover { background-color: #fcfcfc; }
+
+    @@keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 </style>

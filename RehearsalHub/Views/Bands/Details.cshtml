@@ -7,32 +7,32 @@
     ViewData["Title"] = Model.Name;
 }
 
-<div class="position-relative overflow-hidden shadow-lg mb-5" style="border-radius: 2.5rem; height: 380px; background-color: #1a1a1a;">
+<div class="position-relative overflow-hidden shadow-lg mb-5 animate-fade-in" style="border-radius: 2.5rem; height: 420px; background-color: #121212;">
     <div class="position-absolute w-100 h-100"
-         style="background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
+         style="background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(25,20,20,1) 100%),
                 url('@(string.IsNullOrEmpty(Model.ImageUrl) ? "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=2070" : Model.ImageUrl)') center/cover no-repeat;
                 z-index: 1;">
     </div>
 
     <div class="position-absolute bottom-0 start-0 p-4 p-md-5 w-100" style="z-index: 10;">
-        <div class="row align-items-end g-3">
-            <div class="col-12 col-md-7 text-white text-center text-md-start">
-                <span class="badge bg-warning text-dark mb-3 fw-bold px-3 py-2 text-uppercase shadow-sm">@Model.Genre</span>
-                <h1 class="display-3 fw-bold mb-0 p-3 title-blur">
+        <div class="row align-items-end g-4">
+            <div class="col-12 col-md-8 text-white text-center text-md-start">
+                <span class="badge btn-gradient mb-3 fw-bold px-4 py-2 text-uppercase shadow-sm rounded-pill">@Model.Genre</span>
+                <h1 class="display-2 fw-bold mb-0 title-blur px-3 py-2">
                     @Model.Name
                 </h1>
             </div>
 
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-md-4">
                 @if (Model.IsOwner)
                 {
-                    <div class="d-flex justify-content-center justify-content-md-end gap-2">
-                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-rock-gradient btn-lg rounded-pill px-4 shadow-lg fw-bold border-0">
+                    <div class="d-flex justify-content-center justify-content-md-end gap-3 mb-2">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-light btn-lg rounded-pill px-4 shadow-lg fw-bold border-2 transition-all">
                             <i class="fa-solid fa-pen-to-square me-2"></i>Edit
                         </a>
                         <form asp-action="Delete" asp-route-id="@Model.Id" method="post" id="deleteForm-@Model.Id" class="m-0">
                             @Html.AntiForgeryToken()
-                            <button type="button" class="btn btn-glass-danger btn-lg rounded-pill px-4 shadow-lg fw-bold border-2"
+                            <button type="button" class="btn btn-glass-danger btn-lg rounded-pill px-4 shadow-lg fw-bold"
                                     onclick="confirmDelete('deleteForm-@Model.Id', 'Delete this band?')">
                                 <i class="fa-solid fa-trash me-2"></i>Delete
                             </button>
@@ -46,24 +46,24 @@
 
 <div class="row g-4">
     <div class="col-lg-8">
-        <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white overflow-hidden">
-            <div class="card-header bg-white border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
-                <h2 class="h4 fw-bold mb-0 text-dark">
-                    <i class="fa-solid fa-calendar-check text-info me-2"></i>Upcoming Sessions
+        <div class="card border-0 shadow-lg rounded-4 mb-4 bg-dark-spotify text-white overflow-hidden">
+            <div class="card-header bg-dark-spotify border-bottom border-secondary border-opacity-25 p-4 d-flex justify-content-between align-items-center">
+                <h2 class="h4 fw-bold mb-0">
+                    <i class="fa-solid fa-calendar-check text-orange-red me-2"></i>Upcoming Sessions
                 </h2>
                 @if (Model.IsOwner)
                 {
-                    <a asp-controller="Rehearsals" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-info text-white rounded-pill px-3 fw-bold shadow-sm">
-                        <i class="fa-solid fa-plus me-1"></i> Book
+                    <a asp-controller="Rehearsals" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-gradient btn-sm rounded-pill px-4 fw-bold shadow-sm">
+                        <i class="fa-solid fa-plus me-1"></i> Book Studio
                     </a>
                 }
             </div>
             <div class="card-body p-4">
                 @if (!Model.UpcomingRehearsals.Any())
                 {
-                    <div class="text-center py-5 bg-light rounded-4 border border-dashed">
-                        <i class="fa-solid fa-couch fa-2x text-muted opacity-25 mb-2"></i>
-                        <p class="text-muted mb-0">No sessions planned yet.</p>
+                    <div class="text-center py-5 rounded-4 border-dashed opacity-75">
+                        <i class="fa-solid fa-microphone-lines fa-2x text-muted mb-3"></i>
+                        <p class="text-muted mb-0">No sessions planned yet. Time to practice!</p>
                     </div>
                 }
                 else
@@ -71,17 +71,17 @@
                     @foreach (var r in Model.UpcomingRehearsals)
                     {
                         <a asp-controller="Rehearsals" asp-action="Details" asp-route-id="@r.Id" class="text-decoration-none d-block mb-3">
-                            <div class="rehearsal-item p-3 rounded-4 border-start border-info border-5 shadow-sm transition-all">
+                            <div class="rehearsal-item-dark p-3 rounded-4 border-start border-orange-red border-5 shadow-sm transition-all">
                                 <div class="d-flex align-items-center">
-                                    <div class="calendar-mini me-4">
-                                        <div class="cal-month text-uppercase">@r.Start.ToString("MMM")</div>
-                                        <div class="cal-day">@r.Start.Day</div>
+                                    <div class="date-badge-dark text-center me-4 py-2 rounded-3" style="min-width: 65px;">
+                                        <div class="text-uppercase text-orange-red fw-bold small">@r.Start.ToString("MMM")</div>
+                                        <div class="fs-3 fw-bold text-white">@r.Start.Day</div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold text-dark fs-5">@r.SetlistName</h6>
-                                        <div class="d-flex gap-3 small text-muted">
-                                            <span><i class="fa-regular fa-clock text-info me-1"></i> @r.Start.ToString("HH:mm")</span>
-                                            <span><i class="fa-solid fa-location-dot text-info me-1"></i> Studio 1</span>
+                                        <h6 class="mb-1 fw-bold text-white fs-5">@(string.IsNullOrEmpty(r.SetlistName) ? "General Practice" : r.SetlistName)</h6>
+                                        <div class="d-flex gap-4 small text-muted">
+                                            <span><i class="fa-regular fa-clock text-orange-red me-1"></i> @r.Start.ToString("HH:mm") - @r.End.ToString("HH:mm")</span>
+                                            <span><i class="fa-solid fa-location-dot text-orange-red me-1"></i> Studio 1</span>
                                         </div>
                                     </div>
                                     <i class="fa-solid fa-chevron-right text-muted opacity-25"></i>
@@ -93,12 +93,12 @@
             </div>
         </div>
 
-        <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
-            <div class="card-header bg-white border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
-                <h2 class="h4 fw-bold mb-0 text-dark">
-                    <i class="fa-solid fa-compact-disc text-warning me-2"></i>Setlists
+        <div class="card border-0 shadow-lg rounded-4 bg-dark-spotify text-white overflow-hidden">
+            <div class="card-header bg-dark-spotify border-bottom border-secondary border-opacity-25 p-4 d-flex justify-content-between align-items-center">
+                <h2 class="h4 fw-bold mb-0">
+                    <i class="fa-solid fa-compact-disc text-orange-red me-2"></i>Setlists
                 </h2>
-                <a asp-controller="Setlists" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-sm btn-warning text-dark rounded-pill px-3 fw-bold shadow-sm">
+                <a asp-controller="Setlists" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-outline-light btn-sm rounded-pill px-4 fw-bold">
                     <i class="fa-solid fa-plus me-1"></i> New List
                 </a>
             </div>
@@ -106,7 +106,7 @@
                 <div class="row g-3">
                     @if (Model.Setlists == null || !Model.Setlists.Any())
                     {
-                        <div class="col-12 text-center py-4 bg-light rounded-4 border border-dashed">
+                        <div class="col-12 text-center py-4 rounded-4 border-dashed opacity-75">
                             <p class="text-muted mb-0">No setlists created yet.</p>
                         </div>
                     }
@@ -116,15 +116,15 @@
                         {
                             <div class="col-md-6">
                                 <a asp-controller="Setlists" asp-action="Details" asp-route-id="@s.Id" class="text-decoration-none d-block">
-                                    <div class="setlist-card p-3 bg-white border rounded-4 shadow-sm d-flex align-items-center transition-all">
-                                        <div class="bg-warning bg-opacity-10 text-warning rounded-3 p-3 me-3">
-                                            <i class="fa-solid fa-music"></i>
+                                    <div class="setlist-card-dark p-3 rounded-4 d-flex align-items-center transition-all">
+                                        <div class="btn-gradient rounded-3 p-3 me-3 shadow">
+                                            <i class="fa-solid fa-music text-white"></i>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <h6 class="mb-0 fw-bold text-dark">@s.Name</h6>
+                                            <h6 class="mb-0 fw-bold text-white">@s.Name</h6>
                                             <small class="text-muted">@s.SongsCount tracks</small>
                                         </div>
-                                        <i class="fa-solid fa-circle-play text-warning opacity-50"></i>
+                                        <i class="fa-solid fa-play-circle fs-4 text-orange-red opacity-75 hover-scale"></i>
                                     </div>
                                 </a>
                             </div>
@@ -136,15 +136,15 @@
     </div>
 
     <div class="col-lg-4">
-        <div class="card border-0 shadow-sm rounded-4 bg-white p-4 mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <div class="card border-0 shadow-lg rounded-4 bg-dark-spotify text-white p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary border-opacity-25 pb-3">
                 <div>
-                    <h3 class="h5 fw-bold mb-0 text-dark">Lineup</h3>
+                    <h3 class="h5 fw-bold mb-0">Band Lineup</h3>
                     <small class="text-muted">@Model.Members.Count active members</small>
                 </div>
                 @if (Model.IsOwner)
                 {
-                    <button type="button" class="btn btn-electric-blue btn-sm rounded-pill px-3 fw-bold shadow-sm invite-btn"
+                    <button type="button" class="btn btn-gradient btn-sm rounded-pill px-3 fw-bold shadow-sm"
                             data-bs-toggle="modal" data-bs-target="#inviteModal">
                         <i class="fa-solid fa-user-plus me-1"></i> Invite
                     </button>
@@ -154,24 +154,24 @@
             <div class="d-flex flex-column gap-3 mb-4">
                 @foreach (var member in Model.Members)
                 {
-                    var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                    var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     bool isMe = currentUserId == member.UserId;
 
-                    <div class="d-flex align-items-center justify-content-between member-row p-2 rounded-4 transition-all">
+                    <div class="d-flex align-items-center justify-content-between member-row-dark p-2 rounded-4 transition-all">
                         <a asp-controller="Users" asp-action="Profile" asp-route-id="@member.UserId" class="d-flex align-items-center text-decoration-none">
                             <div class="position-relative">
                                 <img src="@(string.IsNullOrEmpty(member.AvatarUrl) ? $"https://ui-avatars.com/api/?name={member.FullName}&background=random" : member.AvatarUrl)"
-                                     class="rounded-circle border border-2 shadow-sm" style="width: 45px; height: 45px; object-fit: cover;">
+                                     class="rounded-circle border border-2 border-orange-red shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
                                 @if (member.IsLeader)
                                 {
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark border border-white p-1">
-                                        <i class="fa-solid fa-crown" style="font-size: 7px;"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill btn-gradient border border-dark p-1">
+                                        <i class="fa-solid fa-crown" style="font-size: 8px;"></i>
                                     </span>
                                 }
                             </div>
                             <div class="ms-3">
-                                <p class="mb-0 fw-bold text-dark lh-sm">@member.FullName</p>
-                                <small class="text-info fw-medium">@member.Instrument</small>
+                                <p class="mb-0 fw-bold text-white lh-sm">@member.FullName</p>
+                                <small class="text-orange-red fw-medium">@member.Instrument</small>
                             </div>
                         </a>
                         @if (!member.IsLeader && (Model.IsOwner || isMe))
@@ -180,7 +180,8 @@
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="bandId" value="@Model.Id" />
                                 <input type="hidden" name="userId" value="@member.UserId" />
-                                <button type="button" class="btn btn-link text-danger p-0 border-0" onclick="confirmDelete(this.form, 'Remove member?')">
+                                <button type="button" class="btn btn-link text-danger p-0 border-0 opacity-50 hover-opacity-100"
+                                        onclick="confirmDelete(this.form, 'Remove @member.FullName from band?')">
                                     <i class="fa-solid fa-user-minus"></i>
                                 </button>
                             </form>
@@ -189,115 +190,128 @@
                 }
             </div>
 
-            <a asp-controller="Songs" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-outline-info w-100 rounded-4 py-3 border-dashed border-2 fw-bold transition-all">
-                <i class="fa-solid fa-plus-circle me-2"></i>Add Band Song
+            <a asp-controller="Songs" asp-action="Create" asp-route-bandId="@Model.Id" class="btn btn-outline-orange w-100 rounded-4 py-3 border-dashed border-2 fw-bold transition-all mt-2">
+                <i class="fa-solid fa-plus-circle me-2"></i>Add Repertoire Song
             </a>
         </div>
     </div>
 </div>
 
 <style>
-    .btn-rock-gradient {
-        background: linear-gradient(135deg, #FF4B2B 0%, #FF8811 100%);
-        color: white;
-        transition: all 0.3s ease;
+    :root {
+        --spotify-black: #191414;
+        --spotify-dark-grey: #121212;
+        --orange-red: #FF4500;
+        --gradient-main: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00);
     }
 
-        .btn-rock-gradient:hover {
-            color: white;
+    .bg-dark-spotify {
+        background-color: var(--spotify-black) !important;
+    }
+
+    .text-orange-red {
+        color: var(--orange-red) !important;
+    }
+
+    .btn-gradient {
+        background: var(--gradient-main);
+        background-size: 200% 200%;
+        color: white !important;
+        border: none;
+        transition: 0.3s ease;
+    }
+
+        .btn-gradient:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 75, 43, 0.4);
-            filter: brightness(1.1);
+            box-shadow: 0 8px 20px rgba(255, 69, 0, 0.4);
         }
 
     .btn-glass-danger {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        color: white;
-        transition: all 0.3s ease;
+        background: rgba(220, 53, 69, 0.1);
+        backdrop-filter: blur(5px);
+        border: 2px solid rgba(220, 53, 69, 0.5);
+        color: #ff4d5e;
+        transition: 0.3s;
     }
 
         .btn-glass-danger:hover {
             background: #dc3545;
-            border-color: #dc3545;
             color: white;
         }
 
-    .btn-electric-blue {
-        background: #0dcaf0;
-        color: white;
-        border: none;
-        transition: all 0.3s ease;
+    .btn-outline-orange {
+        color: var(--orange-red);
+        border-color: var(--orange-red);
     }
 
-        .btn-electric-blue:hover {
-            background: #0baccc;
+        .btn-outline-orange:hover {
+            background: var(--orange-red);
             color: white;
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(13, 202, 240, 0.3);
         }
 
-    .calendar-mini {
-        background: #fff;
-        border: 1px solid #e0e6ed;
-        border-radius: 10px;
-        min-width: 60px;
-        text-align: center;
-        overflow: hidden;
+    .rehearsal-item-dark {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.05);
     }
 
-    .cal-month {
-        background: #0dcaf0;
-        color: white;
-        font-size: 0.65rem;
-        font-weight: 800;
-        padding: 2px 0;
-    }
-
-    .cal-day {
-        font-size: 1.4rem;
-        font-weight: 800;
-        color: #333;
-        line-height: 1.2;
-        padding: 5px 0;
-    }
-
-    .rehearsal-item {
-        background: #f8fafc;
-        transition: all 0.3s ease;
-    }
-
-        .rehearsal-item:hover {
-            background: #fff;
-            transform: translateX(8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05) !important;
+        .rehearsal-item-dark:hover {
+            background: rgba(255,255,255,0.07);
+            transform: translateX(10px);
         }
 
-    .setlist-card {
-        border: 1px solid #eee;
-        transition: all 0.3s ease;
+    .date-badge-dark {
+        background-color: rgba(0,0,0,0.5);
+        border: 1px solid rgba(255,255,255,0.1);
     }
 
-        .setlist-card:hover {
-            border-color: #FF8811;
+    .setlist-card-dark {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+
+        .setlist-card-dark:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--orange-red);
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 136, 17, 0.1) !important;
         }
+
+    .member-row-dark:hover {
+        background: rgba(255,255,255,0.05);
+    }
 
     .title-blur {
-        text-shadow: 3px 3px 20px rgba(0,0,0,1);
-        background: rgba(0,0,0,0.2);
-        backdrop-filter: blur(10px);
+        background: rgba(0,0,0,0.3);
+        backdrop-filter: blur(12px);
         border-radius: 1.5rem;
         display: inline-block;
-    }
-
-    .member-row:hover {
-        background-color: #f8f9fa;
+        border: 1px solid rgba(255,255,255,0.1);
     }
 
     .border-dashed {
-        border-style: dashed !important;
+        border: 2px dashed rgba(255,255,255,0.1) !important;
+    }
+
+    .hover-scale {
+        transition: 0.3s;
+    }
+
+        .hover-scale:hover {
+            transform: scale(1.2);
+        }
+
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>
