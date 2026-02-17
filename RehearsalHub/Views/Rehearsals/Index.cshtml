@@ -1,0 +1,303 @@
+﻿@model List<RehearsalHub.Web.ViewModels.Rehearsal.RehearsalIndexViewModel>
+
+@{
+    ViewData["Title"] = "My Rehearsals";
+}
+
+<div class="container py-5">
+
+    <div class="card border-0 shadow-lg rounded-4 mb-5 overflow-hidden">
+        <div class="card-body p-0">
+            <div class="bg-gradient-primary p-4 p-md-5 position-relative">
+                <div class="gradient-overlay"></div>
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 position-relative">
+                    <div class="d-flex align-items-center text-white">
+                        <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3 shadow-sm">
+                            <i class="fa-solid fa-calendar-days fa-2x"></i>
+                        </div>
+                        <div>
+                            <h1 class="mb-0 fw-bold h2">Upcoming Rehearsals</h1>
+                            <p class="mb-0 opacity-75">
+                                @if (Model.Any())
+                                {
+                                    <i class="fa-solid fa-bolt me-1 text-warning"></i>
+                                    <span>@Model.Count rehearsal@(Model.Count == 1 ? "" : "s") scheduled</span>
+                                }
+                                else
+                                {
+                                    <span>Ready for the next session?</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card border-0 shadow-lg rounded-4 py-5 border-top border-warning border-4">
+            <div class="card-body text-center py-5">
+                <div class="mb-4 position-relative">
+                    <i class="fa-solid fa-calendar-xmark fa-5x text-light"></i>
+                    <i class="fa-solid fa-guitar fa-2x text-warning position-absolute bottom-0 end-50"></i>
+                </div>
+                <h3 class="fw-bold text-dark mb-3">No Rehearsals Found</h3>
+                <p class="text-muted mb-4 fs-5">Your stage is empty! Time to gather the band and start practicing.</p>
+                <a asp-controller="Bands" asp-action="Index"
+                   class="btn btn-rock btn-lg rounded-pill px-5 fw-bold shadow">
+                    <i class="fa-solid fa-users me-2"></i>Go to My Bands
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var rehearsal in Model)
+            {
+                <div class="col-12">
+                    <a asp-action="Details" asp-route-id="@rehearsal.Id" class="text-decoration-none card-hover-wrapper">
+                        <div class="card border-0 shadow-sm rounded-4 rehearsal-card h-100
+                                     @(rehearsal.IsHappeningNow ? "now-playing" : "")">
+
+                            <div class="status-line @(rehearsal.IsHappeningNow ? "bg-danger" : rehearsal.IsUpcoming ? "bg-success" : "bg-secondary")"></div>
+
+                            <div class="card-body p-4">
+                                <div class="row align-items-center g-4">
+
+                                    <div class="col-auto">
+                                        <div class="calendar-block shadow-sm">
+                                            <div class="calendar-header">@rehearsal.StartRehearsal.ToString("MMM")</div>
+                                            <div class="calendar-body">
+                                                <span class="day">@rehearsal.StartRehearsal.Day</span>
+                                                <span class="year">@rehearsal.StartRehearsal.Year</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                                            <div>
+                                                <h4 class="fw-bold text-dark mb-1">@rehearsal.Name</h4>
+                                                <div class="d-flex flex-wrap gap-3 align-items-center mt-2">
+                                                    <span class="badge rounded-pill bg-light text-dark border px-3">
+                                                        <i class="fa-solid fa-users text-primary me-2"></i>@rehearsal.BandName
+                                                    </span>
+                                                    @if (rehearsal.SetlistName != "No Setlist")
+                                                    {
+                                                        <span class="badge rounded-pill bg-light text-dark border px-3">
+                                                            <i class="fa-solid fa-compact-disc text-warning me-2"></i>@rehearsal.SetlistName
+                                                        </span>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="text-md-end">
+                                                @if (rehearsal.IsHappeningNow)
+                                                {
+                                                    <span class="badge bg-danger p-2 px-4 rounded-pill animate-pulse shadow-danger-sm">
+                                                        <i class="fa-solid fa-circle-dot me-2"></i>LIVE NOW
+                                                    </span>
+                                                }
+                                                else if (rehearsal.IsUpcoming)
+                                                {
+                                                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 p-2 px-4 rounded-pill">
+                                                        <i class="fa-solid fa-clock-rotate-left me-2"></i>Upcoming
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary bg-opacity-10 text-secondary border p-2 px-4 rounded-pill">
+                                                        <i class="fa-solid fa-check-double me-2"></i>Finished
+                                                    </span>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <hr class="my-3 opacity-10">
+
+                                        <div class="d-flex flex-wrap gap-4">
+                                            <div class="info-item">
+                                                <i class="fa-solid fa-clock text-primary me-2"></i>
+                                                <span class="fw-medium text-dark">@rehearsal.FormattedTime</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <i class="fa-solid fa-stopwatch text-warning me-2"></i>
+                                                <span class="fw-medium text-dark">@rehearsal.Duration</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-auto d-none d-lg-block">
+                                        <div class="arrow-circle">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00, #191414);
+        background-size: 200% 200%;
+        animation: rockGradient 8s ease infinite;
+        border-radius: 1rem;
+        overflow: hidden;
+        animation: gradientAnimation 12s ease infinite;
+    }
+
+    @@keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    .gradient-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.transparenttextures.com/patterns/stardust.png');
+        opacity: 0.15;
+    }
+
+    .rehearsal-card {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(0,0,0,0.05) !important;
+    }
+
+    .card-hover-wrapper:hover .rehearsal-card {
+        transform: scale(1.01) translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+    }
+
+    .status-line {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+    }
+
+    .calendar-block {
+        width: 85px;
+        border-radius: 12px;
+        overflow: hidden;
+        text-align: center;
+        background: white;
+        border: 1px solid #eee;
+    }
+
+    .calendar-header {
+        background: #333;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: bold;
+        padding: 4px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .calendar-body {
+        padding: 10px 0;
+    }
+
+        .calendar-body .day {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #FF4B2B;
+            line-height: 1;
+        }
+
+        .calendar-body .year {
+            font-size: 0.7rem;
+            color: #999;
+        }
+
+    .arrow-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ccc;
+        transition: all 0.3s ease;
+    }
+
+    .card-hover-wrapper:hover .arrow-circle {
+        background: #FF4B2B;
+        color: white;
+        transform: translateX(5px);
+    }
+
+    .btn-rock {
+        background: linear-gradient(135deg, #FF4B2B 0%, #FF8811 100%);
+        border: none;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+        .btn-rock:hover {
+            color: white;
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 75, 43, 0.3);
+        }
+
+    .now-playing {
+        background: rgba(255, 75, 43, 0.03);
+    }
+
+    @@keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+    }
+
+    .animate-pulse {
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @@keyframes rockGradient {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+</style>

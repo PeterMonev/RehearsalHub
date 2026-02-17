@@ -77,3 +77,83 @@ document.addEventListener("DOMContentLoaded", function () {
     startConnection();
 })();
 
+//Rehearsal
+(function () {
+
+    function getNowForInput() {
+        const now = new Date();
+        now.setSeconds(0, 0);
+        return now.toISOString().slice(0, 16);
+    }
+
+    const startInput = document.getElementById('rehearsalStart');
+    const endInput = document.getElementById('rehearsalEnd');
+    const nowStr = getNowForInput();
+
+    startInput.min = nowStr;
+    endInput.min = nowStr;
+
+
+    startInput.addEventListener('change', function () {
+        const startVal = this.value;
+
+        if (startVal) {
+
+            endInput.min = startVal;
+
+
+            if (endInput.value && endInput.value <= startVal) {
+                const startDate = new Date(startVal);
+                startDate.setHours(startDate.getHours() + 1);
+                endInput.value = startDate.toISOString().slice(0, 16);
+            }
+        }
+    });
+
+
+    const form = startInput.closest('form');
+    form.addEventListener('submit', function (e) {
+        const startVal = startInput.value;
+        const endVal = endInput.value;
+
+        if (!startVal) return;
+
+        const startDate = new Date(startVal);
+        const now = new Date();
+
+        if (startDate < now) {
+            e.preventDefault();
+            startInput.classList.add('is-invalid');
+
+
+            let feedback = startInput.nextElementSibling;
+            if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                feedback = document.createElement('div');
+                feedback.classList.add('invalid-feedback');
+                startInput.parentNode.insertBefore(feedback, startInput.nextSibling);
+            }
+            feedback.textContent = 'Rehearsal must be scheduled from now onwards.';
+            startInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        if (endVal && endVal <= startVal) {
+            e.preventDefault();
+            endInput.classList.add('is-invalid');
+
+            let feedback = endInput.nextElementSibling;
+            if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                feedback = document.createElement('div');
+                feedback.classList.add('invalid-feedback');
+                endInput.parentNode.insertBefore(feedback, endInput.nextSibling);
+            }
+            feedback.textContent = 'End time must be after start time.';
+            endInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+
+
+    startInput.addEventListener('change', () => startInput.classList.remove('is-invalid'));
+    endInput.addEventListener('change', () => endInput.classList.remove('is-invalid'));
+
+})();

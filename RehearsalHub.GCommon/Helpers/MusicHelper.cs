@@ -1,4 +1,4 @@
-﻿namespace RehearsalHub.Common.Helpers
+﻿namespace RehearsalHub.GCommon.Helpers
 {
     /// <summary>
     /// Helper class for music-related business logic

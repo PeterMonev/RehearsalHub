@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RehearsalHub.Common.Helpers;
 using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
+using RehearsalHub.GCommon.Helpers;
 using RehearsalHub.Web.ViewModels.Setlist;
 
 namespace RehearsalHub.Services.Data.Setlists
@@ -242,6 +242,7 @@ namespace RehearsalHub.Services.Data.Setlists
                 Genre = s.Genre.ToString(),
                 Tempo = s.Tempo,
                 IsAlreadyInSetlist = s.IsAlreadyInSetlist,
+                TempoCategory = MusicHelper.GetTempoCategory(s.Tempo),
             }).ToList();
 
             return new AddSongToSetlistViewModel
