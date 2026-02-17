@@ -8,15 +8,15 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
 
-            <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4 bg-gradient-primary">
                 <div class="card-body p-4 bg-success bg-opacity-10">
                     <div class="d-flex align-items-center">
-                        <div class="bg-success rounded-circle p-3 me-3 text-white">
+                        <div class="bg-warning rounded-circle p-3 me-3 text-white">
                             <i class="fa-solid fa-plus-circle fa-2x"></i>
                         </div>
                         <div>
-                            <h2 class="mb-0 fw-bold text-dark">Add Songs to Setlist</h2>
-                            <p class="mb-0 text-muted">@Model.SetlistName</p>
+                            <h2 class="mb-0 fw-bold text-white">Add Songs to Setlist</h2>
+                            <p class="mb-0 text-white">@Model.SetlistName</p>
                         </div>
                     </div>
                 </div>
@@ -239,7 +239,7 @@
                                 </a>
                                 <div class="d-flex align-items-center gap-3">
                                     <button type="submit"
-                                            class="btn btn-success btn-lg rounded-pill px-5 fw-bold shadow">
+                                            class="btn btn-warning text-white btn-lg rounded-pill px-5 fw-bold shadow">
                                         <i class="fa-solid fa-plus-circle me-2"></i>Add <span id="addSongsSubmitCount">0</span> Selected
                                     </button>
                                 </div>
@@ -257,6 +257,8 @@
         cursor: pointer;
     }
 
+
+
     .song-card {
         transition: all 0.2s ease;
     }
@@ -264,12 +266,12 @@
         .song-card:hover:not(.bg-success) {
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            border-color: #198754 !important;
+            border-color: #FF4500 !important;
         }
 
     .form-check-input:checked {
-        background-color: #198754;
-        border-color: #198754;
+        background-color: #FF4500;
+        border-color: #FF4500;
     }
 
     .transition-all {
@@ -287,6 +289,30 @@
     .badge {
         font-weight: 500;
         letter-spacing: 0.3px;
+    }
+
+    .bg-gradient-primary {
+        position: relative;
+        background: linear-gradient(-45deg, #FF4500, #FF0000, #FF8C00, #191414);
+        background-size: 200% 200%;
+        animation: rockGradient 8s ease infinite;
+        border-radius: 1rem;
+        overflow: hidden;
+        animation: gradientAnimation 12s ease infinite;
+    }
+
+    @@keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
     }
 </style>
 

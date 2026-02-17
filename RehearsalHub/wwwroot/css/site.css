@@ -6,28 +6,13 @@
     --glass-bg: rgba(18, 18, 18, 0.95);
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f8f9fa;
-}
-
 .navbar {
     padding: 1rem 0;
-    border-bottom: 2px solid var(--band-orange);
+    border-bottom: 2px solid var(--band-orange) !important;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-
-.bg-dark-glass {
-    background: var(--glass-bg);
+    background: var(--glass-bg) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-    letter-spacing: -1px;
 }
 
 .nav-link-custom {
@@ -61,32 +46,17 @@ body {
         width: 80%;
     }
 
-.login-wrapper .btn-danger {
-    background: var(--band-gradient);
-    border: none;
-    font-weight: 800;
-    text-transform: uppercase;
-    padding: 0.6rem 1.5rem;
-    box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
-}
-
-    .login-wrapper .btn-danger:hover {
-        transform: scale(1.05) rotate(-1deg);
-        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.5);
-        background: linear-gradient(45deg, #FF8C00, #FF0000);
-    }
-
 footer {
-    background: var(--band-dark);
-    color: white;
-    border-top: 5px solid transparent;
-    border-image: var(--band-gradient) 1; 
+    background: var(--band-dark) !important;
+    color: white !important;
+    border-top: 5px solid transparent !important;
+    border-image: var(--band-gradient) 1 !important;
     padding: 3rem 0 1.5rem 0;
     margin-top: auto;
 }
 
     footer h6 {
-        color: var(--band-orange);
+        color: var(--band-orange) !important;
         text-transform: uppercase;
         font-weight: 900;
         letter-spacing: 2px;
@@ -106,25 +76,6 @@ footer {
         padding-left: 8px;
     }
 
-.social-icon {
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.05);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: white;
-    margin-right: 10px;
-    transition: 0.3s;
-}
-
-    .social-icon:hover {
-        background: var(--band-gradient);
-        color: white;
-        transform: translateY(-3px);
-    }
-
 .copyright-bar {
     background: rgba(0,0,0,0.3);
     padding: 1rem 0;
@@ -133,7 +84,16 @@ footer {
     color: rgba(255,255,255,0.4);
 }
 
-.form-control:focus, .btn:focus {
-    border-color: var(--band-orange) !important;
-    box-shadow: 0 0 0 0.25rem rgba(255, 69, 0, 0.2) !important;
+.btn-band {
+    background: var(--band-gradient) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
 }
+
+    .btn-band:hover {
+        transform: scale(1.05) rotate(-1deg);
+        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.5);
+    }

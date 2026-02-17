@@ -5,40 +5,42 @@
 }
 
 <div class="container py-5">
-    <div class="row mb-5 align-items-center bg-light p-4 rounded-4 shadow-sm">
+    <div class="row mb-5 align-items-center bg-dark-glass p-4 p-md-5 rounded-4 shadow-lg border-bottom border-orange-custom border-3">
         <div class="col-md-3 text-center text-md-start">
-            <div class="position-relative d-inline-block">
+            <div class="position-relative d-inline-block p-1 rounded-circle" style="background: var(--band-gradient);">
                 <img src="@Model.ProfilePictureUrl" alt="Profile Picture"
-                     class="img-fluid rounded-circle border border-4 border-white shadow"
-                     style="width: 200px; height: 200px; object-fit: cover;" />
-                <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-primary p-2">
+                     class="img-fluid rounded-circle border border-4 border-dark shadow-lg"
+                     style="width: 180px; height: 180px; object-fit: cover;" />
+                <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-band-red p-2 shadow">
                     <i class="fas fa-camera"></i>
                 </span>
             </div>
         </div>
-        <div class="col-md-9 mt-3 mt-md-0">
-            <h1 class="display-5 fw-bold mb-1">@Model.UserName</h1>
-            <p class="text-muted mb-4"><i class="fas fa-id-badge me-2"></i>Musician Profile</p>
+        <div class="col-md-9 mt-4 mt-md-0 text-white">
+            <h1 class="display-5 fw-bold mb-1 text-white">@Model.UserName</h1>
+            <p class="text-orange-custom mb-4 fw-bold">
+                <i class="fas fa-id-badge me-2"></i>PRO MUSICIAN
+            </p>
 
             <div class="row g-3">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="d-flex align-items-center">
-                        <div class="icon-box bg-white p-2 rounded shadow-sm me-3">
-                            <i class="fas fa-envelope text-primary"></i>
+                <div class="col-sm-6">
+                    <div class="d-flex align-items-center info-box-custom p-3 rounded-3">
+                        <div class="icon-box-custom me-3">
+                            <i class="fas fa-envelope text-band-orange"></i>
                         </div>
                         <div>
-                            <small class="text-muted d-block">Email Address</small>
+                            <small class="text-muted d-block text-uppercase small fw-bold">Email Address</small>
                             <span class="fw-semibold">@Model.Email</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="d-flex align-items-center">
-                        <div class="icon-box bg-white p-2 rounded shadow-sm me-3">
-                            <i class="fas fa-phone text-primary"></i>
+                <div class="col-sm-6">
+                    <div class="d-flex align-items-center info-box-custom p-3 rounded-3">
+                        <div class="icon-box-custom me-3">
+                            <i class="fas fa-phone text-band-orange"></i>
                         </div>
                         <div>
-                            <small class="text-muted d-block">Phone Number</small>
+                            <small class="text-muted d-block text-uppercase small fw-bold">Phone Number</small>
                             <span class="fw-semibold">@(Model.PhoneNumber ?? "Not provided")</span>
                         </div>
                     </div>
@@ -47,9 +49,11 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-4 text-dark">
-        <h2 class="fw-bold"><i class="fas fa-guitar me-3 text-primary"></i>Your Bands</h2>
-        <span class="badge bg-secondary">Total: @(Model.Bands?.Count ?? 0)</span>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark m-0">
+            <i class="fas fa-guitar me-3 text-band-red"></i>BANDS
+        </h2>
+        <span class="badge bg-dark px-3 py-2 rounded-pill">Total: @(Model.Bands?.Count ?? 0)</span>
     </div>
 
     @if (Model.Bands != null && Model.Bands.Any())
@@ -58,21 +62,22 @@
             @foreach (var band in Model.Bands)
             {
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                    <div class="card h-100 border-0 shadow-sm band-card-custom overflow-hidden transition">
                         <div class="position-relative">
                             <img class="card-img-top" src="@band.BandImageUrl" alt="@band.BandName"
-                                 style="height: 200px; object-fit: cover;">
-                            <div class="card-img-overlay d-flex align-items-start justify-content-end">
-                                <span class="badge bg-dark bg-opacity-75">@band.Role</span>
+                                 style="height: 220px; object-fit: cover;">
+                            <div class="card-img-overlay d-flex align-items-start justify-content-end p-2">
+                                <span class="badge bg-band-red shadow">@band.Role</span>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold text-primary">@band.BandName</h5>
-                            <div class="d-flex align-items-center text-muted mb-3">
-                                <i class="fas fa-music me-2"></i>
-                                <span>Instrument: <strong>@band.Instrument</strong></span>
+                        <div class="card-body bg-white border-top border-orange-custom border-3">
+                            <h5 class="card-title fw-bold text-dark mb-3">@band.BandName</h5>
+                            <div class="d-flex align-items-center text-muted">
+                                <div class="bg-light p-2 rounded-circle me-2">
+                                    <i class="fas fa-music text-band-orange"></i>
+                                </div>
+                                <span>Instrument: <strong class="text-dark">@band.Instrument</strong></span>
                             </div>
-                         
                         </div>
                     </div>
                 </div>
@@ -81,13 +86,13 @@
     }
     else
     {
-        <div class="card border-0 bg-light text-center p-5 rounded-4">
-            <div class="mb-3">
-                <i class="fas fa-drum-steelpan fa-4x text-muted opacity-50"></i>
+        <div class="card border-0 bg-dark-glass text-center p-5 rounded-4 shadow">
+            <div class="mb-4">
+                <i class="fas fa-drum-steelpan fa-4x text-muted opacity-25"></i>
             </div>
-            <h4 class="text-muted">You are not a member of any bands yet.</h4>
-            <div class="mt-3">
-                <a href="@Url.Action("Create", "Bands")" class="btn btn-primary rounded-pill">
+            <h4 class="text-white mb-4">You are not a member of any bands yet.</h4>
+            <div>
+                <a href="@Url.Action("Create", "Bands")" class="btn btn-band-custom btn-lg rounded-pill px-5 shadow">
                     <i class="fas fa-plus me-2"></i>Create or Join a Band
                 </a>
             </div>
@@ -96,20 +101,79 @@
 </div>
 
 <style>
-    .hover-shadow:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    .bg-dark-glass {
+        background: var(--glass-bg) !important;
+        backdrop-filter: blur(12px);
     }
 
-    .transition {
-        transition: all 0.3s ease;
+    .text-orange-custom {
+        color: var(--band-orange) !important;
     }
 
-    .icon-box {
-        width: 40px;
-        height: 40px;
+    .text-band-orange {
+        color: var(--band-orange) !important;
+    }
+
+    .text-band-red {
+        color: var(--band-red) !important;
+    }
+
+    .bg-band-red {
+        background-color: var(--band-red) !important;
+    }
+
+    .border-orange-custom {
+        border-color: var(--band-orange) !important;
+    }
+
+    .info-box-custom {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: 0.3s;
+    }
+
+        .info-box-custom:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+    .icon-box-custom {
+        width: 45px;
+        height: 45px;
+        background: rgba(0,0,0,0.3);
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 12px;
+        font-size: 1.2rem;
+    }
+
+    .band-card-custom {
+        border-radius: 15px;
+        background: white;
+    }
+
+        .band-card-custom:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+        }
+
+    .btn-band-custom {
+        background: var(--band-gradient);
+        border: none;
+        color: white;
+        font-weight: 800;
+        text-transform: uppercase;
+        padding: 12px 30px;
+        transition: 0.3s;
+    }
+
+        .btn-band-custom:hover {
+            transform: scale(1.05) rotate(-1deg);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.4);
+        }
+
+    .transition {
+        transition: all 0.3s ease;
     }
 </style>
