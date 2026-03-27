@@ -22,6 +22,20 @@ namespace RehearsalHub.Controllers
         {
             return View();
         }
+
+        public IActionResult StatusCode(int code)
+        {
+            _logger.LogWarning("HTTP {StatusCode} returned for path: {Path}",
+               code, HttpContext.Request.Path);
+
+            ViewData["StatusCode"] = code;
+
+            return code switch
+            {
+                404 => View("NotFound"),
+                _   => View("ServerError")
+            };
+        }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
