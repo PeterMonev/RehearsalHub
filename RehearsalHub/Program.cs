@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RehearsalHub.Data;
@@ -42,6 +41,12 @@ namespace RehearsalHub
                 options.SignIn.RequireConfirmedAccount = false; 
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Home/StatusCode?code=403";
+            });
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
