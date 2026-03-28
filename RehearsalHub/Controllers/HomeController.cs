@@ -22,11 +22,27 @@ namespace RehearsalHub.Controllers
         {
             return View();
         }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult StatusCode(int code)
+        {
+            var originalPath = HttpContext.Features
+                 .Get<Microsoft.AspNetCore.Diagnostics.IStatusCodeReExecuteFeature>()
+                 ?.OriginalPath ?? HttpContext.Request.Path;
+
+            _logger.LogWarning("HTTP {StatusCode} — Path: {Path} — User: {User}",
+               code, originalPath, User.Identity?.Name ?? "anonymous");
+
+            var model = ErrorViewModel.ForStatusCode(code);
+            return View("Error", model);
+        }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var model = ErrorViewModel.ForStatusCode(500);
+            model.RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            return View(model);
         }
 
         public IActionResult TermsOfUse()

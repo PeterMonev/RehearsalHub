@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RehearsalHub.Data;
@@ -43,6 +42,12 @@ namespace RehearsalHub
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Home/StatusCode?code=403";
+            });
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 
@@ -68,6 +73,8 @@ namespace RehearsalHub
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
