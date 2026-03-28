@@ -50,7 +50,7 @@ namespace RehearsalHub.Controllers
                 var viewModel = await bandService.GetBandsPagedAsync(userId, page, PageSize, searchTerm);
                 ViewData["CurrentSearch"] = searchTerm;
 
-                return View(viewModel);
+                return Forbid();
             }
             catch (Exception ex)
             {

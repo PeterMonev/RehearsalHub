@@ -23,24 +23,26 @@ namespace RehearsalHub.Controllers
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult StatusCode(int code)
         {
-            _logger.LogWarning("HTTP {StatusCode} returned for path: {Path}",
-               code, HttpContext.Request.Path);
+            var originalPath = HttpContext.Features
+                 .Get<Microsoft.AspNetCore.Diagnostics.IStatusCodeReExecuteFeature>()
+                 ?.OriginalPath ?? HttpContext.Request.Path;
 
-            ViewData["StatusCode"] = code;
+            _logger.LogWarning("HTTP {StatusCode} — Path: {Path} — User: {User}",
+               code, originalPath, User.Identity?.Name ?? "anonymous");
 
-            return code switch
-            {
-                404 => View("NotFound"),
-                _   => View("ServerError")
-            };
+            var model = ErrorViewModel.ForStatusCode(code);
+            return View("Error", model);
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var model = ErrorViewModel.ForStatusCode(500);
+            model.RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            return View(model);
         }
 
         public IActionResult TermsOfUse()
