@@ -1,5 +1,146 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using RehearsalHub.GCommon
+@using RehearsalHub.Web.ViewModels.Admin
+@model PagedResult<AdminBandViewModel>
 @{
+    ViewData["Title"] = "Manage Bands";
+    string? currentSearch = ViewData["CurrentSearch"]?.ToString();
+}
+
+<div class="container py-4 animate-fade-in">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 border-bottom border-secondary pb-4">
+        <div>
+            <h1 class="display-5 fw-bold mb-1">
+                <i class="fa-solid fa-guitar text-danger me-2"></i>Manage Bands
+            </h1>
+            <p class="text-muted mb-0">@Model.TotalItems bands registered on the platform</p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 mt-3 mt-md-0">
+            <i class="fa-solid fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+
+    <div class="mb-4 shadow-sm rounded-4 overflow-hidden">
+        <form asp-action="Bands" method="get" class="d-flex gap-2 p-3 bg-dark">
+            <input type="text"
+                   name="searchTerm"
+                   value="@currentSearch"
+                   class="form-control bg-dark text-white border-secondary rounded-pill"
+                   placeholder="Search by band name..." />
+            <button type="submit" class="btn btn-gradient rounded-pill px-4 fw-bold">
+                <i class="fa-solid fa-search me-1"></i>Search
+            </button>
+            @if (!string.IsNullOrEmpty(currentSearch))
+            {
+                <a asp-action="Bands" class="btn btn-outline-secondary rounded-pill px-3">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+            }
+        </form>
+    </div>
+
+    <div class="card bg-dark text-white border-0 rounded-4 shadow-lg overflow-hidden mb-4">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead>
+                    <tr class="border-bottom border-secondary">
+                        <th class="ps-4 py-3">Band</th>
+                        <th class="py-3">Owner</th>
+                        <th class="py-3 text-center">Genre</th>
+                        <th class="py-3 text-center">Members</th>
+                        <th class="py-3 text-center">Rehearsals</th>
+                        <th class="py-3 text-center">Created</th>
+                        <th class="py-3 text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var band in Model.Items)
+                    {
+                        <tr class="border-bottom border-secondary border-opacity-25">
+                            <td class="ps-4 py-3">
+                                <span class="fw-bold">@band.Name</span>
+                            </td>
+                            <td class="text-muted small">
+                                <i class="fa-solid fa-crown text-warning me-1"></i>@band.OwnerName
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-secondary rounded-pill px-3">@band.Genre</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-secondary rounded-pill">@band.MemberCount</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-secondary rounded-pill">@band.RehearsalCount</span>
+                            </td>
+                            <td class="text-center text-muted small">
+                                @band.CreatedOn.ToString("dd MMM yyyy")
+                            </td>
+                            <td class="text-end pe-4">
+                                <form asp-action="DeleteBand" asp-route-id="@band.Id"
+                                      method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete-confirm"
+                                            data-title="Delete band?"
+                                            data-message="This will permanently delete &quot;@band.Name&quot; along with all its rehearsals and setlists.">
+                                        <i class="fa-solid fa-trash me-1"></i>Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+
+                    @if (!Model.Items.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-guitar fa-2x mb-3 d-block opacity-25"></i>
+                                No bands found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav aria-label="Bands pagination" class="d-flex justify-content-center">
+            <ul class="pagination shadow-lg rounded-pill overflow-hidden border-0">
+                <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+                    <a class="page-link bg-dark text-white border-0 px-4 py-2"
+                       asp-route-page="@(Model.CurrentPage - 1)"
+                       asp-route-searchTerm="@currentSearch">
+                        <i class="fa fa-chevron-left"></i>
+                    </a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link border-0 px-3 py-2 @(i == Model.CurrentPage ? "btn-gradient text-white" : "bg-dark text-white")"
+                           asp-route-page="@i"
+                           asp-route-searchTerm="@currentSearch">@i</a>
+                    </li>
+                }
+                <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
+                    <a class="page-link bg-dark text-white border-0 px-4 py-2"
+                       asp-route-page="@(Model.CurrentPage + 1)"
+                       asp-route-searchTerm="@currentSearch">
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+
+</div>
+
+@section Styles {
+    <style>
+        .pagination .page-link:hover {
+            background-color: var(--band-orange) !important;
+            color: white !important;
+        }
+    </style>
 }
