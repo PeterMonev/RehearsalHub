@@ -1,6 +1,6 @@
 ﻿namespace RehearsalHub.Areas.Admin.Data
 {
-    public class AdminServuce
+    public class AdminService : IAdminService
     {
     }
 }

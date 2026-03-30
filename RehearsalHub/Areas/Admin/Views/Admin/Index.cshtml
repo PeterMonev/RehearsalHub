@@ -1,5 +1,109 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model RehearsalHub.Web.ViewModels.Admin.AdminDashboardViewModel
 @{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container py-4 animate-fade-in">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 border-bottom border-secondary pb-4">
+        <div>
+            <h1 class="display-5 fw-bold mb-1">
+                <i class="fa-solid fa-shield-halved text-danger me-2"></i>Admin Panel
+            </h1>
+            <p class="text-muted mb-0">Manage users, bands, and monitor platform activity</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-lg h-100 p-3 text-center stat-card">
+                <div class="stat-icon mb-2"><i class="fa-solid fa-users fa-lg text-danger"></i></div>
+                <div class="display-6 fw-black">@Model.TotalUsers</div>
+                <div class="small text-muted mt-1">Total Users</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-lg h-100 p-3 text-center stat-card">
+                <div class="stat-icon mb-2"><i class="fa-solid fa-guitar fa-lg text-danger"></i></div>
+                <div class="display-6 fw-black">@Model.TotalBands</div>
+                <div class="small text-muted mt-1">Total Bands</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-lg h-100 p-3 text-center stat-card">
+                <div class="stat-icon mb-2"><i class="fa-solid fa-music fa-lg text-danger"></i></div>
+                <div class="display-6 fw-black">@Model.TotalSongs</div>
+                <div class="small text-muted mt-1">Total Songs</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-lg h-100 p-3 text-center stat-card">
+                <div class="stat-icon mb-2"><i class="fa-solid fa-calendar fa-lg text-danger"></i></div>
+                <div class="display-6 fw-black">@Model.TotalRehearsals</div>
+                <div class="small text-muted mt-1">Rehearsals</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-lg h-100 p-3 text-center stat-card">
+                <div class="stat-icon mb-2"><i class="fa-solid fa-list fa-lg text-danger"></i></div>
+                <div class="display-6 fw-black">@Model.TotalSetlists</div>
+                <div class="small text-muted mt-1">Setlists</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-lg h-100 p-3 text-center stat-card">
+                <div class="stat-icon mb-2"><i class="fa-solid fa-user-plus fa-lg text-danger"></i></div>
+                <div class="display-6 fw-black">@Model.NewUsersThisMonth</div>
+                <div class="small text-muted mt-1">New This Month</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-lg h-100">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-1">
+                        <i class="fa-solid fa-users text-danger me-2"></i>User Management
+                    </h5>
+                    <p class="text-muted small mb-3">
+                        View all users, assign or revoke Admin roles.
+                    </p>
+                    <a asp-action="Users" class="btn btn-gradient rounded-pill px-4 fw-bold">
+                        <i class="fa-solid fa-arrow-right me-2"></i>Manage Users
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-lg h-100">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-1">
+                        <i class="fa-solid fa-guitar text-danger me-2"></i>Band Management
+                    </h5>
+                    <p class="text-muted small mb-3">
+                        View all bands and remove inappropriate content.
+                    </p>
+                    <a asp-action="Bands" class="btn btn-gradient rounded-pill px-4 fw-bold">
+                        <i class="fa-solid fa-arrow-right me-2"></i>Manage Bands
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+    <style>
+        .stat-card {
+            transition: transform .2s ease, box-shadow .2s ease;
+            border: 1px solid rgba(255,255,255,.06) !important;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 30px rgba(0,0,0,.5) !important;
+            }
+    </style>
 }

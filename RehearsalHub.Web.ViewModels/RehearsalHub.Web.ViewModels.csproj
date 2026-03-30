@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Home\" />
-    <Folder Include="Admin\" />
   </ItemGroup>
 
 </Project>
