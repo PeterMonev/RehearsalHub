@@ -176,6 +176,26 @@ namespace RehearsalHub.Areas.Admin.Controllers
                 TempData["ErrorMessage"] = "Invalid band.";
                 return RedirectToAction(nameof(Bands));
             }
+
+            try
+            {
+                var success = await adminService.DeleteBandAsync(id);
+
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = "Band not found or already deleted.";
+                    return RedirectToAction(nameof(Bands));
+                }
+
+                TempData["SuccessMessage"] = "Band has been successfully deleted.";
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting band {BandId}", id);
+                TempData["ErrorMessage"] = "An unexpected error occurred.";
+            }
+
+            return RedirectToAction(nameof(Bands));
         }
 
 
