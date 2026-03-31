@@ -5,6 +5,7 @@ using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
 using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Admin;
+using static RehearsalHub.Common.DataValidation;
 
 namespace RehearsalHub.Areas.Admin.Data
 {
@@ -67,7 +68,7 @@ namespace RehearsalHub.Areas.Admin.Data
 
             var totalCount = await query.CountAsync();
 
-            var user = await query.OrderBy(u => u.UserName).Skip(page - 1 * pageSize).Take(pageSize)
+            var user = await query.OrderBy(u => u.UserName).Skip((page - 1) * pageSize).Take(pageSize)
                 .Select(u => new
                 {
                     u.Id,
@@ -100,6 +101,39 @@ namespace RehearsalHub.Areas.Admin.Data
 
             logger.LogInformation("Admin loaded {Count} users (page {Page})", result.Count, page);
             return new PagedResult<AdminUserViewModel>(result, totalCount, page, pageSize);
+        }
+
+        /// <summary>
+        /// Returns a paginated, optionally filtered list of all non-deleted bands.
+        /// </summary>
+        public async Task<PagedResult<AdminBandViewModel>> GetBandsPagedAsync(int page, int pageSize, string? searchTerm = null)
+        {
+            var query = dbContext.Bands.AsNoTracking().Where(b => !b.IsDeleted);
+
+            if (!string.IsNullOrEmpty(searchTerm)){
+
+                var term = searchTerm.ToLower();
+                query = query.Where(b => b.Name.ToLower().Contains(term));
+            }
+
+            var totalCount = await dbContext.Bands.CountAsync();
+
+
+            List<AdminBandViewModel> bands = await query.OrderBy(b => b.Name).Skip((page - 1) * pageSize).Take(pageSize)
+                .Select(b => new AdminBandViewModel
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Genre = b.Genre.ToString(),
+                    OwnerName = b.Owner.UserName!,
+                    MemberCount = b.Members.Count(bm => bm.IsConfirmed),
+                    RehearsalCount = b.Rehearsals.Count(r => !r.IsDeleted),
+                    CreatedOn = b.CreatedOn
+                })
+                .ToListAsync();
+
+            logger.LogInformation("Admin loaded {Count} bands (page {Page})", bands.Count, page);
+            return new PagedResult<AdminBandViewModel>(bands, totalCount, page, pageSize);
         }
     }
 }

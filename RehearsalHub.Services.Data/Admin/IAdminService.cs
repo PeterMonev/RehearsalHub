@@ -1,4 +1,5 @@
-﻿using RehearsalHub.GCommon;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Admin;
 
 namespace RehearsalHub.Areas.Admin.Data
@@ -21,5 +22,14 @@ namespace RehearsalHub.Areas.Admin.Data
         /// <param name="pageSize">Number of items per page.</param>
         /// <param name="searchTerm">Optional search term to filter by username or email.</param>
         Task<PagedResult<AdminUserViewModel>> GetUsersPagedAsync(int page, int pageSize, string? searchTerm = null);
+
+        /// <summary>
+        /// Retrieves a paginated list of all non-deleted bands.
+        /// </summary>
+        /// <param name="page">Current page number (1-based).</param>
+        /// <param name="pageSize">Number of items per page.</param>
+        /// <param name="searchTerm">Optional search term to filter by band name.</param>
+        Task<PagedResult<AdminBandViewModel>> GetBandsPagedAsync(int page, int pageSize, string? searchTerm = null);
+
     }
 }

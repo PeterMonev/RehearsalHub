@@ -68,6 +68,28 @@ namespace RehearsalHub.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
+        /// <summary>
+        /// Displays a paginated, searchable list of all bands.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Bands(string? searchTerm, int page = 1)
+        {
+            if (page < 1) page = 1;
+
+            try
+            {
+                var model = await adminService.GetBandsPagedAsync(page, PageSize, searchTerm);
+                ViewData["CurrentSearch"] = searchTerm;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error loading admin bands list");
+                TempData["ErrorMessage"] = "Unable to load bands. Please try again.";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
     }
-    
 }
