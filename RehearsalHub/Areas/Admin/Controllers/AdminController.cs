@@ -91,5 +91,42 @@ namespace RehearsalHub.Areas.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// Promotes a user to the Admin role.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PromoteUser(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                TempData["ErrorMessage"] = "Invalid user.";
+                return RedirectToAction(nameof(Users));
+            }
+
+            try
+            {
+
+                var success = await adminService.PromoteUserAsync(id);
+
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = "Could not promote user. Please try again.";
+                    return RedirectToAction(nameof(Users));
+                }
+
+                var user = await userManager.FindByIdAsync(id);
+                TempData["SuccessMessage"] = $"{user?.UserName} has been promoted to Admin.";
+
+            } catch (Exception ex)
+            {
+                logger.LogError(ex, "Error promoting user {UserId}", id);
+                TempData["ErrorMessage"] = "An unexpected error occurred.";
+            }
+
+            return RedirectToAction(nameof(Users));
+        }
+
+
     }
 }

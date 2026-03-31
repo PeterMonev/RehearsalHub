@@ -31,5 +31,11 @@ namespace RehearsalHub.Areas.Admin.Data
         /// <param name="searchTerm">Optional search term to filter by band name.</param>
         Task<PagedResult<AdminBandViewModel>> GetBandsPagedAsync(int page, int pageSize, string? searchTerm = null);
 
+        /// <summary>
+        /// Promotes a user to the Admin role.
+        /// </summary>
+        /// <param name="userId">The ID of the user to promote.</param>
+        /// <returns>True if the operation succeeded.</returns>
+        Task<bool> PromoteUserAsync(string userId);
     }
 }

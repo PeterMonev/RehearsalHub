@@ -135,5 +135,41 @@ namespace RehearsalHub.Areas.Admin.Data
             logger.LogInformation("Admin loaded {Count} bands (page {Page})", bands.Count, page);
             return new PagedResult<AdminBandViewModel>(bands, totalCount, page, pageSize);
         }
+
+        /// <summary>
+        /// Promotes a user to the Admin role if not already assigned.
+        /// </summary>
+        public async Task<bool> PromoteUserAsync(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                logger.LogWarning("PromoteUserAsync called with null or empty userId");
+                return false;
+            }
+
+            ApplicationUser user = await dbContext.Users.FindAsync(userId);
+
+            if(user == null)
+            {
+                logger.LogWarning("PromoteUserAsync: user {UserId} not found", userId);
+                return false;
+            }
+
+            if(await userManager.IsInRoleAsync(user, "Admin"))
+            {
+                logger.LogInformation("User {UserId} is already Admin", userId);
+                return true;
+            }
+
+            var result = await userManager.AddToRoleAsync(user, "Admin");
+
+            if (result.Succeeded)
+                logger.LogInformation("User {UserId} promoted to Admin", userId);
+            else
+                logger.LogWarning("Failed to promote user {UserId}: {Errors}",
+                    userId, string.Join(", ", result.Errors.Select(e => e.Description)));
+
+            return result.Succeeded;
+        }
     }
 }
