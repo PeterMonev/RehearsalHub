@@ -3,10 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
+using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Admin;
 
 namespace RehearsalHub.Areas.Admin.Data
 {
+    /// <summary>
+    /// Service for admin-specific operations: dashboard stats,
+    /// paginated user/band management, and role assignment.
+    /// Follows the same conventions as BandService and RehearsalService.
+    /// </summary>
     public class AdminService : IAdminService
     {
         private readonly ApplicationDbContext dbContext;
@@ -18,6 +24,11 @@ namespace RehearsalHub.Areas.Admin.Data
             this.userManager = userManager;
             this.logger = logger;
         }
+
+        /// <summary>
+        /// Retrieves aggregate counts for the admin dashboard.
+        /// Each query is independent to avoid unnecessary JOINs.
+        /// </summary>
         public async Task<AdminDashboardViewModel> GetDashboardStatsAsync()
         {
            var now = DateTime.UtcNow;
@@ -40,6 +51,55 @@ namespace RehearsalHub.Areas.Admin.Data
                 stats.TotalUsers, stats.TotalBands, stats.TotalSongs);
 
             return stats;
+        }
+
+        public async Task<PagedResult<AdminUserViewModel>> GetUsersPagedAsync(int page, int pageSize, string? searchTerm = null)
+        {
+            var query =  dbContext.Users.AsNoTracking();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                var term = searchTerm.ToLower();
+                query = query.Where(u =>
+                    u.UserName!.ToLower().Contains(term) ||
+                    u.Email!.ToLower().Contains(term));
+            }
+
+            var totalCount = await query.CountAsync();
+
+            var user = await query.OrderBy(u => u.UserName).Skip(page - 1 * pageSize).Take(pageSize)
+                .Select(u => new
+                {
+                    u.Id,
+                    u.UserName,
+                    u.Email,
+                    u.IsDeleted,
+                    u.CreatedOn,
+                    BandCount = u.BandMembers.Count(bm => bm.IsConfirmed)
+                })
+                .ToListAsync();
+
+            List<AdminUserViewModel> result = new List<AdminUserViewModel>();
+
+            foreach(var u in user)
+            {
+                var appUser = await userManager.FindByIdAsync(u.Id);
+                var isAdmin = appUser != null && await userManager.IsInRoleAsync(appUser, "Admin");
+
+                result.Add(new AdminUserViewModel
+                {
+                    Id = u.Id,
+                    UserName = u.UserName!,
+                    Email = u.Email!,
+                    BandCount = u.BandCount,
+                    IsAdmin = isAdmin,
+                    IsDeleted = u.IsDeleted,
+                    CreatedOn = u.CreatedOn
+                });
+            }
+
+            logger.LogInformation("Admin loaded {Count} users (page {Page})", result.Count, page);
+            return new PagedResult<AdminUserViewModel>(result, totalCount, page, pageSize);
         }
     }
 }

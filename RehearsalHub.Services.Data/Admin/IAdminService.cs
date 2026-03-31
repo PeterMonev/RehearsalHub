@@ -1,9 +1,25 @@
-﻿using RehearsalHub.Web.ViewModels.Admin;
+﻿using RehearsalHub.GCommon;
+using RehearsalHub.Web.ViewModels.Admin;
 
 namespace RehearsalHub.Areas.Admin.Data
 {
+    /// <summary>
+    /// Defines the contract for admin-specific operations:
+    /// dashboard statistics, user role management, and band oversight.
+    /// </summary>
     public interface IAdminService
     {
+        /// <summary>
+        /// Retrieves aggregate statistics for the admin dashboard.
+        /// </summary>
         public Task<AdminDashboardViewModel> GetDashboardStatsAsync();
+
+        /// <summary>
+        /// Retrieves a paginated list of all users with their role information.
+        /// </summary>
+        /// <param name="page">Current page number (1-based).</param>
+        /// <param name="pageSize">Number of items per page.</param>
+        /// <param name="searchTerm">Optional search term to filter by username or email.</param>
+        Task<PagedResult<AdminUserViewModel>> GetUsersPagedAsync(int page, int pageSize, string? searchTerm = null);
     }
 }
