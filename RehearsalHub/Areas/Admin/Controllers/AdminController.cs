@@ -26,7 +26,7 @@ namespace RehearsalHub.Areas.Admin.Controllers
         /// <summary>
         /// Gets the current admin user's ID.
         /// </summary>
-        public string GetUserId() => userManager.GetUserId(User);
+        public string GetCurrentUserId() => userManager.GetUserId(User);
 
         /// <summary>
         /// Displays the admin dashboard with aggregate statistics.
@@ -127,6 +127,41 @@ namespace RehearsalHub.Areas.Admin.Controllers
             return RedirectToAction(nameof(Users));
         }
 
+        /// <summary>
+        /// Removes the Admin role from a user.
+        /// Prevents self-demotion.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DemoteUser(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                TempData["ErrorMessage"] = "Invalid user.";
+                return RedirectToAction(nameof(Users));
+            }
+
+            try
+            {
+                var success = await adminService.DemoteUserAsync(id, GetCurrentUserId());
+
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = "You cannot remove your own Admin role.";
+                    return RedirectToAction(nameof(Users));
+                }
+
+                var user = await userManager.FindByIdAsync(id);
+                TempData["SuccessMessage"] = $"{user?.UserName} is no longer an Admin.";
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error demoting user {UserId}", id);
+                TempData["ErrorMessage"] = "An unexpected error occurred.";
+            }
+
+            return RedirectToAction(nameof(Users));
+        }
 
     }
 }

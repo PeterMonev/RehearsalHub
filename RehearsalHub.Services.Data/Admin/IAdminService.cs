@@ -37,5 +37,14 @@ namespace RehearsalHub.Areas.Admin.Data
         /// <param name="userId">The ID of the user to promote.</param>
         /// <returns>True if the operation succeeded.</returns>
         Task<bool> PromoteUserAsync(string userId);
+
+        /// <summary>
+        /// Removes the Admin role from a user.
+        /// Guards against self-demotion via <paramref name="currentAdminId"/>.
+        /// </summary>
+        /// <param name="userId">The ID of the user to demote.</param>
+        /// <param name="currentAdminId">The ID of the currently logged-in admin.</param>
+        /// <returns>True if the operation succeeded.</returns>
+        Task<bool> DemoteUserAsync(string userId, string currentAdminId);
     }
 }

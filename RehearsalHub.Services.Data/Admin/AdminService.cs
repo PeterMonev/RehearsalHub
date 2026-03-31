@@ -19,7 +19,7 @@ namespace RehearsalHub.Areas.Admin.Data
         private readonly ApplicationDbContext dbContext;
         private readonly ILogger<AdminService> logger;
         private readonly UserManager<ApplicationUser> userManager;
-        public AdminService(ApplicationDbContext dbContext,UserManager<ApplicationUser> userManager, ILogger<AdminService> logger)
+        public AdminService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<AdminService> logger)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
@@ -32,10 +32,11 @@ namespace RehearsalHub.Areas.Admin.Data
         /// </summary>
         public async Task<AdminDashboardViewModel> GetDashboardStatsAsync()
         {
-           var now = DateTime.UtcNow;
-           var firstDayOfMonth = new DateTime(now.Year, now.Month, 1);
+            var now = DateTime.UtcNow;
+            var firstDayOfMonth = new DateTime(now.Year, now.Month, 1);
 
-            AdminDashboardViewModel? stats = new AdminDashboardViewModel{
+            AdminDashboardViewModel? stats = new AdminDashboardViewModel
+            {
                 TotalUsers = await dbContext.Users.CountAsync(u => !u.IsDeleted),
                 TotalBands = await dbContext.Bands.CountAsync(b => !b.IsDeleted),
                 TotalSongs = await dbContext.Songs.CountAsync(s => !s.IsDeleted),
@@ -56,7 +57,7 @@ namespace RehearsalHub.Areas.Admin.Data
 
         public async Task<PagedResult<AdminUserViewModel>> GetUsersPagedAsync(int page, int pageSize, string? searchTerm = null)
         {
-            var query =  dbContext.Users.AsNoTracking();
+            var query = dbContext.Users.AsNoTracking();
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
@@ -82,7 +83,7 @@ namespace RehearsalHub.Areas.Admin.Data
 
             List<AdminUserViewModel> result = new List<AdminUserViewModel>();
 
-            foreach(var u in user)
+            foreach (var u in user)
             {
                 var appUser = await userManager.FindByIdAsync(u.Id);
                 var isAdmin = appUser != null && await userManager.IsInRoleAsync(appUser, "Admin");
@@ -110,7 +111,8 @@ namespace RehearsalHub.Areas.Admin.Data
         {
             var query = dbContext.Bands.AsNoTracking().Where(b => !b.IsDeleted);
 
-            if (!string.IsNullOrEmpty(searchTerm)){
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
 
                 var term = searchTerm.ToLower();
                 query = query.Where(b => b.Name.ToLower().Contains(term));
@@ -149,13 +151,13 @@ namespace RehearsalHub.Areas.Admin.Data
 
             ApplicationUser user = await dbContext.Users.FindAsync(userId);
 
-            if(user == null)
+            if (user == null)
             {
                 logger.LogWarning("PromoteUserAsync: user {UserId} not found", userId);
                 return false;
             }
 
-            if(await userManager.IsInRoleAsync(user, "Admin"))
+            if (await userManager.IsInRoleAsync(user, "Admin"))
             {
                 logger.LogInformation("User {UserId} is already Admin", userId);
                 return true;
@@ -167,6 +169,36 @@ namespace RehearsalHub.Areas.Admin.Data
                 logger.LogInformation("User {UserId} promoted to Admin", userId);
             else
                 logger.LogWarning("Failed to promote user {UserId}: {Errors}",
+                    userId, string.Join(", ", result.Errors.Select(e => e.Description)));
+
+            return result.Succeeded;
+        }
+
+        /// <summary>
+        /// Removes the Admin role from a user.
+        /// Returns false and logs a warning if the user tries to demote themselves.
+        /// </summary>
+        public async Task<bool> DemoteUserAsync(string userId, string currentAdminId)
+        {
+            if (userId == currentAdminId)
+            {
+                logger.LogWarning("Admin {UserId} attempted to demote themselves", userId);
+                return false;
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                logger.LogWarning("DemoteUserAsync: user {UserId} not found", userId);
+                return false;
+            }
+
+            var result = await userManager.RemoveFromRoleAsync(user, "Admin");
+
+            if (result.Succeeded)
+                logger.LogInformation("User {UserId} demoted from Admin", userId);
+            else
+                logger.LogWarning("Failed to demote user {UserId}: {Errors}",
                     userId, string.Join(", ", result.Errors.Select(e => e.Description)));
 
             return result.Succeeded;
