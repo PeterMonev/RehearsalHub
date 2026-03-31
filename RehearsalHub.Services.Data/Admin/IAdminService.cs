@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using RehearsalHub.GCommon;
+﻿using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Admin;
 
-namespace RehearsalHub.Areas.Admin.Data
+namespace RehearsalHub.Services.Data.Admin
 {
     /// <summary>
     /// Defines the contract for admin-specific operations:
@@ -13,7 +12,7 @@ namespace RehearsalHub.Areas.Admin.Data
         /// <summary>
         /// Retrieves aggregate statistics for the admin dashboard.
         /// </summary>
-        public Task<AdminDashboardViewModel> GetDashboardStatsAsync();
+        Task<AdminDashboardViewModel> GetDashboardStatsAsync();
 
         /// <summary>
         /// Retrieves a paginated list of all users with their role information.
@@ -46,5 +45,13 @@ namespace RehearsalHub.Areas.Admin.Data
         /// <param name="currentAdminId">The ID of the currently logged-in admin.</param>
         /// <returns>True if the operation succeeded.</returns>
         Task<bool> DemoteUserAsync(string userId, string currentAdminId);
+
+        /// <summary>
+        /// Soft-deletes a band by its ID.
+        /// Cascades to related rehearsals and setlists via ApplicationDbContext.ApplyAuditInfo.
+        /// </summary>
+        /// <param name="bandId">The ID of the band to delete.</param>
+        /// <returns>True if the deletion succeeded.</returns>
+        Task<bool> DeleteBandAsync(int bandId);
     }
 }

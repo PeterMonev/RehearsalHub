@@ -163,5 +163,21 @@ namespace RehearsalHub.Areas.Admin.Controllers
             return RedirectToAction(nameof(Users));
         }
 
+
+        /// <summary>
+        /// Soft-deletes a band and all its related rehearsals and setlists.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteBand(int id)
+        {
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid band.";
+                return RedirectToAction(nameof(Bands));
+            }
+        }
+
+
     }
 }

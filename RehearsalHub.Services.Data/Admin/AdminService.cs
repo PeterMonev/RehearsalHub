@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
 using RehearsalHub.GCommon;
+using RehearsalHub.Services.Data.Admin;
 using RehearsalHub.Web.ViewModels.Admin;
 using static RehearsalHub.Common.DataValidation;
 
@@ -202,6 +203,35 @@ namespace RehearsalHub.Areas.Admin.Data
                     userId, string.Join(", ", result.Errors.Select(e => e.Description)));
 
             return result.Succeeded;
+        }
+
+        /// <summary>
+        /// Soft-deletes a band. The cascade to rehearsals and setlists
+        /// is handled by ApplicationDbContext.ApplyAuditInfo.
+        /// </summary>
+        public async Task<bool> DeleteBandAsync(int bandId)
+        {
+            try
+            {
+                var band = await dbContext.Bands.FindAsync(bandId);
+
+                if (band == null || band.IsDeleted)
+                {
+                    logger.LogWarning("DeleteBandAsync: band {BandId} not found or already deleted", bandId);
+                    return false;
+                }
+
+                dbContext.Bands.Remove(band);
+                await dbContext.SaveChangesAsync();
+
+                logger.LogInformation("Band {BandId} soft-deleted by admin", bandId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting band {BandId}", bandId);
+                return false;
+            }
         }
     }
 }
