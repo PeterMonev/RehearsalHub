@@ -233,5 +233,50 @@ namespace RehearsalHub.Areas.Admin.Data
                 return false;
             }
         }
+
+        /// <summary>
+        /// Returns a paginated list of ALL songs — public and private.
+        /// Admin bypasses the normal per-user visibility rules.
+        /// </summary>
+        public async Task<PagedResult<AdminSongViewModel>> GetAllSongsPagedAsync(
+            int page, int pageSize, string? searchTerm = null)
+        {
+            var query = dbContext.Songs
+                .Where(s => !s.IsDeleted)
+                .AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var term = searchTerm.ToLower();
+                query = query.Where(s =>
+                    s.Title.ToLower().Contains(term) ||
+                    s.Artist.ToLower().Contains(term));
+            }
+
+            var totalCount = await query.CountAsync();
+
+            var songs = await query
+                .OrderByDescending(s => s.CreatedOn)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(s => new AdminSongViewModel
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    Artist = s.Artist,
+                    Duration = s.Duration,
+                    Genre = s.Genre.ToString(),
+                    MusicalKey = s.MusicalKey.ToString(),
+                    Tempo = s.Tempo,
+                    IsPrivate = s.IsPrivate,
+                    CreatorName = s.Creator.UserName!,
+                    OwnerBandName = s.OwnerBand != null ? s.OwnerBand.Name : null,
+                    CreatedOn = s.CreatedOn
+                })
+                .ToListAsync();
+
+            logger.LogInformation("Admin loaded {Count} songs (page {Page})", songs.Count, page);
+            return new PagedResult<AdminSongViewModel>(songs, totalCount, page, pageSize);
+        }
     }
 }

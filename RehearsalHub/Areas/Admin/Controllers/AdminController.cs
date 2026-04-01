@@ -118,7 +118,8 @@ namespace RehearsalHub.Areas.Admin.Controllers
                 var user = await userManager.FindByIdAsync(id);
                 TempData["SuccessMessage"] = $"{user?.UserName} has been promoted to Admin.";
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 logger.LogError(ex, "Error promoting user {UserId}", id);
                 TempData["ErrorMessage"] = "An unexpected error occurred.";
@@ -196,6 +197,29 @@ namespace RehearsalHub.Areas.Admin.Controllers
             }
 
             return RedirectToAction(nameof(Bands));
+        }
+
+        /// <summary>
+        /// Displays a paginated, searchable list of ALL songs in the system.
+        /// Admin sees both public and private songs.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Songs(string? searchTerm, int page = 1)
+        {
+            if (page < 1) page = 1;
+
+            try
+            {
+                var model = await adminService.GetAllSongsPagedAsync(page, PageSize, searchTerm);
+                ViewData["CurrentSearch"] = searchTerm;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error loading admin songs list");
+                TempData["ErrorMessage"] = "Unable to load songs. Please try again.";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
 

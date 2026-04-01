@@ -5,7 +5,7 @@ namespace RehearsalHub.Services.Data.Admin
 {
     /// <summary>
     /// Defines the contract for admin-specific operations:
-    /// dashboard statistics, user role management, and band oversight.
+    /// dashboard statistics, user role management, band oversight, and song moderation.
     /// </summary>
     public interface IAdminService
     {
@@ -19,16 +19,9 @@ namespace RehearsalHub.Services.Data.Admin
         /// </summary>
         /// <param name="page">Current page number (1-based).</param>
         /// <param name="pageSize">Number of items per page.</param>
-        /// <param name="searchTerm">Optional search term to filter by username or email.</param>
-        Task<PagedResult<AdminUserViewModel>> GetUsersPagedAsync(int page, int pageSize, string? searchTerm = null);
-
-        /// <summary>
-        /// Retrieves a paginated list of all non-deleted bands.
-        /// </summary>
-        /// <param name="page">Current page number (1-based).</param>
-        /// <param name="pageSize">Number of items per page.</param>
-        /// <param name="searchTerm">Optional search term to filter by band name.</param>
-        Task<PagedResult<AdminBandViewModel>> GetBandsPagedAsync(int page, int pageSize, string? searchTerm = null);
+        /// <param name="searchTerm">Optional filter by username or email.</param>
+        Task<PagedResult<AdminUserViewModel>> GetUsersPagedAsync(
+            int page, int pageSize, string? searchTerm = null);
 
         /// <summary>
         /// Promotes a user to the Admin role.
@@ -47,11 +40,36 @@ namespace RehearsalHub.Services.Data.Admin
         Task<bool> DemoteUserAsync(string userId, string currentAdminId);
 
         /// <summary>
+        /// Retrieves a paginated list of all non-deleted bands.
+        /// </summary>
+        /// <param name="page">Current page number (1-based).</param>
+        /// <param name="pageSize">Number of items per page.</param>
+        /// <param name="searchTerm">Optional filter by band name.</param>
+        Task<PagedResult<AdminBandViewModel>> GetBandsPagedAsync(
+            int page, int pageSize, string? searchTerm = null);
+
+        /// <summary>
         /// Soft-deletes a band by its ID.
         /// Cascades to related rehearsals and setlists via ApplicationDbContext.ApplyAuditInfo.
         /// </summary>
         /// <param name="bandId">The ID of the band to delete.</param>
         /// <returns>True if the deletion succeeded.</returns>
         Task<bool> DeleteBandAsync(int bandId);
+
+        /// <summary>
+        /// Retrieves a paginated list of ALL songs in the system (public and private).
+        /// Admin bypasses the normal visibility rules.
+        /// </summary>
+        /// <param name="page">Current page number (1-based).</param>
+        /// <param name="pageSize">Number of items per page.</param>
+        /// <param name="searchTerm">Optional filter by title or artist.</param>
+        Task<PagedResult<AdminSongViewModel>> GetAllSongsAsync(int page, int pageSize, string? searchTerm = null);
+
+        /// <summary>
+        /// Hard-deletes a song by its ID regardless of who created it.
+        /// Admin can delete any song in the system.
+        /// </summary>
+        /// <param name="songId">The ID of the song to delete.</param>
+        /// <returns>True if the deletion succeeded.</returns>
     }
 }
