@@ -222,6 +222,41 @@ namespace RehearsalHub.Areas.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes any song in the system regardless of who created it.
+        /// Admin has full override — no ownership check.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSong(int id)
+        {
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid song.";
+                return RedirectToAction(nameof(Songs));
+            }
+
+            try
+            {
+                var success = await adminService.AdminDeleteSongAsync(id);
+
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = "Song not found or already deleted.";
+                    return RedirectToAction(nameof(Songs));
+                }
+
+                TempData["SuccessMessage"] = "Song has been successfully deleted.";
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting song {SongId}", id);
+                TempData["ErrorMessage"] = "An unexpected error occurred.";
+            }
+
+            return RedirectToAction(nameof(Songs));
+        }
+
 
     }
 }

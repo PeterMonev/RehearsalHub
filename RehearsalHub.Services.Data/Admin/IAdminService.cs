@@ -63,7 +63,7 @@ namespace RehearsalHub.Services.Data.Admin
         /// <param name="page">Current page number (1-based).</param>
         /// <param name="pageSize">Number of items per page.</param>
         /// <param name="searchTerm">Optional filter by title or artist.</param>
-        Task<PagedResult<AdminSongViewModel>> GetAllSongsAsync(int page, int pageSize, string? searchTerm = null);
+        Task<PagedResult<AdminSongViewModel>> GetAllSongsPagedAsync(int page, int pageSize, string? searchTerm = null);
 
         /// <summary>
         /// Hard-deletes a song by its ID regardless of who created it.
@@ -71,5 +71,6 @@ namespace RehearsalHub.Services.Data.Admin
         /// </summary>
         /// <param name="songId">The ID of the song to delete.</param>
         /// <returns>True if the deletion succeeded.</returns>
+        Task<bool> AdminDeleteSongsAsync(int songId);
     }
 }

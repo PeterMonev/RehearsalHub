@@ -278,5 +278,34 @@ namespace RehearsalHub.Areas.Admin.Data
             logger.LogInformation("Admin loaded {Count} songs (page {Page})", songs.Count, page);
             return new PagedResult<AdminSongViewModel>(songs, totalCount, page, pageSize);
         }
+
+        /// <summary>
+        /// Hard-deletes a song regardless of who created it.
+        /// Admin has full override — no ownership check.
+        /// </summary>
+        public async Task<bool> AdminDeleteSongAsync(int songId)
+        {
+            try
+            {
+                var song = await dbContext.Songs.FindAsync(songId);
+
+                if (song == null || song.IsDeleted)
+                {
+                    logger.LogWarning("AdminDeleteSongAsync: song {SongId} not found or already deleted", songId);
+                    return false;
+                }
+
+                dbContext.Songs.Remove(song);
+                await dbContext.SaveChangesAsync();
+
+                logger.LogInformation("Song {SongId} deleted by admin", songId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting song {SongId}", songId);
+                return false;
+            }
+        }
     }
 }
