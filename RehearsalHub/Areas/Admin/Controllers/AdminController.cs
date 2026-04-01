@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RehearsalHub.Areas.Admin.Data;
 using RehearsalHub.Data.Models;
+using RehearsalHub.Services.Data.Admin;
 
 namespace RehearsalHub.Areas.Admin.Controllers
 {
@@ -238,7 +239,7 @@ namespace RehearsalHub.Areas.Admin.Controllers
 
             try
             {
-                var success = await adminService.AdminDeleteSongAsync(id);
+                var success = await adminService.AdminDeleteSongsAsync(id);
 
                 if (!success)
                 {

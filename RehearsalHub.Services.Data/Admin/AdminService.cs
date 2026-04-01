@@ -283,7 +283,7 @@ namespace RehearsalHub.Areas.Admin.Data
         /// Hard-deletes a song regardless of who created it.
         /// Admin has full override — no ownership check.
         /// </summary>
-        public async Task<bool> AdminDeleteSongAsync(int songId)
+        public async Task<bool> AdminDeleteSongsAsync(int songId)
         {
             try
             {
@@ -307,5 +307,7 @@ namespace RehearsalHub.Areas.Admin.Data
                 return false;
             }
         }
+
+
     }
 }
