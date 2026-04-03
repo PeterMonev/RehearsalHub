@@ -358,5 +358,35 @@ namespace RehearsalHub.Areas.Admin.Data
                 })
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> AdminEditBandAsync(BandEditViewModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            try
+            {
+                var band = await dbContext.Bands.FirstOrDefaultAsync(b => b.Id == model.Id && !b.IsDeleted);
+
+                if (band == null) return false;
+
+                band.Name = model.Name;
+                band.Genre = model.Genre;
+                band.ImageUrl = string.IsNullOrWhiteSpace(model.ImageUrl)
+                    ? band.ImageUrl
+                    : model.ImageUrl;
+
+                await dbContext.SaveChangesAsync();
+                logger.LogInformation("Band {BandId} edited by admin", model.Id);
+                return true;
+
+            } catch (Exception ex)
+            {
+                logger.LogError(ex, "Error editing band {BandId}", model.Id);
+                return false;
+            }
+        }
     }
 }

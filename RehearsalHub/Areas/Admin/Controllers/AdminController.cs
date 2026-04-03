@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using RehearsalHub.Areas.Admin.Data;
 using RehearsalHub.Data.Models;
 using RehearsalHub.Services.Data.Admin;
+using RehearsalHub.Web.ViewModels.Admin;
+using RehearsalHub.Web.ViewModels.Bands;
 
 namespace RehearsalHub.Areas.Admin.Controllers
 {
@@ -213,6 +215,35 @@ namespace RehearsalHub.Areas.Admin.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> EditBand(BandEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                bool success = await adminService.AdminEditBandAsync(model);
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = "Could not update band.";
+                    return View(model);
+                }
+                TempData["SuccessMessage"] = $"\"{model.Name}\" has been updated.";
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error editing band {BandId}", model.Id);
+                TempData["ErrorMessage"] = "An unexpected error occurred.";
+            }
+
+            return RedirectToAction(nameof(Bands));
         }
 
         /// <summary>

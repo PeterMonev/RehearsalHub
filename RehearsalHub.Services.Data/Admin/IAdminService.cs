@@ -63,6 +63,9 @@ namespace RehearsalHub.Services.Data.Admin
         /// <summary>Gets band data for admin editing — no ownership check.</summary>
         Task<BandEditViewModel?> GetBandForEditAsync(int bandId);
 
+        /// <summary>Updates a band — admin override, no ownership check.</summary>
+        Task<bool> AdminEditBandAsync(BandEditViewModel model);
+
         /// <summary>
         /// Retrieves a paginated list of ALL songs in the system (public and private).
         /// Admin bypasses the normal visibility rules.
