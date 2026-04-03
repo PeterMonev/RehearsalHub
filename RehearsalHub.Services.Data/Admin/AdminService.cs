@@ -6,6 +6,7 @@ using RehearsalHub.Data.Models;
 using RehearsalHub.GCommon;
 using RehearsalHub.Services.Data.Admin;
 using RehearsalHub.Web.ViewModels.Admin;
+using RehearsalHub.Web.ViewModels.Bands;
 using static RehearsalHub.Common.DataValidation;
 
 namespace RehearsalHub.Areas.Admin.Data
@@ -119,7 +120,7 @@ namespace RehearsalHub.Areas.Admin.Data
                 query = query.Where(b => b.Name.ToLower().Contains(term));
             }
 
-            var totalCount = await dbContext.Bands.CountAsync();
+            var totalCount = await query.CountAsync();
 
 
             List<AdminBandViewModel> bands = await query.OrderBy(b => b.Name).Skip((page - 1) * pageSize).Take(pageSize)
@@ -337,6 +338,25 @@ namespace RehearsalHub.Areas.Admin.Data
                 logger.LogError(ex, "Error deleting user {UserId}", userId);
                 return false;
             }
+        }
+
+        public async Task<BandEditViewModel?> GetBandForEditAsync(int bandId)
+        {
+            if (bandId <= 0)
+            {
+                logger.LogWarning("Invalid bandId: {BandId}", bandId);
+                return null;
+            }
+
+            return await dbContext.Bands.AsNoTracking().Where(b => b.Id == bandId && !b.IsDeleted)
+                .Select(b => new BandEditViewModel
+                {
+                    Id       = b.Id,
+                    Name     = b.Name,
+                    Genre    = b.Genre,
+                    ImageUrl = b.ImageUrl
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }

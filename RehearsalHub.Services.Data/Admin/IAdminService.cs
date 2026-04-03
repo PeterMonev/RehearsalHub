@@ -1,5 +1,6 @@
 ﻿using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Admin;
+using RehearsalHub.Web.ViewModels.Bands;
 
 namespace RehearsalHub.Services.Data.Admin
 {
@@ -58,6 +59,9 @@ namespace RehearsalHub.Services.Data.Admin
         /// <param name="bandId">The ID of the band to delete.</param>
         /// <returns>True if the deletion succeeded.</returns>
         Task<bool> DeleteBandAsync(int bandId);
+
+        /// <summary>Gets band data for admin editing — no ownership check.</summary>
+        Task<BandEditViewModel?> GetBandForEditAsync(int bandId);
 
         /// <summary>
         /// Retrieves a paginated list of ALL songs in the system (public and private).

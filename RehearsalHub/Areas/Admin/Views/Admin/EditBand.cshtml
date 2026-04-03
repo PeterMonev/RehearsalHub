@@ -1,0 +1,65 @@
+﻿@using RehearsalHub.Data.Models.Enums
+@model RehearsalHub.Web.ViewModels.Bands.BandEditViewModel
+@{
+    ViewData["Title"] = "Edit Band";
+}
+
+<div class="container py-4 animate-fade-in" style="max-width: 640px">
+
+    <div class="d-flex align-items-center gap-3 mb-5 border-bottom border-secondary pb-4">
+        <a asp-area="Admin" asp-action="Bands" class="btn btn-outline-secondary rounded-pill px-3">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div>
+            <h1 class="display-6 fw-bold mb-0">
+                <i class="fa-solid fa-guitar text-danger me-2"></i>Edit Band
+            </h1>
+            <p class="text-muted mb-0 small">Admin override — no ownership check</p>
+        </div>
+    </div>
+
+    <div class="card bg-dark text-white border-0 rounded-4 shadow-lg p-4">
+        <form asp-area="Admin" asp-action="EditBand" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-4">
+                <label asp-for="Name" class="form-label fw-bold text-white">Band Name</label>
+                <input asp-for="Name" class="form-control bg-dark text-white border-secondary rounded-3" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Genre" class="form-label fw-bold text-white">Genre</label>
+                <select asp-for="Genre"
+                        asp-items="Html.GetEnumSelectList<MusicGenre>()"
+                        class="form-select bg-dark text-white border-secondary rounded-3">
+                </select>
+                <span asp-validation-for="Genre" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="ImageUrl" class="form-label fw-bold text-white">Image URL</label>
+                <input asp-for="ImageUrl" class="form-control bg-dark text-white border-secondary rounded-3"
+                       placeholder="https://..." />
+                <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+            </div>
+
+            <div class="d-flex gap-3 mt-4">
+                <button type="submit" class="btn btn-gradient rounded-pill px-4 fw-bold">
+                    <i class="fa-solid fa-floppy-disk me-2"></i>Save Changes
+                </button>
+                <a asp-area="Admin" asp-action="Bands" class="btn btn-outline-secondary rounded-pill px-4">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -200,6 +200,21 @@ namespace RehearsalHub.Areas.Admin.Controllers
             return RedirectToAction(nameof(Bands));
         }
 
+        [HttpGet]
+        
+        public async Task<IActionResult> EditBand(int id)
+        {
+            var model = await adminService.GetBandForEditAsync(id);
+
+            if (model == null)
+            {
+                TempData["ErrorMessage"] = "Band not found.";
+                return RedirectToAction(nameof(Bands));
+            }
+
+            return View(model);
+        }
+
         /// <summary>
         /// Displays a paginated, searchable list of ALL songs in the system.
         /// Admin sees both public and private songs.
