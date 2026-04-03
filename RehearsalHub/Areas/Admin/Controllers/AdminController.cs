@@ -52,7 +52,7 @@ namespace RehearsalHub.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// Displays a paginated, searchable list of all users.
+        /// Displays a paginated and searchable list of users.
         /// </summary>
         [HttpGet]
         public async Task<IActionResult> Users(string? searchTerm, int page = 1)
@@ -74,7 +74,7 @@ namespace RehearsalHub.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// Displays a paginated, searchable list of all bands.
+        /// Displays a paginated and searchable list of bands.
         /// </summary>
         [HttpGet]
         public async Task<IActionResult> Bands(string? searchTerm, int page = 1)
@@ -96,7 +96,7 @@ namespace RehearsalHub.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// Promotes a user to the Admin role.
+        /// Promotes a user to Admin role.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -110,7 +110,6 @@ namespace RehearsalHub.Areas.Admin.Controllers
 
             try
             {
-
                 var success = await adminService.PromoteUserAsync(id);
 
                 if (!success)
@@ -121,7 +120,6 @@ namespace RehearsalHub.Areas.Admin.Controllers
 
                 var user = await userManager.FindByIdAsync(id);
                 TempData["SuccessMessage"] = $"{user?.UserName} has been promoted to Admin.";
-
             }
             catch (Exception ex)
             {
@@ -133,8 +131,7 @@ namespace RehearsalHub.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// Removes the Admin role from a user.
-        /// Prevents self-demotion.
+        /// Demotes a user from Admin role (prevents self-demotion).
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -168,9 +165,8 @@ namespace RehearsalHub.Areas.Admin.Controllers
             return RedirectToAction(nameof(Users));
         }
 
-
         /// <summary>
-        /// Soft-deletes a band and all its related rehearsals and setlists.
+        /// Soft deletes a band and its related data.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -203,8 +199,10 @@ namespace RehearsalHub.Areas.Admin.Controllers
             return RedirectToAction(nameof(Bands));
         }
 
+        /// <summary>
+        /// Loads band data for editing.
+        /// </summary>
         [HttpGet]
-        
         public async Task<IActionResult> EditBand(int id)
         {
             var model = await adminService.GetBandForEditAsync(id);
@@ -218,9 +216,11 @@ namespace RehearsalHub.Areas.Admin.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Updates band information.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> EditBand(BandEditViewModel model)
         {
             if (!ModelState.IsValid)
@@ -248,8 +248,7 @@ namespace RehearsalHub.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// Displays a paginated, searchable list of ALL songs in the system.
-        /// Admin sees both public and private songs.
+        /// Displays all songs (public and private).
         /// </summary>
         [HttpGet]
         public async Task<IActionResult> Songs(string? searchTerm, int page = 1)
@@ -271,8 +270,7 @@ namespace RehearsalHub.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// Deletes any song in the system regardless of who created it.
-        /// Admin has full override — no ownership check.
+        /// Deletes a song (admin override).
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -305,7 +303,9 @@ namespace RehearsalHub.Areas.Admin.Controllers
             return RedirectToAction(nameof(Songs));
         }
 
-
+        /// <summary>
+        /// Soft deletes a user.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteUser(string id)
@@ -328,22 +328,22 @@ namespace RehearsalHub.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                {
-                    logger.LogError(ex, "Error deleting user {UserId}", id);
-                    TempData["ErrorMessage"] = "An unexpected error occurred.";
-                }
+                logger.LogError(ex, "Error deleting user {UserId}", id);
+                TempData["ErrorMessage"] = "An unexpected error occurred.";
             }
 
             return RedirectToAction(nameof(Users));
         }
 
+        /// <summary>
+        /// Loads song data for editing.
+        /// </summary>
         [HttpGet]
-
         public async Task<IActionResult> EditSong(int id)
         {
             var model = await adminService.GetSongForAdminEditAsync(id);
 
-            if(model == null)
+            if (model == null)
             {
                 TempData["ErrorMessage"] = "Song not found.";
                 return RedirectToAction(nameof(Songs));
@@ -352,9 +352,11 @@ namespace RehearsalHub.Areas.Admin.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Updates song information.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> EditSong(SongInputModel model)
         {
             if (!ModelState.IsValid)
@@ -371,11 +373,54 @@ namespace RehearsalHub.Areas.Admin.Controllers
                     TempData["ErrorMessage"] = "Could not update song.";
                     return View(model);
                 }
-                TempData["SuccessMessage"] = $"\"{model.Title}\" has been updated.";
 
-            } catch (Exception ex)
+                TempData["SuccessMessage"] = $"\"{model.Title}\" has been updated.";
+            }
+            catch (Exception ex)
             {
                 logger.LogError(ex, "Error editing song {SongId}", model.Id);
+                TempData["ErrorMessage"] = "An unexpected error occurred.";
+            }
+
+            return RedirectToAction(nameof(Songs));
+        }
+
+        /// <summary>
+        /// Displays form for creating a new song.
+        /// </summary>
+        [HttpGet]
+        public IActionResult CreateSong()
+        {
+            return View(new SongInputModel { IsPrivate = false });
+        }
+
+        /// <summary>
+        /// Creates a new song.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateSong(SongInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                int success = await adminService.AdminCreateSongAsync(model, GetCurrentUserId());
+
+                if (success == 0)
+                {
+                    TempData["ErrorMessage"] = "Could not create song.";
+                    return View(model);
+                }
+
+                TempData["SuccessMessage"] = $"\"{model.Title}\" has been created.";
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error creating song");
                 TempData["ErrorMessage"] = "An unexpected error occurred.";
             }
 

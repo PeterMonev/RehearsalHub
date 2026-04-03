@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
@@ -9,20 +8,19 @@ using RehearsalHub.Services.Data.Admin;
 using RehearsalHub.Web.ViewModels.Admin;
 using RehearsalHub.Web.ViewModels.Bands;
 using RehearsalHub.Web.ViewModels.Song;
-using static RehearsalHub.Common.DataValidation;
 
 namespace RehearsalHub.Areas.Admin.Data
 {
     /// <summary>
     /// Service for admin-specific operations: dashboard stats,
     /// paginated user/band management, and role assignment.
-    /// Follows the same conventions as BandService and RehearsalService.
     /// </summary>
     public class AdminService : IAdminService
     {
         private readonly ApplicationDbContext dbContext;
         private readonly ILogger<AdminService> logger;
         private readonly UserManager<ApplicationUser> userManager;
+
         public AdminService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<AdminService> logger)
         {
             this.dbContext = dbContext;
@@ -32,7 +30,6 @@ namespace RehearsalHub.Areas.Admin.Data
 
         /// <summary>
         /// Retrieves aggregate counts for the admin dashboard.
-        /// Each query is independent to avoid unnecessary JOINs.
         /// </summary>
         public async Task<AdminDashboardViewModel> GetDashboardStatsAsync()
         {
@@ -59,6 +56,9 @@ namespace RehearsalHub.Areas.Admin.Data
             return stats;
         }
 
+        /// <summary>
+        /// Returns paginated users with optional search and admin role check.
+        /// </summary>
         public async Task<PagedResult<AdminUserViewModel>> GetUsersPagedAsync(int page, int pageSize, string? searchTerm = null)
         {
             var query = dbContext.Users.AsNoTracking();
@@ -109,7 +109,7 @@ namespace RehearsalHub.Areas.Admin.Data
         }
 
         /// <summary>
-        /// Returns a paginated, optionally filtered list of all non-deleted bands.
+        /// Returns a paginated list of bands with optional search.
         /// </summary>
         public async Task<PagedResult<AdminBandViewModel>> GetBandsPagedAsync(int page, int pageSize, string? searchTerm = null)
         {
@@ -117,13 +117,11 @@ namespace RehearsalHub.Areas.Admin.Data
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-
                 var term = searchTerm.ToLower();
                 query = query.Where(b => b.Name.ToLower().Contains(term));
             }
 
             var totalCount = await query.CountAsync();
-
 
             List<AdminBandViewModel> bands = await query.OrderBy(b => b.Name).Skip((page - 1) * pageSize).Take(pageSize)
                 .Select(b => new AdminBandViewModel
@@ -143,7 +141,7 @@ namespace RehearsalHub.Areas.Admin.Data
         }
 
         /// <summary>
-        /// Promotes a user to the Admin role if not already assigned.
+        /// Promotes a user to Admin role if not already assigned.
         /// </summary>
         public async Task<bool> PromoteUserAsync(string userId)
         {
@@ -179,8 +177,7 @@ namespace RehearsalHub.Areas.Admin.Data
         }
 
         /// <summary>
-        /// Removes the Admin role from a user.
-        /// Returns false and logs a warning if the user tries to demote themselves.
+        /// Removes Admin role from a user.
         /// </summary>
         public async Task<bool> DemoteUserAsync(string userId, string currentAdminId)
         {
@@ -209,8 +206,7 @@ namespace RehearsalHub.Areas.Admin.Data
         }
 
         /// <summary>
-        /// Soft-deletes a band. The cascade to rehearsals and setlists
-        /// is handled by ApplicationDbContext.ApplyAuditInfo.
+        /// Soft deletes a band.
         /// </summary>
         public async Task<bool> DeleteBandAsync(int bandId)
         {
@@ -238,8 +234,7 @@ namespace RehearsalHub.Areas.Admin.Data
         }
 
         /// <summary>
-        /// Returns a paginated list of ALL songs — public and private.
-        /// Admin bypasses the normal per-user visibility rules.
+        /// Returns all songs (admin bypasses visibility rules).
         /// </summary>
         public async Task<PagedResult<AdminSongViewModel>> GetAllSongsPagedAsync(
             int page, int pageSize, string? searchTerm = null)
@@ -283,8 +278,7 @@ namespace RehearsalHub.Areas.Admin.Data
         }
 
         /// <summary>
-        /// Hard-deletes a song regardless of who created it.
-        /// Admin has full override — no ownership check.
+        /// Hard deletes a song.
         /// </summary>
         public async Task<bool> AdminDeleteSongsAsync(int songId)
         {
@@ -311,6 +305,9 @@ namespace RehearsalHub.Areas.Admin.Data
             }
         }
 
+        /// <summary>
+        /// Soft deletes a user.
+        /// </summary>
         public async Task<bool> DeleteUserAsync(string userId, string currentAdminId)
         {
             if (userId == currentAdminId)
@@ -323,7 +320,7 @@ namespace RehearsalHub.Areas.Admin.Data
             {
                 var user = await dbContext.Users.FindAsync(userId);
 
-                if(user == null || user.IsDeleted)
+                if (user == null || user.IsDeleted)
                 {
                     return false;
                 }
@@ -335,13 +332,17 @@ namespace RehearsalHub.Areas.Admin.Data
                 logger.LogInformation("User {UserId} soft-deleted by admin", userId);
                 return true;
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 logger.LogError(ex, "Error deleting user {UserId}", userId);
                 return false;
             }
         }
 
+        /// <summary>
+        /// Gets band data for editing.
+        /// </summary>
         public async Task<BandEditViewModel?> GetBandForEditAsync(int bandId)
         {
             if (bandId <= 0)
@@ -353,14 +354,17 @@ namespace RehearsalHub.Areas.Admin.Data
             return await dbContext.Bands.AsNoTracking().Where(b => b.Id == bandId && !b.IsDeleted)
                 .Select(b => new BandEditViewModel
                 {
-                    Id       = b.Id,
-                    Name     = b.Name,
-                    Genre    = b.Genre,
+                    Id = b.Id,
+                    Name = b.Name,
+                    Genre = b.Genre,
                     ImageUrl = b.ImageUrl
                 })
                 .FirstOrDefaultAsync();
         }
 
+        /// <summary>
+        /// Edits band data.
+        /// </summary>
         public async Task<bool> AdminEditBandAsync(BandEditViewModel model)
         {
             if (model == null)
@@ -384,13 +388,17 @@ namespace RehearsalHub.Areas.Admin.Data
                 logger.LogInformation("Band {BandId} edited by admin", model.Id);
                 return true;
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 logger.LogError(ex, "Error editing band {BandId}", model.Id);
                 return false;
             }
         }
 
+        /// <summary>
+        /// Gets song data for editing.
+        /// </summary>
         public async Task<SongInputModel?> GetSongForAdminEditAsync(int songId)
         {
             if (songId <= 0)
@@ -431,9 +439,12 @@ namespace RehearsalHub.Areas.Admin.Data
             }
         }
 
+        /// <summary>
+        /// Edits an existing song.
+        /// </summary>
         public async Task<bool> AdminEditSongAsync(SongInputModel model)
         {
-            if(model == null)
+            if (model == null)
             {
                 logger.LogWarning("AdminEditSongAsync: model is null");
                 return false;
@@ -442,8 +453,8 @@ namespace RehearsalHub.Areas.Admin.Data
             try
             {
                 var song = await dbContext.Songs.FirstOrDefaultAsync(s => s.Id == model.Id && !s.IsDeleted);
-       
-                if(song == null)
+
+                if (song == null)
                 {
                     logger.LogWarning("AdminEditSongAsync: Song {SongId} not found", model.Id);
                     return false;
@@ -467,6 +478,39 @@ namespace RehearsalHub.Areas.Admin.Data
             {
                 logger.LogError(ex, "Error editing song {SongId}", model.Id);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Creates a new song by admin.
+        /// </summary>
+        public async Task<int> AdminCreateSongAsync(SongInputModel model, string adminId)
+        {
+            try
+            {
+                var song = new Song
+                {
+                    Title = model.Title,
+                    Artist = model.Artist,
+                    Duration = model.Duration,
+                    Genre = model.Genre,
+                    MusicalKey = model.MusicalKey,
+                    Tempo = model.Tempo,
+                    IsPrivate = model.IsPrivate,
+                    OwnerBandId = model.BandId,
+                    CreatorId = adminId
+                };
+
+                await dbContext.Songs.AddAsync(song);
+                await dbContext.SaveChangesAsync();
+
+                logger.LogInformation("Song {SongId} created by admin {AdminId}", song.Id, adminId);
+                return song.Id;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error creating song by admin {AdminId}", adminId);
+                return 0;
             }
         }
     }
