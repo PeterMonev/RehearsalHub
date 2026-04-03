@@ -430,5 +430,44 @@ namespace RehearsalHub.Areas.Admin.Data
                 return null;
             }
         }
+
+        public async Task<bool> AdminEditSongAsync(SongInputModel model)
+        {
+            if(model == null)
+            {
+                logger.LogWarning("AdminEditSongAsync: model is null");
+                return false;
+            }
+
+            try
+            {
+                var song = await dbContext.Songs.FirstOrDefaultAsync(s => s.Id == model.Id && !s.IsDeleted);
+       
+                if(song == null)
+                {
+                    logger.LogWarning("AdminEditSongAsync: Song {SongId} not found", model.Id);
+                    return false;
+                }
+
+                song.Title = model.Title;
+                song.Artist = model.Artist;
+                song.Duration = model.Duration;
+                song.Genre = model.Genre;
+                song.MusicalKey = model.MusicalKey;
+                song.Tempo = model.Tempo;
+                song.IsPrivate = model.IsPrivate;
+                song.OwnerBandId = model.BandId ?? song.OwnerBandId;
+
+                await dbContext.SaveChangesAsync();
+                logger.LogInformation("Song {SongId} edited by admin", model.Id);
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error editing song {SongId}", model.Id);
+                return false;
+            }
+        }
     }
 }

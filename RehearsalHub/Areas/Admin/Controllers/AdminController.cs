@@ -6,6 +6,7 @@ using RehearsalHub.Data.Models;
 using RehearsalHub.Services.Data.Admin;
 using RehearsalHub.Web.ViewModels.Admin;
 using RehearsalHub.Web.ViewModels.Bands;
+using RehearsalHub.Web.ViewModels.Song;
 
 namespace RehearsalHub.Areas.Admin.Controllers
 {
@@ -349,6 +350,36 @@ namespace RehearsalHub.Areas.Admin.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> EditSong(SongInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                bool success = await adminService.AdminEditSongAsync(model);
+
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = "Could not update song.";
+                    return View(model);
+                }
+                TempData["SuccessMessage"] = $"\"{model.Title}\" has been updated.";
+
+            } catch (Exception ex)
+            {
+                logger.LogError(ex, "Error editing song {SongId}", model.Id);
+                TempData["ErrorMessage"] = "An unexpected error occurred.";
+            }
+
+            return RedirectToAction(nameof(Songs));
         }
     }
 }

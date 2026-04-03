@@ -86,5 +86,8 @@ namespace RehearsalHub.Services.Data.Admin
 
         /// <summary>Gets song data for admin editing — no ownership check.</summary>
         Task<SongInputModel?> GetSongForAdminEditAsync(int songId);
+
+        /// <summary>Updates any song — admin override, no ownership check.</summary>
+        Task<bool> AdminEditSongAsync(SongInputModel model);
     }
 }
