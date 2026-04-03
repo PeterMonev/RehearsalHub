@@ -43,45 +43,48 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link nav-link-custom px-lg-3" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link nav-link-custom px-lg-3" asp-controller="Home" asp-area="" asp-action="Index">Home</a>
                         </li>
 
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link nav-link-custom px-lg-3 text-info-hover" asp-controller="Bands" asp-action="Index">
+                                <a class="nav-link nav-link-custom px-lg-3 text-info-hover" asp-area="" asp-controller="Bands" asp-action="Index">
                                     <i class="fa-solid fa-guitar me-1"></i>My Bands
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-custom px-lg-3 text-warning-hover" asp-controller="Songs" asp-action="Index">
+                                <a class="nav-link nav-link-custom px-lg-3 text-warning-hover" asp-area="" asp-controller="Songs" asp-action="Index">
                                     <i class="fa-solid fa-music me-1"></i>Songs
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-custom px-lg-3" asp-controller="Rehearsals" asp-action="MyRehearsals">
+                                <a class="nav-link nav-link-custom px-lg-3" asp-controller="Rehearsals" asp-area="" asp-action="MyRehearsals">
                                     <i class="fa-solid fa-calendar-days me-1"></i>Rehearsals
                                 </a>
                             </li>
                             <li class="nav-item mt-2 mt-lg-0 ms-lg-2">
-                                <a class="btn btn-danger btn-sm rounded-pill px-4 fw-bold shadow-danger-sm" asp-controller="Bands" asp-action="Create">
+                                <a class="btn btn-danger btn-sm rounded-pill px-4 fw-bold shadow-danger-sm" asp-area="" asp-controller="Bands" asp-action="Create">
                                     <i class="fa-solid fa-plus-circle me-1"></i>Add Band
                                 </a>
                             </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li>
+                                <a class="dropdown-item text-danger fw-bold"
+                                   asp-area="Admin"
+                                   asp-controller="Admin"
+                                   asp-action="Index">
+                                    <i class="fa-solid fa-shield-halved me-2"></i>Admin Panel
+                                </a>
+                                <hr class="dropdown-divider" />
+                                </li>
+                            }
                            
                            
                         }
 
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a class="dropdown-item text-danger fw-bold"
-                               asp-area="Admin"
-                               asp-controller="Admin"
-                               asp-action="Index">
-                                <i class="fa-solid fa-shield-halved me-2"></i>Admin Panel
-                            </a>
-                            <hr class="dropdown-divider" />
-                        }
+
                     </ul>
 
                     <div class="d-flex align-items-center gap-3 py-2 py-lg-0 border-top border-secondary border-lg-0 mt-3 mt-lg-0">
