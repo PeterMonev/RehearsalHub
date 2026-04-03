@@ -259,5 +259,36 @@ namespace RehearsalHub.Areas.Admin.Controllers
         }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                TempData["ErrorMessage"] = "Invalid user.";
+                return RedirectToAction(nameof(Users));
+            }
+
+            try
+            {
+                bool success = await adminService.DeleteUserAsync(id, GetCurrentUserId());
+                if (!success)
+                {
+                    TempData["ErrorMessage"] = "Cannot delete this user.";
+                    return RedirectToAction(nameof(Users));
+                }
+                TempData["SuccessMessage"] = "User has been deleted.";
+            }
+            catch (Exception ex)
+            {
+                {
+                    logger.LogError(ex, "Error deleting user {UserId}", id);
+                    TempData["ErrorMessage"] = "An unexpected error occurred.";
+                }
+            }
+
+            return RedirectToAction(nameof(Users));
+
+        }
     }
 }

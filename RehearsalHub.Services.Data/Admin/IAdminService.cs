@@ -39,6 +39,9 @@ namespace RehearsalHub.Services.Data.Admin
         /// <returns>True if the operation succeeded.</returns>
         Task<bool> DemoteUserAsync(string userId, string currentAdminId);
 
+        /// <summary>Soft-deletes a user account.</summary>
+        Task<bool> DeleteUserAsync(string userId, string currentAdminId);
+
         /// <summary>
         /// Retrieves a paginated list of all non-deleted bands.
         /// </summary>

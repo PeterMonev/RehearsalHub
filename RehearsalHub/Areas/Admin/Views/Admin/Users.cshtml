@@ -15,16 +15,14 @@
             </h1>
             <p class="text-muted mb-0">@Model.TotalItems registered users</p>
         </div>
-        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 mt-3 mt-md-0">
+        <a asp-area="Admin" asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 mt-3 mt-md-0">
             <i class="fa-solid fa-arrow-left me-2"></i>Back to Dashboard
         </a>
     </div>
 
     <div class="mb-4 shadow-sm rounded-4 overflow-hidden">
-        <form asp-action="Users" method="get" class="d-flex gap-2 p-3 bg-dark">
-            <input type="text"
-                   name="searchTerm"
-                   value="@currentSearch"
+        <form asp-area="Admin" asp-action="Users" method="get" class="d-flex gap-2 p-3 bg-dark">
+            <input type="text" name="searchTerm" value="@currentSearch"
                    class="form-control bg-dark text-white border-secondary rounded-pill"
                    placeholder="Search by username or email..." />
             <button type="submit" class="btn btn-gradient rounded-pill px-4 fw-bold">
@@ -32,7 +30,7 @@
             </button>
             @if (!string.IsNullOrEmpty(currentSearch))
             {
-                <a asp-action="Users" class="btn btn-outline-secondary rounded-pill px-3">
+                <a asp-area="Admin" asp-action="Users" class="btn btn-outline-secondary rounded-pill px-3">
                     <i class="fa-solid fa-xmark"></i>
                 </a>
             }
@@ -40,7 +38,8 @@
     </div>
 
     <div class="card bg-dark text-white border-0 rounded-4 shadow-lg overflow-hidden mb-4">
-        <div class="table-responsive">
+
+        <div class="table-responsive d-none d-md-block">
             <table class="table table-dark table-hover align-middle mb-0">
                 <thead>
                     <tr class="border-bottom border-secondary">
@@ -58,9 +57,7 @@
                         <tr class="border-bottom border-secondary border-opacity-25">
                             <td class="ps-4 py-3">
                                 <div class="d-flex align-items-center gap-2">
-                                    <div class="avatar-circle">
-                                        @user.UserName.First().ToString().ToUpper()
-                                    </div>
+                                    <div class="avatar-circle">@user.UserName.First().ToString().ToUpper()</div>
                                     <span class="fw-bold">@user.UserName</span>
                                 </div>
                             </td>
@@ -82,56 +79,128 @@
                                     </span>
                                 }
                             </td>
-                            <td class="text-center text-muted small">
-                                @user.CreatedOn.ToString("dd MMM yyyy")
-                            </td>
+                            <td class="text-center text-muted small">@user.CreatedOn.ToString("dd MMM yyyy")</td>
                             <td class="text-end pe-4">
-                                @if (user.IsAdmin)
-                                {
-                                    <form asp-action="DemoteUser" asp-route-id="@user.Id" method="post" class="d-inline">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    @if (user.IsAdmin)
+                                    {
+                                        <form asp-area="Admin" asp-action="DemoteUser" asp-route-id="@user.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete-confirm"
+                                                    data-title="Remove Admin role?"
+                                                    data-message="@user.UserName will lose all admin privileges.">
+                                                <i class="fa-solid fa-user-minus me-1"></i>Demote
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-area="Admin" asp-action="PromoteUser" asp-route-id="@user.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                                                <i class="fa-solid fa-user-shield me-1"></i>Make Admin
+                                            </button>
+                                        </form>
+                                    }
+                                    <form asp-area="Admin" asp-action="DeleteUser" asp-route-id="@user.Id" method="post" class="d-inline">
                                         @Html.AntiForgeryToken()
-                                        <button type="button"
-                                                class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete-confirm"
-                                                data-title="Remove Admin role?"
-                                                data-message="@user.UserName will lose all admin privileges.">
-                                            <i class="fa-solid fa-user-minus me-1"></i>Demote
+                                        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete-confirm"
+                                                data-title="Delete user?"
+                                                data-message="This will permanently delete @user.UserName's account.">
+                                            <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </form>
-                                }
-                                else
-                                {
-                                    <form asp-action="PromoteUser" asp-route-id="@user.Id" method="post" class="d-inline">
-                                        @Html.AntiForgeryToken()
-                                        <button type="submit"
-                                                class="btn btn-sm btn-outline-success rounded-pill px-3">
-                                            <i class="fa-solid fa-user-shield me-1"></i>Make Admin
-                                        </button>
-                                    </form>
-                                }
+                                </div>
                             </td>
                         </tr>
                     }
-
                     @if (!Model.Items.Any())
                     {
                         <tr>
                             <td colspan="6" class="text-center py-5 text-muted">
-                                <i class="fa-solid fa-users fa-2x mb-3 d-block opacity-25"></i>
-                                No users found.
+                                <i class="fa-solid fa-users fa-2x mb-3 d-block opacity-25"></i>No users found.
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+
+        <div class="d-md-none p-3">
+            @foreach (var user in Model.Items)
+            {
+                <div class="mobile-card mb-3 rounded-4 p-3 border border-secondary border-opacity-25">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <div class="avatar-circle">@user.UserName.First().ToString().ToUpper()</div>
+                        <div>
+                            <div class="fw-bold">@user.UserName</div>
+                            <div class="text-muted small">@user.Email</div>
+                        </div>
+                        <div class="ms-auto">
+                            @if (user.IsAdmin)
+                            {
+                                <span class="badge badge-admin rounded-pill px-2 py-1" style="font-size:.7rem">
+                                    <i class="fa-solid fa-shield-halved me-1"></i>Admin
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary rounded-pill px-2 py-1" style="font-size:.7rem">User</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 text-muted small mb-3">
+                        <span><i class="fa-solid fa-guitar me-1"></i>@user.BandCount bands</span>
+                        <span class="ms-auto">@user.CreatedOn.ToString("dd MMM yyyy")</span>
+                    </div>
+                    <div class="d-flex gap-2 flex-wrap">
+                        @if (user.IsAdmin)
+                        {
+                            <form asp-area="Admin" asp-action="DemoteUser" asp-route-id="@user.Id" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill btn-delete-confirm"
+                                        data-title="Remove Admin role?"
+                                        data-message="@user.UserName will lose all admin privileges.">
+                                    <i class="fa-solid fa-user-minus me-1"></i>Demote
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-area="Admin" asp-action="PromoteUser" asp-route-id="@user.Id" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-outline-success rounded-pill">
+                                    <i class="fa-solid fa-user-shield me-1"></i>Make Admin
+                                </button>
+                            </form>
+                        }
+                        <form asp-area="Admin" asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="button" class="btn btn-sm btn-outline-danger rounded-pill btn-delete-confirm"
+                                    data-title="Delete user?"
+                                    data-message="This will permanently delete @user.UserName's account.">
+                                <i class="fa-solid fa-trash me-1"></i>Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+            @if (!Model.Items.Any())
+            {
+                <div class="text-center py-5 text-muted">
+                    <i class="fa-solid fa-users fa-2x mb-3 d-block opacity-25"></i>No users found.
+                </div>
+            }
+        </div>
     </div>
 
     @if (Model.TotalPages > 1)
     {
-        <nav aria-label="Users pagination" class="d-flex justify-content-center">
+        <nav class="d-flex justify-content-center">
             <ul class="pagination shadow-lg rounded-pill overflow-hidden border-0">
                 <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
                     <a class="page-link bg-dark text-white border-0 px-4 py-2"
+                       asp-area="Admin" asp-action="Users"
                        asp-route-page="@(Model.CurrentPage - 1)"
                        asp-route-searchTerm="@currentSearch">
                         <i class="fa fa-chevron-left"></i>
@@ -141,12 +210,14 @@
                 {
                     <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
                         <a class="page-link border-0 px-3 py-2 @(i == Model.CurrentPage ? "btn-gradient text-white" : "bg-dark text-white")"
+                           asp-area="Admin" asp-action="Users"
                            asp-route-page="@i"
                            asp-route-searchTerm="@currentSearch">@i</a>
                     </li>
                 }
                 <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
                     <a class="page-link bg-dark text-white border-0 px-4 py-2"
+                       asp-area="Admin" asp-action="Users"
                        asp-route-page="@(Model.CurrentPage + 1)"
                        asp-route-searchTerm="@currentSearch">
                         <i class="fa fa-chevron-right"></i>
@@ -155,33 +226,18 @@
             </ul>
         </nav>
     }
-
 </div>
 
 @section Styles {
     <style>
         .avatar-circle {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
+            width: 34px; height: 34px; border-radius: 50%;
             background: linear-gradient(135deg, #FF4500, #FF0000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: .85rem;
-            color: #fff;
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: .85rem; color: #fff; flex-shrink: 0;
         }
-
-        .badge-admin {
-            background: linear-gradient(135deg, #FF4500, #FF0000);
-            color: #fff;
-        }
-
-        .pagination .page-link:hover {
-            background-color: var(--band-orange) !important;
-            color: white !important;
-        }
+        .badge-admin { background: linear-gradient(135deg, #FF4500, #FF0000); color: #fff; }
+        .mobile-card { background: rgba(255,255,255,.04); }
+        .pagination .page-link:hover { background-color: var(--band-orange) !important; color: white !important; }
     </style>
 }

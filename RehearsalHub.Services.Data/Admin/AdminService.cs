@@ -308,6 +308,35 @@ namespace RehearsalHub.Areas.Admin.Data
             }
         }
 
+        public async Task<bool> DeleteUserAsync(string userId, string currentAdminId)
+        {
+            if (userId == currentAdminId)
+            {
+                logger.LogWarning("Admin {UserId} attempted to delete themselves", userId);
+                return false;
+            }
 
+            try
+            {
+                var user = await dbContext.Users.FindAsync(userId);
+
+                if(user == null || user.IsDeleted)
+                {
+                    return false;
+                }
+
+                user.IsDeleted = true;
+                user.DeletedOn = DateTime.UtcNow;
+                await dbContext.SaveChangesAsync();
+
+                logger.LogInformation("User {UserId} soft-deleted by admin", userId);
+                return true;
+
+            } catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting user {UserId}", userId);
+                return false;
+            }
+        }
     }
 }
