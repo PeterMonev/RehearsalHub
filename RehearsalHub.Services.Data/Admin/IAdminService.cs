@@ -1,5 +1,7 @@
 ﻿using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Admin;
+using RehearsalHub.Web.ViewModels.Bands;
+using RehearsalHub.Web.ViewModels.Song;
 
 namespace RehearsalHub.Services.Data.Admin
 {
@@ -39,6 +41,9 @@ namespace RehearsalHub.Services.Data.Admin
         /// <returns>True if the operation succeeded.</returns>
         Task<bool> DemoteUserAsync(string userId, string currentAdminId);
 
+        /// <summary>Soft-deletes a user account.</summary>
+        Task<bool> DeleteUserAsync(string userId, string currentAdminId);
+
         /// <summary>
         /// Retrieves a paginated list of all non-deleted bands.
         /// </summary>
@@ -56,6 +61,12 @@ namespace RehearsalHub.Services.Data.Admin
         /// <returns>True if the deletion succeeded.</returns>
         Task<bool> DeleteBandAsync(int bandId);
 
+        /// <summary>Gets band data for admin editing — no ownership check.</summary>
+        Task<BandEditViewModel?> GetBandForEditAsync(int bandId);
+
+        /// <summary>Updates a band — admin override, no ownership check.</summary>
+        Task<bool> AdminEditBandAsync(BandEditViewModel model);
+
         /// <summary>
         /// Retrieves a paginated list of ALL songs in the system (public and private).
         /// Admin bypasses the normal visibility rules.
@@ -72,5 +83,14 @@ namespace RehearsalHub.Services.Data.Admin
         /// <param name="songId">The ID of the song to delete.</param>
         /// <returns>True if the deletion succeeded.</returns>
         Task<bool> AdminDeleteSongsAsync(int songId);
+
+        /// <summary>Gets song data for admin editing — no ownership check.</summary>
+        Task<SongInputModel?> GetSongForAdminEditAsync(int songId);
+
+        /// <summary>Updates any song — admin override, no ownership check.</summary>
+        Task<bool> AdminEditSongAsync(SongInputModel model);
+
+        /// <summary>Creates a public song as admin.</summary>
+        Task<int> AdminCreateSongAsync(SongInputModel model, string adminId);
     }
 }

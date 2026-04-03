@@ -29,7 +29,7 @@
     <header class="sticky-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark-glass border-bottom border-danger border-2 py-2">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-area="" asp-action="Index">
                     <div class="logo-icon bg-danger text-white rounded-3 px-2 shadow-danger">
                         <i class="fa-solid fa-guitar"></i>
                     </div>
@@ -145,16 +145,16 @@
                 <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 ms-lg-auto">
                     <h6 class="text-uppercase fw-bold mb-4">Explore</h6>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a asp-controller="Songs" asp-action="Index" class="text-secondary text-decoration-none hover-red">Song Library</a></li>
-                        <li class="mb-2"><a asp-controller="Bands" asp-action="Index" class="text-secondary text-decoration-none hover-red">Bands</a></li>
+                        <li class="mb-2"><a asp-controller="Songs" asp-area="" asp-action="Index" class="text-secondary text-decoration-none hover-red">Song Library</a></li>
+                        <li class="mb-2"><a asp-controller="Bands" asp-area="" asp-action="Index" class="text-secondary text-decoration-none hover-red">Bands</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
                     <h6 class="text-uppercase fw-bold mb-4">Legal</h6>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a asp-controller="Home" asp-action="Privacy" class="text-secondary text-decoration-none hover-red">Privacy Policy</a></li>
-                        <li class="mb-2"><a asp-controller="Home" asp-action="TermsOfUse" class="text-secondary text-decoration-none hover-red">Terms of Use</a></li>
+                        <li class="mb-2"><a asp-controller="Home" asp-area="" asp-action="Privacy" class="text-secondary text-decoration-none hover-red">Privacy Policy</a></li>
+                        <li class="mb-2"><a asp-controller="Home" asp-area="" asp-action="TermsOfUse" class="text-secondary text-decoration-none hover-red">Terms of Use</a></li>
                     </ul>
                 </div>
             </div>

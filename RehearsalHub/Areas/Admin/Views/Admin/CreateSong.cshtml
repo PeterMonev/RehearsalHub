@@ -1,0 +1,82 @@
+﻿@using RehearsalHub.Data.Models.Enums
+@model RehearsalHub.Web.ViewModels.Song.SongInputModel
+@{
+    ViewData["Title"] = "Create Song";
+}
+
+<div class="container py-4 animate-fade-in" style="max-width: 640px">
+
+    <div class="d-flex align-items-center gap-3 mb-5 border-bottom border-secondary pb-4">
+        <a asp-area="Admin" asp-action="Songs" class="btn btn-outline-secondary rounded-pill px-3">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div>
+            <h1 class="display-6 fw-bold mb-0">
+                <i class="fa-solid fa-plus text-danger me-2"></i>Create Song
+            </h1>
+            <p class="text-muted mb-0 small">Song will be created with your admin account</p>
+        </div>
+    </div>
+
+    <div class="card bg-dark text-white border-0 rounded-4 shadow-lg p-4">
+        <form asp-area="Admin" asp-action="CreateSong" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="row g-3">
+                <div class="col-12">
+                    <label asp-for="Title" class="form-label fw-bold">Title</label>
+                    <input asp-for="Title" class="form-control bg-dark text-white border-secondary rounded-3" />
+                    <span asp-validation-for="Title" class="text-danger small"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Artist" class="form-label fw-bold">Artist</label>
+                    <input asp-for="Artist" class="form-control bg-dark text-white border-secondary rounded-3" />
+                    <span asp-validation-for="Artist" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Duration" class="form-label fw-bold">Duration (mm:ss)</label>
+                    <input asp-for="Duration" class="form-control bg-dark text-white border-secondary rounded-3" placeholder="03:45" />
+                    <span asp-validation-for="Duration" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Tempo" class="form-label fw-bold">Tempo (BPM)</label>
+                    <input asp-for="Tempo" type="number" class="form-control bg-dark text-white border-secondary rounded-3" placeholder="120" />
+                    <span asp-validation-for="Tempo" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Genre" class="form-label fw-bold">Genre</label>
+                    <select asp-for="Genre" asp-items="Html.GetEnumSelectList<MusicGenre>()"
+                            class="form-select bg-dark text-white border-secondary rounded-3">
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="MusicalKey" class="form-label fw-bold">Musical Key</label>
+                    <select asp-for="MusicalKey" asp-items="Html.GetEnumSelectList<MusicalKey>()"
+                            class="form-select bg-dark text-white border-secondary rounded-3">
+                    </select>
+                </div>
+                <div class="col-12">
+                    <div class="form-check form-switch mt-2">
+                        <input asp-for="IsPrivate" class="form-check-input" type="checkbox" role="switch" />
+                        <label asp-for="IsPrivate" class="form-check-label fw-bold">Private song</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3 mt-4">
+                <button type="submit" class="btn btn-outline-secondary text-danger btn-gradient rounded-pill px-4 fw-bold">
+                    <i class="fa-solid fa-plus text-danger me-2"></i>Create Song
+                </button>
+                <a asp-area="Admin" asp-action="Songs" class="btn text-warning btn-outline-secondary rounded-pill px-4">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

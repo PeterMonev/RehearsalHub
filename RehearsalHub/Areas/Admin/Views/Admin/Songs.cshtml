@@ -14,28 +14,31 @@
                 <i class="fa-solid fa-music text-danger me-2"></i>Manage Songs
             </h1>
             <p class="text-muted mb-0">
-                @Model.TotalItems songs in the system
+                @Model.TotalItems songs
                 <span class="ms-2 badge bg-secondary">Public &amp; Private</span>
             </p>
         </div>
-        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 mt-3 mt-md-0">
-            <i class="fa-solid fa-arrow-left me-2"></i>Back to Dashboard
-        </a>
+        <div class="d-flex gap-2 mt-3 mt-md-0">
+            <a asp-area="Admin" asp-action="CreateSong" class="btn btn-gradient rounded-pill px-4 fw-bold">
+                <i class="fa-solid fa-plus me-2"></i>Add Song
+            </a>
+            <a asp-area="Admin" asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="fa-solid fa-arrow-left me-2"></i>Dashboard
+            </a>
+        </div>
     </div>
 
-    <div class="mb-4 shadow-sm rounded-4 overflow-hidden">
-        <form asp-action="Songs" method="get" class="d-flex gap-2 p-3 bg-dark">
-            <input type="text"
-                   name="searchTerm"
-                   value="@currentSearch"
+    <div class="mb-4 shadow-sm rounded-4 rounded-pill overflow-hidden">
+        <form asp-area="Admin" asp-action="Songs" method="get" class="d-flex gap-2 p-3 bg-dark">
+            <input type="text" name="searchTerm" value="@currentSearch"
                    class="form-control bg-dark text-white border-secondary rounded-pill"
                    placeholder="Search by title or artist..." />
-            <button type="submit" class="btn btn-gradient rounded-pill px-4 fw-bold">
+            <button type="submit" class="btn text-warning btn-gradient rounded-pill px-4 fw-bold">
                 <i class="fa-solid fa-search me-1"></i>Search
             </button>
             @if (!string.IsNullOrEmpty(currentSearch))
             {
-                <a asp-action="Songs" class="btn btn-outline-secondary rounded-pill px-3">
+                <a asp-area="Admin" asp-action="Songs" class="btn btn-outline-secondary rounded-pill px-3">
                     <i class="fa-solid fa-xmark"></i>
                 </a>
             }
@@ -43,7 +46,8 @@
     </div>
 
     <div class="card bg-dark text-white border-0 rounded-4 shadow-lg overflow-hidden mb-4">
-        <div class="table-responsive">
+
+        <div class="table-responsive d-none d-lg-block">
             <table class="table table-dark table-hover align-middle mb-0">
                 <thead>
                     <tr class="border-bottom border-secondary">
@@ -54,7 +58,6 @@
                         <th class="py-3 text-center">Tempo</th>
                         <th class="py-3 text-center">Visibility</th>
                         <th class="py-3">Creator</th>
-                        <th class="py-3">Band</th>
                         <th class="py-3 text-end pe-4">Actions</th>
                     </tr>
                 </thead>
@@ -88,55 +91,99 @@
                                     </span>
                                 }
                             </td>
-                            <td class="text-muted small">
-                                <i class="fa-solid fa-user me-1 opacity-50"></i>@song.CreatorName
-                            </td>
-                            <td class="text-muted small">
-                                @if (!string.IsNullOrEmpty(song.OwnerBandName))
-                                {
-                                    <i class="fa-solid fa-guitar me-1 opacity-50"></i>
-                                    @song.OwnerBandName
-                                }
-                                else
-                                {
-                                    <span class="opacity-25">—</span>
-                                }
-                            </td>
+                            <td class="text-muted small">@song.CreatorName</td>
                             <td class="text-end pe-4">
-                                <form asp-action="DeleteSong" asp-route-id="@song.Id"
-                                      method="post" class="d-inline">
-                                    @Html.AntiForgeryToken()
-                                    <button type="button"
-                                            class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete-confirm"
-                                            data-title="Delete song?"
-                                            data-message="This will permanently delete &quot;@song.Title&quot; by @song.Artist from the entire system.">
-                                        <i class="fa-solid fa-trash me-1"></i>Delete
-                                    </button>
-                                </form>
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <a asp-area="Admin" asp-action="EditSong" asp-route-id="@song.Id"
+                                       class="btn btn-sm btn-outline-warning rounded-pill px-3">
+                                        <i class="fa-solid fa-pen me-1"></i>Edit
+                                    </a>
+                                    <form asp-area="Admin" asp-action="DeleteSong" asp-route-id="@song.Id" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete-confirm"
+                                                data-title="Delete song?"
+                                                data-message="This will permanently delete &quot;@song.Title&quot; by @song.Artist.">
+                                            <i class="fa-solid fa-trash me-1"></i>Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     }
-
                     @if (!Model.Items.Any())
                     {
                         <tr>
-                            <td colspan="9" class="text-center py-5 text-muted">
-                                <i class="fa-solid fa-music fa-2x mb-3 d-block opacity-25"></i>
-                                No songs found.
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-music fa-2x mb-3 d-block opacity-25"></i>No songs found.
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+
+        <div class="d-lg-none p-3">
+            @foreach (var song in Model.Items)
+            {
+                <div class="mobile-card mb-3 rounded-4 p-3 border border-secondary border-opacity-25">
+                    <div class="d-flex align-items-start justify-content-between mb-1">
+                        <div>
+                            <div class="fw-bold">@song.Title</div>
+                            <div class="text-muted small">@song.Artist · @song.Duration</div>
+                        </div>
+                        @if (song.IsPrivate)
+                        {
+                            <span class="badge badge-private rounded-pill px-2" style="font-size:.7rem">
+                                <i class="fa-solid fa-lock me-1"></i>Private
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-public rounded-pill px-2" style="font-size:.7rem">
+                                <i class="fa-solid fa-globe me-1"></i>Public
+                            </span>
+                        }
+                    </div>
+                    <div class="d-flex gap-2 flex-wrap mb-2">
+                        <span class="badge bg-secondary rounded-pill">@song.Genre</span>
+                        <span class="badge bg-secondary rounded-pill">@song.MusicalKey</span>
+                        <span class="badge bg-secondary rounded-pill">@song.TempoDisplay</span>
+                    </div>
+                    <div class="text-muted small mb-3">
+                        <i class="fa-solid fa-user me-1 opacity-50"></i>@song.CreatorName
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a asp-area="Admin" asp-action="EditSong" asp-route-id="@song.Id"
+                           class="btn btn-sm btn-outline-warning rounded-pill px-3">
+                            <i class="fa-solid fa-pen me-1"></i>Edit
+                        </a>
+                        <form asp-area="Admin" asp-action="DeleteSong" asp-route-id="@song.Id" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete-confirm"
+                                    data-title="Delete song?"
+                                    data-message="This will permanently delete &quot;@song.Title&quot;.">
+                                <i class="fa-solid fa-trash me-1"></i>Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+            @if (!Model.Items.Any())
+            {
+                <div class="text-center py-5 text-muted">
+                    <i class="fa-solid fa-music fa-2x mb-3 d-block opacity-25"></i>No songs found.
+                </div>
+            }
+        </div>
     </div>
 
     @if (Model.TotalPages > 1)
     {
-        <nav aria-label="Songs pagination" class="d-flex justify-content-center">
+        <nav class="d-flex justify-content-center">
             <ul class="pagination shadow-lg rounded-pill overflow-hidden border-0">
                 <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
                     <a class="page-link bg-dark text-white border-0 px-4 py-2"
+                       asp-area="Admin" asp-action="Songs"
                        asp-route-page="@(Model.CurrentPage - 1)"
                        asp-route-searchTerm="@currentSearch">
                         <i class="fa fa-chevron-left"></i>
@@ -146,12 +193,14 @@
                 {
                     <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
                         <a class="page-link border-0 px-3 py-2 @(i == Model.CurrentPage ? "btn-gradient text-white" : "bg-dark text-white")"
+                           asp-area="Admin" asp-action="Songs"
                            asp-route-page="@i"
                            asp-route-searchTerm="@currentSearch">@i</a>
                     </li>
                 }
                 <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
                     <a class="page-link bg-dark text-white border-0 px-4 py-2"
+                       asp-area="Admin" asp-action="Songs"
                        asp-route-page="@(Model.CurrentPage + 1)"
                        asp-route-searchTerm="@currentSearch">
                         <i class="fa fa-chevron-right"></i>
@@ -160,21 +209,24 @@
             </ul>
         </nav>
     }
-
 </div>
 
 @section Styles {
     <style>
         .badge-private {
-            background: rgba(220, 53, 69, 0.15);
+            background: rgba(220,53,69,.15);
             color: #dc3545;
-            border: 1px solid rgba(220, 53, 69, 0.3);
+            border: 1px solid rgba(220,53,69,.3);
         }
 
         .badge-public {
-            background: rgba(25, 135, 84, 0.15);
+            background: rgba(25,135,84,.15);
             color: #198754;
-            border: 1px solid rgba(25, 135, 84, 0.3);
+            border: 1px solid rgba(25,135,84,.3);
+        }
+
+        .mobile-card {
+            background: rgba(255,255,255,.04);
         }
 
         .pagination .page-link:hover {
