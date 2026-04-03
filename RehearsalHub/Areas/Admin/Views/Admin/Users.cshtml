@@ -20,12 +20,12 @@
         </a>
     </div>
 
-    <div class="mb-4 shadow-sm rounded-4 overflow-hidden">
+    <div class="mb-4 rounded-pill shadow-sm rounded-4 overflow-hidden">
         <form asp-area="Admin" asp-action="Users" method="get" class="d-flex gap-2 p-3 bg-dark">
             <input type="text" name="searchTerm" value="@currentSearch"
                    class="form-control bg-dark text-white border-secondary rounded-pill"
                    placeholder="Search by username or email..." />
-            <button type="submit" class="btn btn-gradient rounded-pill px-4 fw-bold">
+            <button type="submit" class="btn  text-warning btn-gradient rounded-pill px-4 fw-bold">
                 <i class="fa-solid fa-search me-1"></i>Search
             </button>
             @if (!string.IsNullOrEmpty(currentSearch))

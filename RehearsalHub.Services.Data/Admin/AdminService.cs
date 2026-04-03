@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using RehearsalHub.Data;
 using RehearsalHub.Data.Models;
@@ -7,6 +8,7 @@ using RehearsalHub.GCommon;
 using RehearsalHub.Services.Data.Admin;
 using RehearsalHub.Web.ViewModels.Admin;
 using RehearsalHub.Web.ViewModels.Bands;
+using RehearsalHub.Web.ViewModels.Song;
 using static RehearsalHub.Common.DataValidation;
 
 namespace RehearsalHub.Areas.Admin.Data
@@ -386,6 +388,46 @@ namespace RehearsalHub.Areas.Admin.Data
             {
                 logger.LogError(ex, "Error editing band {BandId}", model.Id);
                 return false;
+            }
+        }
+
+        public async Task<SongInputModel?> GetSongForAdminEditAsync(int songId)
+        {
+            if (songId <= 0)
+            {
+                logger.LogWarning("Invalid songId: {SongId}", songId);
+                return null;
+            }
+
+            try
+            {
+                var song = await dbContext.Songs
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(s => s.Id == songId && !s.IsDeleted);
+
+                if (song == null)
+                {
+                    logger.LogWarning("Song not found {SongId}", songId);
+                    return null;
+                }
+
+                return new SongInputModel
+                {
+                    Id = song.Id,
+                    Title = song.Title,
+                    Artist = song.Artist,
+                    Duration = song.Duration,
+                    Genre = song.Genre,
+                    MusicalKey = song.MusicalKey,
+                    Tempo = song.Tempo,
+                    IsPrivate = song.IsPrivate,
+                    BandId = song.OwnerBandId
+                };
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error loading song for edit {SongId}", songId);
+                return null;
             }
         }
     }

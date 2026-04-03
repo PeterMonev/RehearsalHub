@@ -1,6 +1,7 @@
 ﻿using RehearsalHub.GCommon;
 using RehearsalHub.Web.ViewModels.Admin;
 using RehearsalHub.Web.ViewModels.Bands;
+using RehearsalHub.Web.ViewModels.Song;
 
 namespace RehearsalHub.Services.Data.Admin
 {
@@ -82,5 +83,8 @@ namespace RehearsalHub.Services.Data.Admin
         /// <param name="songId">The ID of the song to delete.</param>
         /// <returns>True if the deletion succeeded.</returns>
         Task<bool> AdminDeleteSongsAsync(int songId);
+
+        /// <summary>Gets song data for admin editing — no ownership check.</summary>
+        Task<SongInputModel?> GetSongForAdminEditAsync(int songId);
     }
 }

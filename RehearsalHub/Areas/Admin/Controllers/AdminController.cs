@@ -334,7 +334,21 @@ namespace RehearsalHub.Areas.Admin.Controllers
             }
 
             return RedirectToAction(nameof(Users));
+        }
 
+        [HttpGet]
+
+        public async Task<IActionResult> EditSong(int id)
+        {
+            var model = await adminService.GetSongForAdminEditAsync(id);
+
+            if(model == null)
+            {
+                TempData["ErrorMessage"] = "Song not found.";
+                return RedirectToAction(nameof(Songs));
+            }
+
+            return View(model);
         }
     }
 }
