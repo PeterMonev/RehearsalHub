@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehearsalHub.Data", "Rehear
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehearsalHub", "RehearsalHub\RehearsalHub.csproj", "{7234B6EA-667C-07E5-98BE-0F83B33AC184}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehearsalHub.Tests", "RehearsalHub.Tests\RehearsalHub.Tests.csproj", "{50824C87-2584-49AF-877E-D26450F8CF56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{7234B6EA-667C-07E5-98BE-0F83B33AC184}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7234B6EA-667C-07E5-98BE-0F83B33AC184}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7234B6EA-667C-07E5-98BE-0F83B33AC184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50824C87-2584-49AF-877E-D26450F8CF56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50824C87-2584-49AF-877E-D26450F8CF56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50824C87-2584-49AF-877E-D26450F8CF56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50824C87-2584-49AF-877E-D26450F8CF56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
