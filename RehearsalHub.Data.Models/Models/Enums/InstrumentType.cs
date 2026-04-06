@@ -10,6 +10,7 @@
         Saxophone,
         Violin,
         Synthesizer,
+        Piano,
         Other
     }
 }

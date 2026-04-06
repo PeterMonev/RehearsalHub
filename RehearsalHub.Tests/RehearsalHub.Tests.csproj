@@ -29,7 +29,7 @@
     <PackageReference Include="FluentAssertions" Version="6.12.1" />
 
 
-    <PackageReference Include="coverlet.collector" Version="6.0.2">
+    <PackageReference Include="coverlet.collector" Version="8.0.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -43,6 +43,10 @@
     <ProjectReference Include="..\RehearsalHub.Web.ViewModels\RehearsalHub.Web.ViewModels.csproj" />
     <ProjectReference Include="..\RehearsalHub.GCommon\RehearsalHub.GCommon.csproj" />
     <ProjectReference Include="..\RehearsalHub\RehearsalHub.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestResults\" />
   </ItemGroup>
 
 </Project>
