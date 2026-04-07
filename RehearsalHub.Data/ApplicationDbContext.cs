@@ -35,11 +35,13 @@ namespace RehearsalHub.Data
             builder.Entity<ApplicationUser>(entity =>
             {
                 entity.Property(u => u.Id).HasMaxLength(450);
+                entity.Property(u => u.ConcurrencyStamp).HasColumnType("TEXT");
             });
 
             builder.Entity<IdentityRole>(entity =>
             {
                 entity.Property(r => r.Id).HasMaxLength(450);
+                entity.Property(r => r.ConcurrencyStamp).HasColumnType("TEXT");
             });
 
             builder.Entity<BandMember>()
@@ -68,14 +70,13 @@ namespace RehearsalHub.Data
             builder.Entity<Song>(entity =>
             {
                 entity.HasOne(s => s.Creator)
-                      .WithMany() 
+                      .WithMany()
                       .HasForeignKey(s => s.CreatorId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<Notification>()
                 .HasQueryFilter(n => !n.Recipient.IsDeleted);
-
 
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
@@ -135,7 +136,6 @@ namespace RehearsalHub.Data
                     entity.IsDeleted = true;
                     entity.DeletedOn = DateTime.UtcNow;
 
-                 
                     if (entity is Band band)
                     {
                         var rehearsals = this.Rehearsals.Where(r => r.BandId == band.Id);

@@ -30,7 +30,7 @@ namespace RehearsalHub
                 if (builder.Environment.IsDevelopment())
                     options.UseSqlServer(connectionString);
                 else
-                    options.UseSqlite("Data Source=rehearsalhub.db");
+                    options.UseSqlite("Data Source=rehearsalhub1.db");
             });
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
