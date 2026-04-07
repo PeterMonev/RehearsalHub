@@ -26,7 +26,12 @@ namespace RehearsalHub
                 ?? throw new InvalidOperationException("Connection string not found.");
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            {
+                if (builder.Environment.IsDevelopment())
+                    options.UseSqlServer(connectionString);
+                else
+                    options.UseSqlite("Data Source=rehearsalhub.db");
+            });
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
@@ -69,6 +74,12 @@ namespace RehearsalHub
             builder.Services.AddScoped<IAdminService, AdminService>();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                db.Database.Migrate();
+            }
 
             using (var scope = app.Services.CreateScope())
             {
