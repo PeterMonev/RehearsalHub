@@ -113,7 +113,7 @@ namespace RehearsalHub.Services.Data.Rehearsals
                         .ThenInclude(ss => ss.Song)
                 .FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
 
-            if (rehearsal == null || rehearsal.Setlist == null)
+            if (rehearsal == null)
             {
                 return null;
             }
