@@ -27,10 +27,7 @@ namespace RehearsalHub
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                if (builder.Environment.IsDevelopment())
-                    options.UseSqlServer(connectionString);
-                else
-                    options.UseSqlite("Data Source=rehearsalhub.db");
+                options.UseSqlServer(connectionString);
             });
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
