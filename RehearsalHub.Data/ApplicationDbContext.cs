@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RehearsalHub.Data.Models;
 using RehearsalHub.Data.Models.Interfaces;
@@ -30,6 +31,16 @@ namespace RehearsalHub.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.Property(u => u.Id).HasMaxLength(450);
+            });
+
+            builder.Entity<IdentityRole>(entity =>
+            {
+                entity.Property(r => r.Id).HasMaxLength(450);
+            });
 
             builder.Entity<BandMember>()
                 .HasIndex(bm => new { bm.UserId, bm.BandId })
