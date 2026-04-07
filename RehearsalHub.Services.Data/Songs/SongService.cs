@@ -181,7 +181,7 @@
                     IsPrivate = s.IsPrivate,
                     OwnerBandId = s.OwnerBandId,
                     OwnerBandName = s.OwnerBand != null ? s.OwnerBand.Name : null,
-                    CreatorId = s.CreatorId, 
+                    CreatorId = s.CreatorId,
                     IncludedInSetlists = s.SetlistSongs
                         .Where(ss => !ss.Setlist.IsDeleted)
                         .Select(ss => new SongSetlistViewModel
@@ -230,9 +230,9 @@
 
             if (song == null) return null;
 
-            if (!song.IsPrivate)
+            if (song.CreatorId != userId && song.OwnerBand?.OwnerId != userId)
             {
-                    return null;
+                return null;
             }
 
             return new SongInputModel

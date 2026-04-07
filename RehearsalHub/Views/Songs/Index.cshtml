@@ -138,8 +138,18 @@
                             <td class="text-end pe-4">
                                 <div class="btn-group shadow-sm rounded-pill overflow-hidden border">
                                     <a asp-action="Details" asp-route-id="@song.Id" class="btn btn-sm btn-white px-3" title="View"><i class="fa-solid fa-eye text-orange-red"></i></a>
-                                    <a asp-action="Edit" asp-route-id="@song.Id" class="btn btn-sm btn-white px-3" title="Edit"><i class="fa-solid fa-pen text-dark"></i></a>
-                                    <button class="btn btn-sm btn-white px-3 btn-delete-confirm text-danger"><i class="fa-solid fa-trash"></i></button>
+                                    @if (song.CanEdit)
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@song.Id" class="btn btn-sm btn-white px-3" title="Edit"><i class="fa-solid fa-pen text-dark"></i></a>
+                                        <form asp-action="Delete" asp-route-id="@song.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="button" class="btn btn-sm btn-white px-3 btn-delete-confirm text-danger"
+                                                    data-title="Изтриване на песен"
+                                                    data-message="Сигурен ли си, че искаш да изтриеш „@song.Title" ?">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    }
                                 </div>
                             </td>
                         </tr>
@@ -168,7 +178,18 @@
                     </div>
                     <div class="mt-3 d-flex gap-2">
                         <a asp-action="Details" asp-route-id="@song.Id" class="btn btn-sm btn-gradient rounded-pill px-3">Details</a>
-                        <a asp-action="Edit" asp-route-id="@song.Id" class="btn btn-sm btn-outline-dark rounded-pill px-3">Edit</a>
+                        @if (song.CanEdit)
+                        {
+                            <a asp-action="Edit" asp-route-id="@song.Id" class="btn btn-sm btn-outline-dark rounded-pill px-3">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@song.Id" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete-confirm"
+                                        data-title="Изтриване на песен"
+                                        data-message="Сигурен ли си, че искаш да изтриеш „@song.Title" ?">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
@@ -241,7 +262,6 @@
 
     .song-row {
         transition: all 0.2s;
-       
     }
 
         .song-row:hover {

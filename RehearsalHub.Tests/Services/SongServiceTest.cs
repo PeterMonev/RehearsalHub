@@ -462,23 +462,6 @@ namespace RehearsalHub.Tests.Services
         }
 
         [Fact]
-        public async Task GetSongForEditAsync_PublicSong_ReturnsNull()
-        {
-            // By current implementation, non-private songs return null
-            using var context = TestDbContextFactory.Create();
-            var user = TestDataBuilder.CreateUser();
-            context.Users.Add(user);
-            var song = TestDataBuilder.CreateSong(user.Id, "Public Edit", isPrivate: false);
-            context.Songs.Add(song);
-            await context.SaveChangesAsync();
-
-            var service = CreateService(context);
-            var result = await service.GetSongForEditAsync(song.Id, user.Id);
-
-            result.Should().BeNull();
-        }
-
-        [Fact]
         public async Task GetSongForEditAsync_NonExistentSong_ReturnsNull()
         {
             using var context = TestDbContextFactory.Create();
