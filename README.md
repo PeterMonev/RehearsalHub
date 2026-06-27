@@ -10,7 +10,7 @@
 [![SignalR](https://img.shields.io/badge/SignalR-Real--time-512BD4?style=for-the-badge&logo=dotnet)](https://dotnet.microsoft.com/apps/aspnet/signalr)
 [![xUnit](https://img.shields.io/badge/xUnit-Tests-green?style=for-the-badge)](https://xunit.net/)
 
-[Live Demo](#) • [Report Bug](https://github.com/PeterMonev/RehearsalHub/issues) • [Request Feature](https://github.com/PeterMonev/RehearsalHub/issues)
+[Live Demo](https://rehearsalshub.onrender.com/) • [Report Bug](https://github.com/PeterMonev/RehearsalHub/issues) • [Request Feature](https://github.com/PeterMonev/RehearsalHub/issues)
 
 ---
 
