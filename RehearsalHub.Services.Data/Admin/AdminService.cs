@@ -34,7 +34,7 @@ namespace RehearsalHub.Areas.Admin.Data
         public async Task<AdminDashboardViewModel> GetDashboardStatsAsync()
         {
             var now = DateTime.UtcNow;
-            var firstDayOfMonth = new DateTime(now.Year, now.Month, 1);
+            var firstDayOfMonth = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
 
             AdminDashboardViewModel? stats = new AdminDashboardViewModel
             {

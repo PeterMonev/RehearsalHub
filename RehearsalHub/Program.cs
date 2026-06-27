@@ -27,7 +27,7 @@ namespace RehearsalHub
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(connectionString);
+                options.UseNpgsql(connectionString);
             });
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>

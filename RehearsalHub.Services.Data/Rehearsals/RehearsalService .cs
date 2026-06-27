@@ -60,7 +60,7 @@ namespace RehearsalHub.Services.Data.Rehearsals
                 return new List<RehearsalIndexViewModel>();
             }
 
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             var rehearsals = await dbContext.Rehearsals
                 .AsNoTracking()
@@ -87,7 +87,7 @@ namespace RehearsalHub.Services.Data.Rehearsals
                 return new List<RehearsalIndexViewModel>();
             }
 
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             var rehearsals = await dbContext.Rehearsals
                 .AsNoTracking()
@@ -184,8 +184,8 @@ namespace RehearsalHub.Services.Data.Rehearsals
                 BandId = bandId,
                 BandName = band.Name,
                 AvailableSetlists = await GetBandSetlistsAsync(bandId),
-                StartRehearsal = DateTime.Now.AddDays(1).Date.AddHours(18),
-                EndRehearsal = DateTime.Now.AddDays(1).Date.AddHours(20)
+                StartRehearsal = DateTime.UtcNow.AddDays(1).Date.AddHours(18),
+                EndRehearsal = DateTime.UtcNow.AddDays(1).Date.AddHours(20)
             };
         }
 
@@ -371,7 +371,7 @@ namespace RehearsalHub.Services.Data.Rehearsals
         /// </summary>
         public async Task<List<RehearsalIndexViewModel>> GetAllUpcomingForUserAsync(string userId)
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             var rehearsals = await dbContext.Rehearsals
                 .AsNoTracking()
